@@ -32,7 +32,8 @@ int main(int argc, char** argv) {
     cout<<"Input the dollar amount:"; 
     cin>>dollar;
     cout<<endl;
-     //Map Inputs to Outputs -> Process
+    
+    //Map Inputs to Outputs -> Process
     yen=dollar*YenPrDlr; //U.S. dollar to Yen conversion
     euro=dollar*EUPrDlr; //U.S. dollar to Euro conversion
     
@@ -41,6 +42,7 @@ int main(int argc, char** argv) {
     cout<<endl;
     cout<<"Euro Amount:"<<euro;
     cout<<endl;
+    
     //Exit the Program - Cleanup
     return 0;
 }
