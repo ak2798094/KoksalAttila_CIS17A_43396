@@ -1,7 +1,7 @@
 /* 
  * File:   main.cpp
  * Author: Attila Koksal
- * Created on March 5, 2021, 9:04 PM
+ * Created on March 5, 2021, 10:22 PM
  * Purpose:  CPP Template 
  *           To be copied for each Assignment Problem
  */
@@ -22,18 +22,24 @@ int main(int argc, char** argv) {
     //Initialize the Random Number Seed
     
     //Declare Variables
-    float Cel, //Celsius
-         Fahr; //Fahrenheit
+    const float YenPrDlr=98.93; //Amount of Yen per U.S. dollar
+    const float EUPrDlr=0.74; //Amount of Euros per U.S. dollar
+    float dollar, //dollar amount
+          yen, //yen amount
+         euro; //euro amount
    
     //Initialize Variables
-    cout<<"Input the Celsius (in degrees):"; 
-    cin>>Cel;
+    cout<<"Input the dollar amount:"; 
+    cin>>dollar;
     cout<<endl;
      //Map Inputs to Outputs -> Process
-    Fahr=(9.0/5.0)*Cel+32; //Converts Celsius into Fahrenheit
+    yen=dollar*YenPrDlr; //U.S. dollar to Yen conversion
+    euro=dollar*EUPrDlr; //U.S. dollar to Euro conversion
     
     //Display Inputs/Outputs
-    cout<<"Fahrenheit (in degrees):"<<Fahr;
+    cout<<"Yen Amount:"<<yen;
+    cout<<endl;
+    cout<<"Euro Amount:"<<euro;
     cout<<endl;
     //Exit the Program - Cleanup
     return 0;
