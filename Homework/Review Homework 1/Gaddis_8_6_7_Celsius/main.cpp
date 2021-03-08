@@ -32,10 +32,10 @@ int main(int argc, char** argv) {
     cout<<"Fahrenheit   Celsius"<<endl;
     cout<<"---------------------"<<endl;
     
-    for(int i=0;i<=20;i++){ //loops until 20
+    for(int i=0;i<=20;i++){ //Loops until 20
     
     //Display Inputs/Outputs
-        cout<<i<<"      "<<fahToCel(i)<<endl; //displays corresponding Celsius and Fahrenheits
+        cout<<i<<"      "<<fahToCel(i)<<endl; //Displays corresponding Celsius and Fahrenheits
     }
         
     //Exit the Program - Cleanup

@@ -9,7 +9,6 @@
 //System Libraries
 #include <iostream>  //I/O Library
 #include <fstream> //Fstream Library
-#include <string> //String Library
 using namespace std;
 
 //User Libraries
@@ -37,22 +36,21 @@ int main(int argc, char** argv) {
     myfile.open("RainOrShine.txt");
     
     //Map Inputs to Outputs -> Process
-    for(int i=0;i<numOfMon;i++){
+    for(int i=0;i<numOfMon;i++){ //Initialize sum collection array to zeros
         for(int j=0;j<3;j++){
             sumCollect[i][j]=0;
         }
     }
     
-    for(int i=0;i<numOfMon;i++){
+    for(int i=0;i<numOfMon;i++){ //Loop through data file and processed data
         for(int j=0;j<numOfDay;j++){
             string line;
             if(getline(myfile,line)){
-                array[i][j]=line;
+                array[i][j]=line.substr(0,1);
             }
-            cout<<line<<endl;
-            if(string(line).compare(string("R"))){sumCollect[i][0]++;}
-            else if(line=="C"){sumCollect[i][1]++;}
-            else if(line=="S"){sumCollect[i][2]++;}
+            if(string(array[i][j])=="R"){sumCollect[i][0]++;}
+            else if(string(array[i][j])=="C"){sumCollect[i][1]++;}
+            else if(string(array[i][j])=="S"){sumCollect[i][2]++;}
         }
     }
     
