@@ -56,10 +56,10 @@ int main(int argc, char** argv) {
         cin>>numOfDays;
         cout<<endl;
     }
-    for(int i=0;i<numOfDays;i++){
+    for(int i=0;i<numOfDays;i++){ //loops for every day until numOfDays
     
     //Map Inputs to Outputs -> Process
-        populate=populate+(populate*dailyInc);
+        populate=populate+(populate*dailyInc); //computes the total population for each day up till numOfDays
     
     //Display Inputs/Outputs
         cout<<"In Day "<<i+1<<", the population is "<<populate<<"\n";
