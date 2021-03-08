@@ -37,6 +37,7 @@ int main(int argc, char** argv) {
         cin>>month;
         cout<<endl;
     }
+    
     cout<<"Enter a year:"; 
     cin>>year;
     cout<<endl;
