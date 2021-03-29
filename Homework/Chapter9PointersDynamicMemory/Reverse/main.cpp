@@ -62,7 +62,7 @@ int *getData(int &size){ //Fill the array
     while(cin>>arr[i]){
         i++;
     }
-    if (i!=size){size=i;}
+    if(i!=size){size=i;}
     return arr;
 }
 
