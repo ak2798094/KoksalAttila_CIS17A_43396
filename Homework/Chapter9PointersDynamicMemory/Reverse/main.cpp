@@ -1,4 +1,3 @@
-  
 /* 
  * File:   main.cpp
  * Author: Attila Koksal
