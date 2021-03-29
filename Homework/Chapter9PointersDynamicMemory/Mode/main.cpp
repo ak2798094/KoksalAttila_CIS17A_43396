@@ -40,8 +40,6 @@ int main(int argc, char** argv) {
            *ary;//Pointer to the array
     
     //Initialize Variables
-    
-    //Map Inputs to Outputs -> Process
     //Input the number of unique numbers
     //and size of the array
     cout<<"The program finds the mode of a set"<<endl;
@@ -49,6 +47,8 @@ int main(int argc, char** argv) {
     cout<<"quantity of unique numbers"<<endl;
     cin>>arySize>>modNum;
     ary=fillAry(arySize,modNum);
+    
+    //Map Inputs to Outputs -> Process
     
     //Display Inputs/Outputs
     //Print the initial array
