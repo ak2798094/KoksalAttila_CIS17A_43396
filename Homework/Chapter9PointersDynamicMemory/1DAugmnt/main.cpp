@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
     
     //Initialize Variables
     cin>>size;
-    input = getData(size);
+    input=getData(size);
     aug=augment(input,size);
     
     //Map Inputs to Outputs -> Process
