@@ -34,12 +34,12 @@ int main(int argc, char** argv) {
     //Initialize Variables
     cin>>size;
     input=getData(size);
+    medianArr=median(input,size);
     
     //Map Inputs to Outputs -> Process
     
     //Display Inputs/Outputs
     prntDat(input,size);
-    medianArr=median(input,size);
     prntMed(medianArr);
 	
     delete[]input;
@@ -51,22 +51,22 @@ int main(int argc, char** argv) {
     return 0;
 }
 int *getData(int &size){ //Return the array size and the array
-    int* arr = new int[size];
+    int* arr=new int[size];
  
     int i=0;
     while(cin>>arr[i]){
         i++;
     }
-    if (i!=size){size=i;}
+    if(i!=size){size=i;}
     
     return arr;
 }       
 
 void prntDat(int *arr,int size){ //Print the integer array
-    if (size>0){
+    if(size>0){
     cout<<arr[0];
     }
-    for (int i=1;i<size;i++){
+    for(int i=1;i<size;i++){
         cout<<" "<<arr[i];
     }
     cout<<endl;
@@ -79,7 +79,7 @@ float *median(int *arr,int size){ //Fill the median Array with the Float array s
    
    float* medArr=new float[newSize];
    
-   if (size==0){medArr[0]=0;}
+   if(size==0){medArr[0]=0;}
    
    
    float* sorted=new float[size];
@@ -90,8 +90,7 @@ float *median(int *arr,int size){ //Fill the median Array with the Float array s
       medArr[i+(newSize-size)]=(float) arr[i];
       sorted[i]=(float) arr[i];
   }
-  
-  sort(sorted, sorted+size);
+  sort(sorted,sorted+size);
   if (even){
       medArr[1]=((float)sorted[(size-1)/2]+(float)sorted[(size-1)/2+1])/2;
   }else{
