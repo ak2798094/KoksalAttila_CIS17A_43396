@@ -7,6 +7,7 @@
 
 //System Libraries
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 struct MonthlyBudget {
@@ -55,7 +56,7 @@ int main(int argc, char** argv) {
 // asks the user for the expense for "name" and returns the cost of that expense
 
 float getExpense(string name) {
-    cout << "Enter " << name <<" cost for the month:$";
+    cout << "Enter " << name <<" cost for the month:$"<<endl;
     float value;
     cin>>value;
     return value;
@@ -74,7 +75,7 @@ MonthlyBudget getBgt() {
     bgt.insurnce = getExpense("insurance");
     bgt.entertn = getExpense("entertainment");
     bgt.cloth = getExpense("clothing");
-    bgt.misc = getExpense("miscellaneious");
+    bgt.misc = getExpense("miscellaneous");
     return bgt;
 }
 // gets an expense's name, cost and limit, and prints accordingly 
@@ -101,14 +102,14 @@ void checkBudget(MonthlyBudget bgt) {
     checkExpense("Insurance", bgt.insurnce, 100.0);
     checkExpense("Entertainment", bgt.entertn, 150.0);
     checkExpense("Clothing", bgt.cloth, 75.0);
-    checkExpense("Miscellaneios", bgt.misc, 50.0);
+    checkExpense("Miscellaneous", bgt.misc, 50.0);
     float total_bgt = bgt.housing + bgt.utility + bgt.houseExp + bgt.transprt + bgt.food + bgt.medical + bgt.insurnce + bgt.entertn + bgt.cloth + bgt.misc;
-    float total_limits = 2715.0;
+    float total_limits = 1420.0;
     if (total_bgt > total_limits) {
-        cout << "You were $" << total_bgt - total_limits << " over budget";
+        printf("You were $%.2f over budget",total_bgt-total_limits);
     } else if (total_bgt < total_limits) {
-        cout << "You were $" << total_limits - total_bgt << " under budget";
+        printf("You were $%.2f under budget",total_limits-total_bgt);
     } else {
-        cout << "You were $" << total_bgt - total_limits << " even budget";
+        printf("You were $%.2f even budget",total_bgt-total_limits);
     }
 }
