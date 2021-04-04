@@ -10,58 +10,100 @@
 using namespace std;
 
 struct Division {
-  string name;
-  float sales[4];
-  float totalSale;
-  float avgSales;
+    string name;
+    float sales[4];
+    float totalSale;
+    float avgSales;
 };
 //User Libraries
 
 //Global Constants - No Global Variables
 //Only Universal Constants, Math, Physics, Conversions, Higher Dimensions
 
-string qrNames[4] = {"first","second","third","fourth"};
 //Function Prototypes
-
-
-void processDivision(Division d){
-  for (int qr = 0; qr < 4; qr++) {
-    cout<<d.name<<endl;
-    cout << "Enter " << qrNames[qr] << "-quarter " << qr + 1 << " sales:";
-    cin >> d.sales[qr];
-  }
-  // find total sales
-  float totalSale = 0;
-  for (int qr = 0; qr < 4; qr++) {
-    totalSale += d.sales[qr];
-  }
-  d.totalSale = totalSale;
-  d.avgSales = totalSale / 4;
-  printf("Total Annual sales:$%.2f\n",d.totalSale);
-  printf("Average Quarterly Sales:$%.2f",d.avgSales);
-}
-
-void processDivision(string name){
-  Division d;
-  d.name = name;
-  processDivision(d);
-}
 
 //Execution Begins Here
 
 int main(int argc, char** argv) {
-  //Set Random Number seed
+    //Set Random Number seed
 
-  string divNames[4] =  {"North", "West", "East", "South"};
+    //Declare Variable Data Types and Constants
+    string qrNames[4]={"first","second","third","fourth"};
+    Division east;
+    Division west;
+    Division north;
+    Division south;
 
-  for(int dind = 0;dind<4;dind++){
-    processDivision(divNames[dind]);
+    //Initialize Variables
+    east.name="East";
+    west.name="West";
+    north.name="North";
+    south.name="South";
+
+    //Process or map Inputs to Outputs
     // Initialize north sales
-    if(dind!=3){
-      cout<<std::endl;
+    cout<<north.name<<endl;
+    for (int qr=0; qr<4;qr++) {
+        cout<<"Enter "<<qrNames[qr]<<"-quarter sales:"<<endl;
+        cin>>north.sales[qr];
     }
-  }
+    // find total sales
+    float totalSale=0;
+    for (int qr=0;qr<4;qr++) {
+        totalSale+=north.sales[qr];
+    }
+    north.totalSale=totalSale;
+    north.avgSales=totalSale/4;
+    printf("Total Annual sales:$%.2f\n",north.totalSale);
+    printf("Average Quarterly Sales:$%.2f\n",north.avgSales);
+  
+    // Initialize west sales
+    cout<<west.name<<endl;
+    for (int qr=0;qr<4;qr++) {
+        cout<<"Enter "<<qrNames[qr]<<"-quarter sales:"<<endl;
+        cin>>west.sales[qr];
+    }
+    // find total sales
+    totalSale=0;
+    for (int qr=0;qr<4;qr++) {
+        totalSale+=west.sales[qr];
+    }
+    west.totalSale=totalSale;
+    west.avgSales=totalSale/4;
+    printf("Total Annual sales:$%.2f\n",west.totalSale);
+    printf("Average Quarterly Sales:$%.2f\n",west.avgSales);
+  
+    // Initialize East sales
+    cout<<east.name<<endl;
+    for (int qr=0;qr<4;qr++) {
+        cout<<"Enter "<<qrNames[qr]<<"-quarter sales:"<<endl;
+        cin>>east.sales[qr];
+    }
+    // find total sales
+    totalSale=0;
+    for (int qr=0;qr<4;qr++) {
+        totalSale+=east.sales[qr];
+    }
+    east.totalSale=totalSale;
+    east.avgSales=totalSale/4;
+    printf("Total Annual sales:$%.2f\n",east.totalSale);
+    printf("Average Quarterly Sales:$%.2f\n",east.avgSales);
 
-  //Exit stage right!
-  return 0;
+    // Initialize south sales
+    cout<<south.name<<endl;
+    for (int qr=0;qr<4;qr++) {
+        cout<<"Enter "<<qrNames[qr]<<"-quarter sales:"<<endl;
+        cin>>south.sales[qr];
+    }
+    // find total sales
+    totalSale=0;
+    for (int qr=0;qr<4;qr++) {
+        totalSale+=south.sales[qr];
+    }
+    south.totalSale=totalSale;
+    south.avgSales=totalSale/4;
+    printf("Total Annual sales:$%.2f\n",south.totalSale);
+    printf("Average Quarterly Sales:$%.2f",south.avgSales);
+    //Exit stage right!
+    return 0;
 }
