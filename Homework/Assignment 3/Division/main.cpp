@@ -15,6 +15,7 @@ struct Division {
     float totalSale;
     float avgSales;
 };
+
 //User Libraries
 
 //Global Constants - No Global Variables
