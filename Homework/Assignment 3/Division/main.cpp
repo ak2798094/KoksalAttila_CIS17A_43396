@@ -1,8 +1,9 @@
 /* 
- * File:   
- * Author: Attila koksal
- * Created on April 1, 2021
- * Purpose:  
+ * File:   main.cpp
+ * Author: Attila Koksal
+ * Created on April 1, 2021, 10:10 AM
+ * Purpose:  CPP Template 
+ *           To be copied for each Assignment Problem
  */
 
 //System Libraries
@@ -44,13 +45,13 @@ int main(int argc, char** argv) {
     //Process or map Inputs to Outputs
     // Initialize north sales
     cout<<north.name<<endl;
-    for (int qr=0; qr<4;qr++) {
+    for(int qr=0;qr<4;qr++){
         cout<<"Enter "<<qrNames[qr]<<"-quarter sales:"<<endl;
         cin>>north.sales[qr];
     }
     // find total sales
     float totalSale=0;
-    for (int qr=0;qr<4;qr++) {
+    for(int qr=0;qr<4;qr++){
         totalSale+=north.sales[qr];
     }
     north.totalSale=totalSale;
@@ -60,13 +61,13 @@ int main(int argc, char** argv) {
   
     // Initialize west sales
     cout<<west.name<<endl;
-    for (int qr=0;qr<4;qr++) {
+    for(int qr=0;qr<4;qr++){
         cout<<"Enter "<<qrNames[qr]<<"-quarter sales:"<<endl;
         cin>>west.sales[qr];
     }
     // find total sales
     totalSale=0;
-    for (int qr=0;qr<4;qr++) {
+    for(int qr=0;qr<4;qr++){
         totalSale+=west.sales[qr];
     }
     west.totalSale=totalSale;
@@ -76,13 +77,13 @@ int main(int argc, char** argv) {
   
     // Initialize East sales
     cout<<east.name<<endl;
-    for (int qr=0;qr<4;qr++) {
+    for(int qr=0;qr<4;qr++){
         cout<<"Enter "<<qrNames[qr]<<"-quarter sales:"<<endl;
         cin>>east.sales[qr];
     }
     // find total sales
     totalSale=0;
-    for (int qr=0;qr<4;qr++) {
+    for(int qr=0;qr<4;qr++){
         totalSale+=east.sales[qr];
     }
     east.totalSale=totalSale;
@@ -92,13 +93,13 @@ int main(int argc, char** argv) {
 
     // Initialize south sales
     cout<<south.name<<endl;
-    for (int qr=0;qr<4;qr++) {
+    for(int qr=0;qr<4;qr++){
         cout<<"Enter "<<qrNames[qr]<<"-quarter sales:"<<endl;
         cin>>south.sales[qr];
     }
     // find total sales
     totalSale=0;
-    for (int qr=0;qr<4;qr++) {
+    for(int qr=0;qr<4;qr++){
         totalSale+=south.sales[qr];
     }
     south.totalSale=totalSale;

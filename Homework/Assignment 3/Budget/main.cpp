@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
 }
 // asks the user for the expense for "name" and returns the cost of that expense
 
-float getExpense(string name) {
+float getExpense(string name){
     cout<<"Enter "<<name<<" cost for the month:$"<<endl;
     float value;
     cin>>value;
@@ -64,7 +64,7 @@ float getExpense(string name) {
 
 // Asks the user for expenses and returns a budget
 
-MonthlyBudget getBgt() {
+MonthlyBudget getBgt(){
     MonthlyBudget bgt;
     bgt.housing=getExpense("housing");
     bgt.utility=getExpense("utilities");
@@ -80,7 +80,7 @@ MonthlyBudget getBgt() {
 }
 // gets an expense's name, cost and limit, and prints accordingly 
 
-void checkExpense(string name,float cost,float limit) {
+void checkExpense(string name,float cost,float limit){
     cout<<name;
     if(cost>limit){
         cout<<" Over"<<endl;
@@ -92,7 +92,7 @@ void checkExpense(string name,float cost,float limit) {
 }
 // Gets a budget and checks each expense and the total
 
-void checkBudget(MonthlyBudget bgt) {
+void checkBudget(MonthlyBudget bgt){
     checkExpense("Housing",bgt.housing,500.0);
     checkExpense("Utilities",bgt.utility,150.0);
     checkExpense("Household Expenses",bgt.houseExp,65.0);
