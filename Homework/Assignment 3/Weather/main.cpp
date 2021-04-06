@@ -61,74 +61,23 @@ int main(int argc, char** argv) {
             lowMnth=months[i].month;
         }
     }
-    
-    //Display Inputs/Outputs
-    
-    //Exit the Program - Cleanup
-    return 0;
-}
-
-#include <iostream>
-#include <iomanip>
-
-using namespace std;
-
-struct Weather{
-    string month;
-    float rainfall;
-    float lowTemp;
-    float highTemp;
-    float avgTemp;
-};
-
-int main(){
-    
-    Weather months[12];
-    
-    for(int i=0;i<12;i++){
-        cin>>months[i].month;
-        cin>>months[i].rainfall;
-        cin>>months[i].lowTemp;
-        cin>>months[i].highTemp;
-        months[i].avgTemp=(months[i].lowTemp+months[i].highTemp)/2;
-    }
-    
-    int totalRain=0;
-    float avgRain=0;
-    for(int i=0;i<12;i++){
-        totalRain+=months[i].rainfall;
-        avgRain=totalRain/12.0;
-    }
-    cout<<"Average Rainfall "<<setprecision(2)<<avgRain<<" inches/month"<<endl;
-    
-    int lowest=months[0].lowTemp;
-    string lowMnth=months[0].month;
-    for(int i=1;i<12;i++){ 
-        if(lowest>months[i].lowTemp){
-            lowest=months[i].lowTemp;
-            lowMnth=months[i].month;
-        }
-    }
-	cout<<"Lowest  Temperature "<<lowMnth<<"  "<<lowest<<" Degrees Fahrenheit"<<endl;
-	
-	int highest=months[0].highTemp;
-	string highMnth=months[0].month;
-
-    for(int i=1;i<12;i++){
+    for(int i=1;i<12;i++){ //calculate highest temperature for that specific month
         if(highest<months[i].highTemp){
             highest=months[i].highTemp;
             highMnth=months[i].month;
         }
     }
-	cout<<"Highest Temperature "<<highMnth<<"  "<<highest<<" Degrees Fahrenheit"<<endl;
-	
-	int totalAvg=0;
-	float avgTotal=0;
-	for(int i=0;i<12;i++){
-	    totalAvg+=months[i].avgTemp;
-	    avgTotal=totalAvg/12.0;
-	}
-	cout<<"Average Temperature for the year "<<avgTotal<<" Degrees Fahrenheit"<<endl;
-	
-	return 0;
+    for(int i=0;i<12;i++){ //calculate average temperature for all months combined
+	totalAvg+=months[i].avgTemp;
+	avgTotal=totalAvg/12.0;
+    }
+    
+    //Display Inputs/Outputs
+    cout<<"Average Rainfall "<<setprecision(2)<<avgRain<<" inches/month"<<endl;
+    cout<<"Lowest  Temperature "<<lowMnth<<"  "<<lowest<<" Degrees Fahrenheit"<<endl;
+    cout<<"Highest Temperature "<<highMnth<<"  "<<highest<<" Degrees Fahrenheit"<<endl;
+    cout<<"Average Temperature for the year "<<avgTotal<<" Degrees Fahrenheit"<<endl;
+
+    //Exit the Program - Cleanup
+    return 0;
 }
