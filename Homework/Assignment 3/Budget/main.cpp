@@ -1,10 +1,10 @@
 /* 
- * File:   
+ * File:   main.cpp
  * Author: Attila Koksal
- * Created on April 1, 2021
- * Purpose:  
+ * Created on April 1, 2021, 12:05 PM
+ * Purpose:  CPP Template 
+ *           To be copied for each Assignment Problem
  */
-
 //System Libraries
 #include <iostream>
 #include <iomanip>
