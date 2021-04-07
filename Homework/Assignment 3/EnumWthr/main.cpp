@@ -42,8 +42,14 @@ int main(int argc, char** argv) {
         cin>>months[j].rainfall;
         cout<<"Enter the high temp:"<<endl;
         cin>>months[j].highTemp;
+        while (months[j].highTemp<-100||months[j].highTemp>140){
+            cin>>months[j].highTemp;
+        }
         cout<<"Enter the low temp:"<<endl;
         cin>>months[j].lowTemp;
+        while (months[j].lowTemp<-100||months[j].lowTemp>140){
+            cin>>months[j].lowTemp;
+        }
         months[j].avgTemp=(months[j].lowTemp+months[j].highTemp)/2;
         j++;
     }
