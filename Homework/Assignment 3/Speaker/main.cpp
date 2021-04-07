@@ -74,8 +74,8 @@ int main(int argc, char** argv) {
 void Get(Speaker *speaker){
     int counter=0;
     int size=10;
-    for(int counter;i<size;i++){
-        cout<<"Enter the information for Speaker"<<i<<":"<<endl;
+    for(counter=0;counter<size;counter++){
+        cout<<"Enter the information for Speaker"<<counter<<":"<<endl;
         cout<<"Speaker Name:";
         cin.ignore();
         getline(cin,speaker[counter].name);
@@ -85,5 +85,42 @@ void Get(Speaker *speaker){
         getline(cin,speaker[counter].topic);
         cout<<"Fee Required:";
         cin>>speaker[counter].fee;
+    }
+}
+void Print(Speaker *speaker){
+    int counter=0;
+    int size=10;
+    for(counter=0;counter<size;counter++){
+        cout<<"The information for each speaker is:"<<endl;
+        cout<<"SPEAKER "<<counter<<endl;
+        cout<<"Speaker Name: "<<speaker[counter].name<<endl;
+        cout<<"Speaker Phone Number: "<<speaker[counter].phone<<endl;
+        cout<<"Speaker Topic: "<<speaker[counter].topic<<endl;
+        cout<<"Speaker's Fee Required: "<<speaker[counter].fee<<endl;
+    }
+}
+void Edit(Speaker *speaker){
+    int temp;
+    cout<<"Enter which speaker you would like to edit: ";
+    cin>>temp;
+    if(temp<=9){
+        cout<<endl;
+        cout<<"Enter the information you want to update for your selected speaker: ";
+        cout<<"Speaker Name: ";
+        cin.ignore();
+        getline(cin,speaker[temp].name);
+        cout<<endl;
+        cout<<"Speaker Phone Number: ";
+        getline(cin,speaker[temp].phone);
+        cout<<endl;
+        cout<<"Speaker Topic: ";
+        getline(cin,speaker[temp].topic);
+        cout<<endl;
+        cout<<"Fee Required: ";
+        cin>>speaker[temp].fee;
+    }
+    else{
+        cout<<"Invalid input. Try again. Select a number between 0-9 to edit.";
+        cout<<"To continue, select the edit option again.";
     }
 }
