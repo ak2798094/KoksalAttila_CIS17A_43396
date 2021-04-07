@@ -75,7 +75,7 @@ void Get(Speaker *speaker){
     int counter=0;
     int size=10;
     for(counter=0;counter<size;counter++){
-        cout<<"Enter the information for Speaker"<<counter<<":"<<endl;
+        cout<<"Enter the information for Speaker "<<counter<<":"<<endl;
         cout<<"Speaker Name:";
         cin.ignore();
         getline(cin,speaker[counter].name);
