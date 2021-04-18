@@ -12,6 +12,9 @@ using namespace std;
 
 struct Space{
     string type="";
+    string coin="O";
+    string empty="";
+    string win = "X";
 };
 
 //User Libraries
