@@ -10,7 +10,7 @@
 #include <iostream>  //I/O Library
 using namespace std;
 
-struct Space{
+struct Space{ // Whether if a spot on the board is filled or not
     string type="";
     string coin="O";
     string empty="";
