@@ -30,9 +30,9 @@ int main(int argc, char** argv) {
     char var;
     
     //Initialize Variables
-    cout<<"Enter input file name: "<<endl;
+    cout<<"Enter input file name:"<<endl;
     cin>>inputNme;
-    cout<<"Enter output file name: "<<endl;
+    cout<<"Enter output file name:"<<endl;
     cin>>outputNme;
     cin.ignore();
     
