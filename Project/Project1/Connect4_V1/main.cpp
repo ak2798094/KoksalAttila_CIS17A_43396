@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
     //Initialize the Random Number Seed
     
     //Declare Variables
-    const Space board[6][7];
+    Space board[6][7];
     //Initialize Variables
     
     //Map Inputs to Outputs -> Process

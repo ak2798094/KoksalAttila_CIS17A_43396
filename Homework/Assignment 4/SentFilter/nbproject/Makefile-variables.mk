@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=Cygwin-Windows
 CND_ARTIFACT_DIR_Debug=dist/Debug/Cygwin-Windows
-CND_ARTIFACT_NAME_Debug=sentfilt
-CND_ARTIFACT_PATH_Debug=dist/Debug/Cygwin-Windows/sentfilt
+CND_ARTIFACT_NAME_Debug=sentfilter
+CND_ARTIFACT_PATH_Debug=dist/Debug/Cygwin-Windows/sentfilter
 CND_PACKAGE_DIR_Debug=dist/Debug/Cygwin-Windows/package
-CND_PACKAGE_NAME_Debug=sentfilt.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/Cygwin-Windows/package/sentfilt.tar
+CND_PACKAGE_NAME_Debug=sentfilter.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/Cygwin-Windows/package/sentfilter.tar
 # Release configuration
 CND_PLATFORM_Release=Cygwin-Windows
 CND_ARTIFACT_DIR_Release=dist/Release/Cygwin-Windows
-CND_ARTIFACT_NAME_Release=sentfilt
-CND_ARTIFACT_PATH_Release=dist/Release/Cygwin-Windows/sentfilt
+CND_ARTIFACT_NAME_Release=sentfilter
+CND_ARTIFACT_PATH_Release=dist/Release/Cygwin-Windows/sentfilter
 CND_PACKAGE_DIR_Release=dist/Release/Cygwin-Windows/package
-CND_PACKAGE_NAME_Release=sentfilt.tar
-CND_PACKAGE_PATH_Release=dist/Release/Cygwin-Windows/package/sentfilt.tar
+CND_PACKAGE_NAME_Release=sentfilter.tar
+CND_PACKAGE_PATH_Release=dist/Release/Cygwin-Windows/package/sentfilter.tar
 #
 # include compiler specific variables
 #
