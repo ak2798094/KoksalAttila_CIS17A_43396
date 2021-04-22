@@ -9,6 +9,7 @@
 //System Libraries
 #include <iostream>  //I/O Library
 #include <fstream>
+#include <string>
 using namespace std;
 
 //User Libraries
@@ -41,7 +42,7 @@ int main(int argc, char** argv) {
     ifstream inputFile(inputNme);
     ofstream outputFile(outputNme);
     
-    if(!inputFile && !outputFile){
+    if(!inputFile&&!outputFile){
         cout<<"Error in opening the files!"<<endl;
         cout<<"Try again!"<<endl;
         return 0;
@@ -49,7 +50,7 @@ int main(int argc, char** argv) {
     
     while(getline(inputFile,sentence,'.')){
         bool Capitalze=false;
-        for(int count=0;count<<sentence.length();count++){
+        for(int count=0;count<sentence.length();count++){
             if(!isalpha(sentence[count])){
                 outputFile<<sentence[count];
             }
