@@ -9,7 +9,6 @@
 //System Libraries
 #include <iostream>  //I/O Library
 #include <fstream>
-#include <string>
 using namespace std;
 
 //User Libraries
