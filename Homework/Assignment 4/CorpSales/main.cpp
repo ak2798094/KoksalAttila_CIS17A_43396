@@ -12,9 +12,19 @@
 #include <string>
 using namespace std;
 
+struct CorpInfo{
+    static string Division[LENGTH];
+    int QtrNum[LENGTH];
+    float QtrSales;
+};
+
+string CorpInfo::Division[LENGTH]={"East","West","North","South"};
+
 //User Libraries
 
 //Global Constants
+const int LENGTH=4;
+
 //Math, Science, Universal, Conversions, High Dimensioned Arrays
 
 //Function Prototypes
@@ -24,12 +34,35 @@ int main(int argc, char** argv) {
     //Initialize the Random Number Seed
     
     //Declare Variables
+    CorpInfo sale;
     
     //Initialize Variables
     
     //Map Inputs to Outputs -> Process
     
     //Display Inputs/Outputs
+    fstream file("",ios::out|ios::binary);
+    if(!file){
+        cout<<"Error occurred when opening file. Program ended.";
+        return 0;
+    }
+    
+    cout<<"Enter the quarterly sales for each division:"<<endl;
+    for(int i=0;i<LENGTH;i++){
+        cout<<sale.Division[i]<<"Division:"<<endl;
+        for(int j=0;j<LENGTH;j++){
+            do{
+                cout<<"Quarter "<<j+1<<": ";
+                cin>>sale.QtrSales;
+                if(sale.QtrSales<0){
+                    cout<<"Sales must be greater than 0."<<endl;
+                }
+            }while(sale.QtrSales<0);
+            sale.QtrNum[j]=sale.QtrSales;
+        }
+        file.write(reinterpret_cast<char *>(&sale),sizeof(sale));
+    }
+    file.close();
     
     //Exit the Program - Cleanup
     return 0;
