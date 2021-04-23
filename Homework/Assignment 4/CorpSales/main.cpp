@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
     
     cout<<"Enter the quarterly sales for each division:"<<endl;
     for(int i=0;i<LENGTH;i++){
-        cout<<sale.Division[i]<<"Division:"<<endl;
+        cout<<sale.Division[i]<<" Division:"<<endl;
         for(int j=0;j<LENGTH;j++){
             do{
                 cout<<"Quarter "<<j+1<<": ";
