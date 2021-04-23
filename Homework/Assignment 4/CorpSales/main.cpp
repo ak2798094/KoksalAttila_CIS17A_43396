@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
     //Map Inputs to Outputs -> Process
     
     //Display Inputs/Outputs
-    fstream file("",ios::out|ios::binary);
+    fstream file("salesinfo.txt",ios::out|ios::binary);
     if(!file){
         cout<<"Error occurred when opening file. Program ended.";
         return 0;
