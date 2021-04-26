@@ -26,8 +26,6 @@ void prblm7();
 
 //Execution Begins Here
 int main(int argc, char** argv) {
-    //Initialize the Random Number Seed
-    
     //Declare Variables
     char choice;
     
