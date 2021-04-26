@@ -78,7 +78,7 @@ int main(int argc, char** argv) {
     cout<<endl;
     cout<<"Deposits: "<<sum<<endl;
     total=sum-diff;
-    cout<<"Account balance at the end of this month is: "<<total<endl;
+    cout<<"Account balance at the end of the month is: "<<total<<endl;
     if(total<0){
         cout<<"The account has been overdrawn. An additional $20 dollar fee has been accessed. The new balance is: "<<total-20<<endl;
     }
