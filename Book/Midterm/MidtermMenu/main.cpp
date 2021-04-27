@@ -135,22 +135,6 @@ void prblm1(){
         cout<<"The account has been overdrawn. An additional $20 dollar fee has been accessed. The new balance is: "<<total-20<<endl;
     }
     cout<<customer->name<<" at "<<customer->address<<" with the account number of "<<customer->account<<" has a balance of $"<<total<<endl;
-    
-    //Exit the Program - Cleanup
-    return 0;
-    bool fiveDigit(int number){
-        int a=0;
-        while(number>0){
-            a++;
-            number=number/10;
-        }
-        if(a==5){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
 }    
 // Problem 2
 void prblm2(){
@@ -166,6 +150,13 @@ void prblm3(){
 // Problem 4
 void prblm4(){
     cout<<"Problem 4"<<endl;
+    int number;
+    cout<<"Enter the number to be encrypted: ";
+    cin>>number;
+    encrypt(number);
+    cout<<"Enter the number to be decrypted: ";
+    cin>>number;
+    decrypt(number);
 }
 
 // Problem 5
@@ -200,4 +191,63 @@ void prblm6(){
 // Problem 7
 void prblm7(){
     cout<<"Problem 7"<<endl;
+}
+
+bool fiveDigit(int number){
+    int a=0;
+    while(number>0){
+        a++;
+        number=number/10;
+    }
+    if(a==5){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+void encrypt(int num){
+    int first,second,third,fourth; // storing respective digit of number
+    fourth=num%10;
+    num=num/10;
+    third=num%10;
+    num=num/10;
+    second=num%10;
+    num=num/10;
+    first=num;
+    if(first==8||first==9||second==8||second==9||third==8||third==9||fourth==8||fourth==9){ // if any digit is 8 or 9, print an error message and return
+        cout<<"8 or 9 cannot be in the number."<<endl<<endl;
+        return;
+    }
+    // encryption begins
+    first=(first+5)%8;
+    second=(second+5)%8;
+    third=(third+5)%8;
+    fourth=(fourth+5)%8;
+    // swapping first with third and second with fourth
+    int number=1000*third+100*fourth+10*first+second;
+    cout<<"Encrypted number is "<<number<<"!"<<endl;
+}
+void decrypt(int num){
+    int first,second,third,fourth; // storing respective digit of number
+    fourth=num%10;
+    num=num/10;
+    third=num%10;
+    num=num/10;
+    second=num%10;
+    num=num/10;
+    first=num;
+    if(first==8||first==9||second==8||second==9||third==8||third==9||fourth==8||fourth==9){ // if any digit is 8 or 9, print an error message and return
+        cout<<"8 or 9 cannot be in the number."<<endl<<endl;
+        return;
+    }
+    // decryption begins (-5+8)=3 since decrementing 5 but digit can be negative so add 8 so digit remains positive
+    first=(first+3)%8;
+    second=(second+3)%8;
+    third=(third+3)%8;
+    fourth=(fourth+3)%8;
+    // swapping first with third and second with fourth
+    int number=1000*third+100*fourth+10*first+second;
+    cout<<"Decrypted number is "<<number<<"!"<<endl;
 }
