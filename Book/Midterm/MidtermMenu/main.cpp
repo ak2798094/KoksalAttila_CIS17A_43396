@@ -75,7 +75,7 @@ void prblm2(){
 // Problem 3
 void prblm3(){
     cout<<"Problem 3"<<endl;
-    cout<<"It's in another project";
+    cout<<"It's in another project called Midterm.";
 }
 
 // Problem 4
