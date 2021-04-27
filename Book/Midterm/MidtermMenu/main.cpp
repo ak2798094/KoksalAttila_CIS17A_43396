@@ -65,8 +65,7 @@ void menu(){
 // Problem 1
 void prblm1(){
     cout<<"Problem 1"<<endl;
-}
-
+}    
 // Problem 2
 void prblm2(){
     cout<<"Problem 2"<<endl;
