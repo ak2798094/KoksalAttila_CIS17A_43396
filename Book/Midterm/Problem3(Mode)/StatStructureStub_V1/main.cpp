@@ -192,7 +192,7 @@ Stats *stat(const Array *array){
                 freq+=1;
             }
         }
-        // uodate with last element's frequency
+        // update with last element's frequency
         if (freq==maxFreq) {
             numMode+=1;
         }
@@ -241,17 +241,17 @@ Stats *stat(const Array *array){
     //median
   
     if (arySize%2==0){//even
-			stats->median=(ary[(arySize-1)/2]+ary[((arySize-1)/2)+1])/2
+	stats->median=(ary[(arySize-1)/2]+ary[((arySize-1)/2)+1])/2;
     }else{//odd
     	stats->median=(ary[arySize/2]);
     }
     
     int sum=0;
-    
+
     for(int i=0;i<arySize;i++){
     sum+=ary[i];
     }
-    stats->average=sum/arySize;
+    stats->avg=sum/arySize;
     
     stats->mode->size=0;
     int nModes=0;
