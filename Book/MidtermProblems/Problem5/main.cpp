@@ -21,26 +21,23 @@ int main(int argc, char** argv) {
     //Initialize the Random Number Seed
     
     //Declare Variables
-    unsigned int number;
-    int factor=1;
     
     //Initialize Variables
     
     //Map Inputs to Outputs -> Process
     
     //Display Inputs/Outputs
-    cout<<"Enter a positive number for the factorial: ";
-    cin>>number;
-    if(number<0){
-        cout<<"The number can't be negative. Please enter a positive number: ";
-        cin>>number;
-    }
-    for(int i=number;i>=1;i--){
-        factor=factor*i;
-    }
-    cout<<"Factorial = "<<factor;
-    cout<<endl;
-    
+    cout<<"a) Using a byte variable, both unsigned and signed, the largest n where n!factorial that can be calculated is 5, because 6!=720, which is largest than the bounds of byte variable ranging from -128 to 127."<<endl;
+    cout<<"b) The largest factorial using unsigned short is 8."<<endl;
+    cout<<"b) The largest factorial using signed short is 7."<<endl;
+    cout<<"b) The largest factorial using unsigned int is 12."<<endl;
+    cout<<"b) The largest factorial using signed int is 12."<<endl;
+    cout<<"b) The largest factorial using long int is 12."<<endl;
+    cout<<"b) The largest factorial using signed long int is 12."<<endl;
+    cout<<"b) The largest factorial using unsigned long int is 12."<<endl;
+    cout<<"b) The largest factorial using float is 12."<<endl;
+    cout<<"b) The largest factorial using double is 12."<<endl;
+   
     //Exit the Program - Cleanup
     return 0;
 }
