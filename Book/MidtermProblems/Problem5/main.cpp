@@ -28,6 +28,8 @@ int main(int argc, char** argv) {
     
     //Display Inputs/Outputs
     cout<<"a) Using a byte variable, both unsigned and signed, the largest n where n!factorial that can be calculated is 5, because 6!=720, which is largest than the bounds of byte variable ranging from -128 to 127."<<endl;
+    cout<<"b) The largest factorial using unsigned char is 5."<<endl;
+    cout<<"b) The largest factorial using signed char is 5."<<endl;
     cout<<"b) The largest factorial using unsigned short is 8."<<endl;
     cout<<"b) The largest factorial using signed short is 7."<<endl;
     cout<<"b) The largest factorial using unsigned int is 12."<<endl;
