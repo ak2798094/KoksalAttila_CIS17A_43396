@@ -171,11 +171,30 @@ void prblm4(){
 // Problem 5
 void prblm5(){
     cout<<"Problem 5"<<endl;
+    cout<<"a) Using a byte variable, both unsigned and signed, the largest n where n!factorial that can be calculated is 5, because 6!=720, which is largest than the bounds of byte variable ranging from -128 to 127."<<endl;
+    cout<<"b) The largest factorial using unsigned char is 5."<<endl;
+    cout<<"b) The largest factorial using signed char is 5."<<endl;
+    cout<<"b) The largest factorial using unsigned short is 8."<<endl;
+    cout<<"b) The largest factorial using signed short is 7."<<endl;
+    cout<<"b) The largest factorial using unsigned int is 12."<<endl;
+    cout<<"b) The largest factorial using signed int is 12."<<endl;
+    cout<<"b) The largest factorial using long int is 12."<<endl;
+    cout<<"b) The largest factorial using signed long int is 12."<<endl;
+    cout<<"b) The largest factorial using unsigned long int is 12."<<endl;
+    cout<<"b) The largest factorial using float is 12."<<endl;
+    cout<<"b) The largest factorial using double is 12."<<endl;
 }
 
 // Problem 6
 void prblm6(){
     cout<<"Problem 6"<<endl;
+    cout<<"a) The conversion of 2.875 into binary, octal, and hex"<<endl<<"Binary: "<<"10.111"<<endl<<"Octal: "<<"2.7"<<endl<<"Hex: "<<"2E"<<endl;
+    cout<<"The conversion of 0.1796875 into binary, octal, and hex"<<endl<<"Binary: "<<"0010111"<<endl<<"Octal: "<<"0.134"<<endl<<"Hex: "<<"0.2E"<<endl;
+    cout<<"b) The conversion of -2.875 into binary, octal, and hex"<<endl<<"Binary: "<<"-10.111"<<endl<<"Octal: "<<"-2.7"<<endl<<"Hex: "<<"-2E"<<endl;
+    cout<<"The conversion of -0.1796875 into binary, octal, and hex"<<endl<<"Binary: "<<"-0010111"<<endl<<"Octal: "<<"-0.134"<<endl<<"Hex: "<<"-0.2E"<<endl;
+    cout<<"c) The decimal number of 59999901 is 0.1503238401."<<endl;
+    cout<<"The decimal number of 59999902 is 0.1503238402."<<endl;
+    cout<<"The decimal number of A66667FE is -0.2791729150."<<endl;
 }
 
 // Problem 7
