@@ -149,6 +149,110 @@ Stats *stat(const Array *array){
     cout<<endl<<"Stat function to be completed by the student"<<endl;
     Stats *stats=new Stats;
     stats->mode=new Array;
+    
+    //-------------Mode----------------------
+    //Copy the array
+    int arySize = array.size;
+    int *ary=copy(array.data, arySize);
+    
+    //Sort the copy
+    mrkSort(ary, arySize);
+    //Find the max Frequency
+    int freq=1;
+    int maxFreq=0;
+    for (int i=1;i<arySize;i++) {
+        if (ary[i]!=ary[i-1]) { // check if we are seeing it for the first time
+            // freq now stores the frequency of the previous number
+            if (maxFreq<freq) {
+                maxFreq=freq;
+            }
+            freq=1;
+        } else {
+            freq+=1;
+        }
+    }
+    if (arySize>0 && maxFreq<freq) {
+        maxFreq=freq;
+    }
+    // done with maxFreq
+
+    //Find the number of modes
+    int numMode=0;
+    if (maxFreq>1) {
+        freq=1;
+        for (int i=1;i<arySize;i++) {
+            if (ary[i]!=ary[i-1]) { // check if we are seeing it for the first time
+                // freq now stores the frequency of the previous number
+                if (freq==maxFreq) { // if prev number is a mode
+                    numMode+=1;
+                    // save the previous number as a mode, but can't
+                }
+                freq=1;
+            } else {
+                freq+=1;
+            }
+        }
+        // uodate with last element's frequency
+        if (freq==maxFreq) {
+            numMode+=1;
+        }
+    }
+    //Allocate the mode array
+    //Again this is just a stub.
+    int *modeAry = new int[numMode+2];
+    modeAry[0]=numMode; //Stub returns no modes
+    modeAry[1]=maxFreq; //Stub returns Frequency 1
+
+    //Fill the mode array
+    int newIndex=2;
+    if (maxFreq>1) { // if we have at least 1 mode
+        freq=1;
+        for (int i=1;i<arySize;i++) {
+            if (ary[i]!=ary[i-1]) { // check if we are seeing it for the first time
+                // freq now stores the frequency of the previous number
+                if (freq==maxFreq) { // if prev number is a mode
+                    // save the previous number as a mode,  now we can
+                    modeAry[newIndex]=ary[i-1];
+                    newIndex++;
+                }
+                freq=1;
+            } else {
+                freq+=1;
+            }
+        }
+        // done with last number, store it if it is mode
+        if (freq==maxFreq) { // there's a conflict with the previous if statement that's why we use it
+            modeAry[newIndex]=ary[arySize-1];
+        }
+    }
+    
+  
+
+    //--------------------------------
+    
+    //input the numMode result to the stats struct
+    stats->mode->size=numMode;
+    stats->modFreq=maxFreq;
+    int nModes=numMode;
+    if(nModes!=0)stats->mode->data=new int[nModes];
+    for(int i=2;i<numMode+2;i++){ //copy elements of modearray to stats
+    stats->mode->data[i-2]=modeAry[i];
+    }
+    //median
+  
+    if (arySize%2==0){//even
+			stats->median=(ary[(arySize-1)/2]+ary[((arySize-1)/2)+1])/2
+    }else{//odd
+    	stats->median=(ary[arySize/2]);
+    }
+    
+    int sum=0;
+    
+    for(int i=0;i<arySize;i++){
+    sum+=ary[i];
+    }
+    stats->average=sum/arySize;
+    
     stats->mode->size=0;
     int nModes=0;
     if(nModes!=0)stats->mode->data=new int[nModes];
