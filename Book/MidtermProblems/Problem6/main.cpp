@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
     cout<<"The conversion of -0.1796875 into binary, octal, and hex"<<endl<<"Binary: "<<"-0010111"<<endl<<"Octal: "<<"-0.134"<<endl<<"Hex: "<<"-0.2E"<<endl;
     cout<<"c) The decimal number of 59999901 is 0.1503238401."<<endl;
     cout<<"The decimal number of 59999902 is 0.1503238402."<<endl;
-    cout<<"The decimal number of A66667FE is 0.2791729150."<<endl;
+    cout<<"The decimal number of A66667FE is -0.2791729150."<<endl;
     
     //Exit the Program - Cleanup
     return 0;
