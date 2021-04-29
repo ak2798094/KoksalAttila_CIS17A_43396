@@ -226,8 +226,6 @@ Stats *stat(const Array *array){
         }
     }
     
-  
-
     //--------------------------------
     
     //input the numMode result to the stats struct
