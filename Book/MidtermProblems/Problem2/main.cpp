@@ -22,6 +22,7 @@ struct Employee{
 //Math, Science, Universal, Conversions, High Dimensioned Arrays
 
 //Function Prototypes
+void convert(int);
 
 //Execution Begins Here
 int main(int argc, char** argv) {
@@ -94,8 +95,49 @@ for(int i=0;i<currSize;i++){
   cout<<"Amount:      here"<<endl;
   cout<<"Signature: ______________";
 }
-
-    
     //Exit the Program - Cleanup
     return 0;
+}
+void convert(int value){
+    char *first[20]={"zero", "one", "two", "three","four","five","six","seven","eight","nine","ten",
+    "eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"};
+  
+    char *second[10]={"", "ten", "twenty", "thirty","forty","fifty","sixty","seventy","eighty","ninety"};
+
+    if(value<0)
+    {
+        cout<<" ";
+        convert(-value);
+    }
+    else if(value>=1000){
+        convert(value/1000);
+        cout<<" THOUSAND";
+        if(value%1000){
+            if(value%1000<100){
+                cout<<" AND";
+            }
+            cout<<" " ;
+            convert(value%1000);
+        }
+    }
+    else if(value>=100){
+        convert(value/100);
+        cout<<" HUNDRED";
+        if(value%100){
+            cout<<" AND ";
+            convert(value%100);
+        }
+    }
+    else if(value>=20){
+        cout<<second[value/10];
+        if(value%10){
+            cout<<" ";
+            convert(value%10);
+        }
+    }
+    else{
+        cout<<first[value];
+    }
+    return;
+    
 }
