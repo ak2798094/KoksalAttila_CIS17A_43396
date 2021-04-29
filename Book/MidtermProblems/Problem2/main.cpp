@@ -28,7 +28,15 @@ int main(int argc, char** argv) {
     
     Employee* ary;
     int currSize=0;
-
+    string compName;
+    string address;
+    
+    cout<<"Enter company name: ";
+    cin>>compName;
+    cout<<"Enter company address: ";
+    cin.ignore();
+    getline(cin,address);
+    
     while(true){
         Employee emp;
 
@@ -63,8 +71,6 @@ int main(int argc, char** argv) {
 }
 
 for(int i=0;i<currSize;i++){
-  cout<<ary[i].name<<endl;
-
   //--------------gross pay-----------------------
   float grosspay=0;
   if(ary[i].hrw<=40){//less than 40 hrs
@@ -79,7 +85,14 @@ for(int i=0;i<currSize;i++){
   grosspay=(ary[i].pr*40) + ((ary[i].pr*2)*10) + ((ary[i].pr*3)+(ary[i].hrw-50));
   }
   //---------------------------------------------
-  cout<<"Employee gross pay: "<<grosspay<<endl;;
+  
+  cout<<endl;
+  cout<<compName<<endl;
+  cout<<address<<endl;
+  cout<<"Name: "<<ary[i].name;
+  cout<<"   Amount: "<<grosspay<<endl;
+  cout<<"Amount:      here"<<endl;
+  cout<<"Signature: ______________";
 }
 
     
