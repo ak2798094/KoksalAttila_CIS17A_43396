@@ -152,8 +152,8 @@ Stats *stat(const Array *array){
     
     //-------------Mode----------------------
     //Copy the array
-    int arySize=array.size;
-    int *ary=copy(array.data, arySize);
+    int arySize=array->size;
+    int *ary=copy(array->data, arySize);
     
     //Sort the copy
     mrkSort(ary, arySize);
@@ -207,12 +207,12 @@ Stats *stat(const Array *array){
     int newIndex=2;
     if (maxFreq>1) { // if we have at least 1 mode
         freq=1;
-        for (int i=1;i<arySize;i++) {
-            if (ary[i]!=ary[i-1]) { // check if we are seeing it for the first time
+        for (int i=1;i<arySize;i++){
+            if (ary[i]!=ary[i-1]){ // check if we are seeing it for the first time
                 // freq now stores the frequency of the previous number
-                if (freq==maxFreq) { // if prev number is a mode
+                if (freq==maxFreq){ // if prev number is a mode
                     // save the previous number as a mode,  now we can
-                    modeAry[newIndex]=ary[i-1];
+                    modeAry[newIndex]=ary[i-1];               
                     newIndex++;
                 }
                 freq=1;
@@ -241,22 +241,16 @@ Stats *stat(const Array *array){
     //median
   
     if (arySize%2==0){//even
-	stats->median=(ary[(arySize-1)/2]+ary[((arySize-1)/2)+1])/2;
+	stats->median=(ary[(arySize-1)/2]+ary[((arySize-1)/2)+1])/2.0;
     }else{//odd
     	stats->median=(ary[arySize/2]);
     }
-    
     int sum=0;
 
     for(int i=0;i<arySize;i++){
     sum+=ary[i];
     }
-    stats->avg=sum/arySize;
+    stats->avg=sum/(double) arySize;
     
-    stats->mode->size=0;
-    nModes=0;
-    if(nModes!=0)stats->mode->data=new int[nModes];
-    stats->modFreq=0;
-    stats->median=0;
     return stats;
 }
