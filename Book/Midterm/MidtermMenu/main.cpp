@@ -9,6 +9,15 @@
 #include <iostream>  //I/O Library
 using namespace std;
 
+struct Customer{
+    string name;
+    string address;
+    int account;
+    float balance;
+    float ctotal[100];
+    float dtotal[100];
+};
+
 //User Libraries
 
 //Global Constants
@@ -23,6 +32,9 @@ void prblm4();
 void prblm5();
 void prblm6();
 void prblm7();
+bool fiveDigit(int);
+void encrypt(int);
+void decrypt(int);
 
 //Execution Begins Here
 int main(int argc, char** argv) {
@@ -65,36 +77,15 @@ void menu(){
 // Problem 1
 void prblm1(){
     cout<<"Problem 1"<<endl;
-    struct Customer{
-        string name;
-        string address;
-        int account;
-        float balance;
-        float ctotal[100];
-        float dtotal[100];
-    };
-
-    //User Libraries
-
-    //Global Constants
-    //Math, Science, Universal, Conversions, High Dimensioned Arrays
-
-    //Function Prototypes
-    bool fiveDigit(int);
     
-    //Declare Variables
     string name,address;
     int checks,deposits,account;
     float balance,sum=0,diff=0,total=0,current;
     Customer* customer=new Customer;
     
-    //Initialize Variables
-    
-    //Map Inputs to Outputs -> Process
-    
-    //Display Inputs/Outputs
     cout<<"Bank Account"<<endl;
     cout<<"Enter the customer's name: ";
+    cin.ignore();
     getline(cin,name);
     customer->name=name;
     cout<<"Enter the address: ";

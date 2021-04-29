@@ -10,13 +10,13 @@
 using namespace std;
 
 struct Prime{
-    unsigned int prime;
-    unsigned int power;
+    unsigned short prime;
+    unsigned char power;
 };
 
 struct Primes{
     Prime *prime;
-    unsigned int nPrimes;
+    unsigned char nPrimes;
 };
 
 //User Libraries
@@ -25,7 +25,7 @@ struct Primes{
 //Math, Science, Universal, Conversions, High Dimensioned Arrays
 
 //Function Prototypes
-void factor(int);
+int factor(int);
 void print(Primes *);
 
 //Execution Begins Here
@@ -49,10 +49,10 @@ int main(int argc, char** argv) {
     //Exit the Program - Cleanup
     return 0;
 }
-void factor(int num){
+Prime factor(int num){
     int number=2;
     int primes[10000]={0}; // prime factor storage
-    while(1<num){
+    while(num>1){
         if(num%number==0){
             primes[number]++; // find prime factors
             num=num/number;
@@ -88,7 +88,7 @@ void print(Primes *pri){
     int prme=pri->nPrimes;
     int number=0;
     while(number<prme){
-        something here
+        //something here
         if(number==prme-1){
             break;
         }
