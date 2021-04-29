@@ -1,6 +1,6 @@
 /* 
  * File:   main.cpp
- * Author: Dr. Mark E. Lehr
+ * Author: Attila Koksal
  * Purpose:  Driver program to test out the statistics problem.
  */
 
@@ -152,7 +152,7 @@ Stats *stat(const Array *array){
     
     //-------------Mode----------------------
     //Copy the array
-    int arySize = array.size;
+    int arySize=array.size;
     int *ary=copy(array.data, arySize);
     
     //Sort the copy
@@ -254,7 +254,7 @@ Stats *stat(const Array *array){
     stats->avg=sum/arySize;
     
     stats->mode->size=0;
-    int nModes=0;
+    nModes=0;
     if(nModes!=0)stats->mode->data=new int[nModes];
     stats->modFreq=0;
     stats->median=0;
