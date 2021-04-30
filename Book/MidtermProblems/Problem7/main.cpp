@@ -7,6 +7,7 @@
 
 //System Libraries
 #include <iostream>  //I/O Library
+#include <cmath>;
 using namespace std;
 
 struct Prime{
@@ -25,8 +26,9 @@ struct Primes{
 //Math, Science, Universal, Conversions, High Dimensioned Arrays
 
 //Function Prototypes
-Primes *factor(int);
-void prntPrm(Primes *);
+Primes factor(int);
+void prntPrm(Primes);
+void addToPrime(Primes&,int&,int,int&);
 
 //Execution Begins Here
 int main(int argc, char** argv) {
@@ -42,56 +44,58 @@ int main(int argc, char** argv) {
     //Display Inputs/Outputs
     cout<<"Give me a number to factor: ";
     cin>>number;
-    Primes *p=factor(number);
     cout<<"Factors of "<<number<<": ";
-    prntPrm(p);
+    prntPrm(factor(number));
     
     //Exit the Program - Cleanup
     return 0;
 }
-Primes *factor(int num){
-    int start=2;
-    int facAry[10000];
-    while(num>1){
-        if(num%start==0){
-            facAry[start]++;
-            num=num/start;
-        }
-        else{
-            start++;
+Primes factor(int num){
+    Primes primes;
+    int nPrimes=0;
+    while (num%2==0){
+       addToPrime(primes,nPrimes,2,num);
+    }
+    for(int j=3;j<=sqrt(num);j=j+2){
+       while(num%j==0){
+       addToPrime(primes,nPrimes,j,num);
         }
     }
-    int i=0;
-    start=0;
-    while(i<10000){
-        if(facAry[i]!=0){
-            start++;
-        }
-        i++;
+    if(num!=0&&num!=1){
+       addToPrime(primes,nPrimes,num,num);
     }
-    Primes *p=new Primes;
-    p->nPrimes=start;
-    p->prime=new Prime[start];
-    i=0;
-    start=0;
-    while(i<10000){
-        if(facAry[i]!=0){
-            p->prime[start].prime=i;
-            p->prime[start].power=facAry[i];
-            start++;
-        }
-        i++;
-    }
-    return p;
+    primes.nPrimes=int(nPrimes);
+    return primes;
 }
-void prntPrm(Primes *prme){
-    int num=prme->nPrimes;
-    int curr=0;
-    while(num>curr){
-        curr++;
-        if(curr==num-1){
+void addToPrime(Primes &primes,int& nPrimes, int number,int& num){
+    bool found=false;
+    for(int i=0;i<nPrimes;i++){
+        if (primes.prime[i].prime==number){
+            primes.prime[i].power=(char)(int(primes.prime[i].power)+1);
+            num=num/number;
+            found=true;
             break;
         }
-        cout<<prme->prime[curr].prime<<"^"<<prme->prime[curr].power<<endl;
+    }
+    if(!found){
+        Prime* newArr=new Prime[nPrimes+1];
+        for(int i=0;i<nPrimes;i++){
+            newArr[i] = primes.prime[i];   
+        }
+        Prime newPri;
+        newPri.prime=number;
+        newPri.power=(char)1; 
+        newArr[nPrimes]=newPri;
+        primes.prime=newArr;
+        nPrimes=nPrimes+1;
+        num=num/number;
+        }
+}
+void prntPrm(Primes prme){
+    if (prme.nPrimes>0){
+        cout<<prme.prime[0].prime<<"^"<<(int)prme.prime[0].power;
+    }
+    for (int i =1; i<prme.nPrimes;i++){
+        cout<<"*"<<prme.prime[i].prime<<"^"<<(int)prme.prime[i].power;
     }
 }
