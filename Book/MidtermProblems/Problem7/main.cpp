@@ -25,8 +25,8 @@ struct Primes{
 //Math, Science, Universal, Conversions, High Dimensioned Arrays
 
 //Function Prototypes
-int factor(int);
-void print(Primes *);
+Primes *factor(int);
+void prntPrm(Primes *);
 
 //Execution Begins Here
 int main(int argc, char** argv) {
@@ -49,49 +49,9 @@ int main(int argc, char** argv) {
     //Exit the Program - Cleanup
     return 0;
 }
-Prime factor(int num){
-    int number=2;
-    int primes[10000]={0}; // prime factor storage
-    while(num>1){
-        if(num%number==0){
-            primes[number]++; // find prime factors
-            num=num/number;
-        }
-        else{
-            number++;
-        }
-    }
-    int i=0;
-    number=0;
-    while(i<10000){
-        if(primes[i]!=0){
-            number++;
-            i++;
-        }
-    }
-    Primes *pr=new Primes;
-    pr->nPrimes=number;
-    pr->prime=new Prime[number];
+Primes *factor(int num){
     
-    i=0;
-    number=0;
-    while(i<10000){
-        if(primes[i]!=0){
-            pr->prime[number].prime=i;
-            pr->prime[number].power=primes[i];
-            number++;
-        }
-        return pr;
-    }
 }
-void print(Primes *pri){
-    int prme=pri->nPrimes;
-    int number=0;
-    while(number<prme){
-        //something here
-        if(number==prme-1){
-            break;
-        }
-    }
-    cout<<pri->prime[number].prime<<"^"<<pri->prime[number].power<<endl;
+void print(Primes *prme){
+    
 }
