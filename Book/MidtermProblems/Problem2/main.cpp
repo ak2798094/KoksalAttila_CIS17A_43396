@@ -120,4 +120,4 @@ string nameForNumber(long number){
         return nameForNumber(number/1000000000)+" billion"+((number%1000000000!=0)?" and "+nameForNumber(number%1000000000):"");
     }
     return "error";
-    }
+}
