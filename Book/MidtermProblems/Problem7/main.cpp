@@ -65,7 +65,7 @@ Primes *factor(int num){
     start=0;
     while(i<10000){
         if(facAry[i]!=0){
-            start+;
+            start++;
         }
         i++;
     }
@@ -85,5 +85,13 @@ Primes *factor(int num){
     return p;
 }
 void prntPrm(Primes *prme){
-    
+    int num=prme->nPrimes;
+    int curr=0;
+    while(num>curr){
+        curr++;
+        if(curr==num-1){
+            break;
+        }
+        cout<<prme->prime[curr].prime<<"^"<<prme->prime[curr].power<<endl;
+    }
 }
