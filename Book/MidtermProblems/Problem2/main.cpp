@@ -8,6 +8,7 @@
 
 //System Libraries
 #include <iostream>  //I/O Library
+#include <vector>
 using namespace std;
 
 struct Employee{
@@ -16,13 +17,17 @@ struct Employee{
     float pr;
 };
 
+vector<string>ones{"","one","two","three","four","five","six","seven","eight","nine"};
+vector<string>teens{"ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"};
+vector<string>tens{"","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"};
+
 //User Libraries
 
 //Global Constants
 //Math, Science, Universal, Conversions, High Dimensioned Arrays
 
 //Function Prototypes
-void convert(int);
+string nameForNumber(long);
 
 //Execution Begins Here
 int main(int argc, char** argv) {
@@ -92,52 +97,27 @@ for(int i=0;i<currSize;i++){
   cout<<address<<endl;
   cout<<"Name: "<<ary[i].name;
   cout<<"   Amount: "<<grosspay<<endl;
-  cout<<"Amount:      here"<<endl;
+  cout<<"Amount:        "<<nameForNumber(grosspay)<<endl;
   cout<<"Signature: ______________";
 }
     //Exit the Program - Cleanup
     return 0;
 }
-void convert(int value){
-    char *first[20]={"zero", "one", "two", "three","four","five","six","seven","eight","nine","ten",
-    "eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"};
-  
-    char *second[10]={"", "ten", "twenty", "thirty","forty","fifty","sixty","seventy","eighty","ninety"};
-
-    if(value<0)
-    {
-        cout<<" ";
-        convert(-value);
+string nameForNumber(long number){
+    if(number<10){
+        return ones[number];
+    }else if(number<20){
+        return teens[number-10];
+    }else if(number<100){
+        return tens[number/10]+((number%10!=0)?" "+nameForNumber(number%10):"");
+    }else if(number<1000){
+        return nameForNumber(number/100)+" hundred"+((number%100!=0)?" and "+nameForNumber(number%100):"");
+    }else if(number<1000000){
+        return nameForNumber(number/1000)+" thousand"+((number%1000!=0)?" and "+nameForNumber(number%1000):"");
+    }else if(number<1000000000){
+        return nameForNumber(number/1000000)+" million"+((number%1000000!=0)?" and "+nameForNumber(number%1000000):"");
+    }else if(number<1000000000000){
+        return nameForNumber(number/1000000000)+" billion"+((number%1000000000!=0)?" and "+nameForNumber(number%1000000000):"");
     }
-    else if(value>=1000){
-        convert(value/1000);
-        cout<<" THOUSAND";
-        if(value%1000){
-            if(value%1000<100){
-                cout<<" AND";
-            }
-            cout<<" " ;
-            convert(value%1000);
-        }
+    return "error";
     }
-    else if(value>=100){
-        convert(value/100);
-        cout<<" HUNDRED";
-        if(value%100){
-            cout<<" AND ";
-            convert(value%100);
-        }
-    }
-    else if(value>=20){
-        cout<<second[value/10];
-        if(value%10){
-            cout<<" ";
-            convert(value%10);
-        }
-    }
-    else{
-        cout<<first[value];
-    }
-    return;
-    
-}
