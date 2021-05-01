@@ -9,8 +9,9 @@
 //System Libraries
 #include <iostream>  //I/O Library
 #include <fstream>
-#include <string>
 using namespace std;
+
+const int LENGTH=4;
 
 struct CorpInfo{
     static string Division[LENGTH];
@@ -23,7 +24,6 @@ string CorpInfo::Division[LENGTH]={"East","West","North","South"};
 //User Libraries
 
 //Global Constants
-const int LENGTH=4;
 
 //Math, Science, Universal, Conversions, High Dimensioned Arrays
 
