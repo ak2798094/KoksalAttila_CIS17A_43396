@@ -40,14 +40,12 @@ int main(int argc, char** argv) {
     cin.getline(inName,SIZE);
     inFile.open(inName);
     if(!inFile){
-        cout<<"Error opening "<<inFile<<endl;
         exit(EXIT_FAILURE);
     }
     cout<<"Enter the output file name: ";
     cin.getline(outName,SIZE);
     outFile.open(outName);
     if(!outFile){
-        cout<<"Error opening "<<outFile<<endl;
         exit(EXIT_FAILURE);
     }
     
