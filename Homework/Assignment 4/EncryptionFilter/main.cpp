@@ -53,7 +53,7 @@ int main(int argc, char** argv) {
     
     while(!inFile.eof()){
         inFile.get(input);
-        input+=10;
+        input+=10; //Encryption
         outFile.put(input);
     }
     cout<<"The file has been encrypted."<<endl;

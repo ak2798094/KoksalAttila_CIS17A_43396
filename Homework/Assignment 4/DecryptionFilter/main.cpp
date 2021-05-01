@@ -53,10 +53,10 @@ int main(int argc, char** argv) {
     
     while(!inFile.eof()){
         inFile.get(input);
-        input-=10;
+        input-=10; //Decryption
         outFile.put(input);
     }
-    cout<<"The file has been encrypted."<<endl;
+    cout<<"The file has been decrypted."<<endl;
     
     //Exit the Program - Cleanup
     inFile.close();
