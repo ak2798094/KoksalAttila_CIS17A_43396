@@ -86,10 +86,10 @@ int main(int argc, char** argv) {
 
 
 void initialize(Space board[ROW][COLUMN]){
-		for(int i=0;i<ROW;i++){
-			for(int j=0;j<COLUMN;j++){		
-      	board[i][j].value = " ";
-      }  
+    for(int i=0;i<ROW;i++){
+	for(int j=0;j<COLUMN;j++){		
+            board[i][j].value = " ";
+        }  
     }
 }
 
