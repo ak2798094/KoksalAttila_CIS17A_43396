@@ -93,9 +93,10 @@ void printGame(){
 
 
 
-XXX playerMove(){
+Coordinate playerMove(){
     
-    cout<<enter which column to put;
+    cout<<"Enter which column to put: ";
+    cout<<"Enter which row to put: ";
     
     printGame();
 
