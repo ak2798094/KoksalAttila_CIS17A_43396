@@ -16,8 +16,8 @@ struct Space{ // Whether if a spot on the board is filled or not
 
 
 struct Coordinate{
-	int x;
-  int y;
+    int x;
+    int y;
 };
 
 
@@ -29,13 +29,10 @@ const int COLUMN = 7;
 int main(int argc, char** argv) {
 
     Space board[ROW][COLUMN]; 
-		String player1 = "X";
-    String player2 = "O";
-
-
-	 
-
-		initialize(board); do this
+    string player1 = "X";
+    string player2 = "O";
+    
+    initialize(board); do this
     printGame(); do this and this
     X 	playerMove(board,"X"); //maybe
   
@@ -69,15 +66,12 @@ int main(int argc, char** argv) {
     return 0;
 }
 
- bool gameOver(Space board[Row][Column],Coordinate myCoord){
-
-
-
-  if (myCoordCausedWin){
-    return ;
-  }else{
-    return xxxx.
-  }
+ bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
+    if(myCoordCausedWin){
+         return ;
+    }else{
+        return xxxx.
+    }
 
 }
 
@@ -88,23 +82,22 @@ int main(int argc, char** argv) {
 void initialize(Space board[ROW][COLUMN]){
     for(int i=0;i<ROW;i++){
 	for(int j=0;j<COLUMN;j++){		
-            board[i][j].value = " ";
+            board[i][j].value=" ";
         }  
     }
 }
 
-
-
+void printGame(){
+    
+}
 
 
 
 XXX playerMove(){
-
-cout<<enter which column to put;
-
-
-
-printGame();
+    
+    cout<<enter which column to put;
+    
+    printGame();
 
 }
 
