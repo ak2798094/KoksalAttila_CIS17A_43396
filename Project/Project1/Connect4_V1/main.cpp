@@ -19,88 +19,78 @@ struct Coordinate{
     int x;
     int y;
 };
-
-
 const int ROW = 6;
 const int COLUMN = 7;
-
-
-
-int main(int argc, char** argv) {
-
-    Space board[ROW][COLUMN]; 
-    string player1 = "X";
-    string player2 = "O";
-    
-    initialize(board); do this
-    printGame(); do this and this
-    X 	playerMove(board,"X"); //maybe
-  
-  
-  
-  
-		//headsOrTails();  // let user 1 chose heads or tails, then random generate result to chose order;
-    
-    while(true){
-    
-      coord1= playerMove(board,player1);      
-
-     if (gameOver(board,coord1)){
-        cout<<"Game Over, player"<<player1<<"won";
-        break;
-      }
-	
-
-      coord2= playerMove(board,player2);
-       if (gameOver(board,coord2)){cout<<"Game Over, player "<<player2<<"won"; break;}
-	
-
-
-    }
-    
-
-    
-    
-    
-    
-    return 0;
-}
-
- bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
-    if(myCoordCausedWin){
-         return ;
-    }else{
-        return xxxx.
-    }
-
-}
-
-
-
-
 
 void initialize(Space board[ROW][COLUMN]){
     for(int i=0;i<ROW;i++){
 	for(int j=0;j<COLUMN;j++){		
-            board[i][j].value=" ";
+            board[i][j].value="_";
         }  
     }
 }
 
-void printGame(){
+void printGame(Space board[ROW][COLUMN]){
     
+    for(int i=0;i<COLUMN;i++){
+        cout<<i<<" ";
+    }
+    cout<<endl;
+    
+    for(int i=0;i<ROW;i++){
+      for(int j=0;j<COLUMN;j++){
+        cout<<board[i][j].value<<" ";
+      }
+      cout<<endl;
+    }
+}
+
+void playerMove(Space board[ROW][COLUMN],string myPlayer){
+    int playRow = 0;
+    int playCol=0;
+    cout<<"Player: "<<myPlayer<<". Enter which column to put: (0-"<<COLUMN-1<<")"<<endl;
+    cin>>playCol;
+    while(playCol>=COLUMN || playCol<0){
+        cout<<"Please enter again. Column Number needs to be less than "<<COLUMN<<" and greater than 0."<<endl;
+        cin>>playCol;
+    }
+    board[playRow][playCol].value=myPlayer;
+    printGame(board);
+}
+
+int main(int argc, char** argv) {
+
+    Space board[ROW][COLUMN]; 
+    
+    
+    string player1 = "X";
+    string player2 = "O";
+    
+    initialize(board);
+    printGame(board);
+    
+    while(true){
+    playerMove(board,player1);
+    playerMove(board,player2);
+
+    }
+    
+    return 0;   
+}
+
+ bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
+     return false;
+
 }
 
 
 
-Coordinate playerMove(){
-    
-    cout<<"Enter which column to put: ";
-    cout<<"Enter which row to put: ";
-    
-    printGame();
 
-}
+
+
+
+
+
 
 
 
