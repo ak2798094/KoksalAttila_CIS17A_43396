@@ -84,9 +84,10 @@ int main(int argc, char** argv) {
 
     Space board[ROW][COLUMN]; 
     
-    
     string player1 = "X";
     string player2 = "O";
+    
+    cout<<"Welcome to Connect 4. There are two players in this game, so let's play!"<<endl;
     
     initialize(board);
     printGame(board);
