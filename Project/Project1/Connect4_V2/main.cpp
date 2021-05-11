@@ -81,10 +81,36 @@ Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){
 }
 
  bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
-    
-    
+    // Horizontal Win Test
+    int counter=0;
+    string myPlayer=board[myCoord.x][myCoord.y].value;
+    for(int i=0;i<COLUMN;i++){
+        if(board[myCoord.x][i].value==myPlayer){
+            counter++;
+        }
+        else{
+            counter=0;
+        }
+        if(counter==4){
+            cout<<"Game Over. Player "<<myPlayer<<" has won the game!";
+            return true;
+        }
+    }
+    // Vertical Win Test
+    counter=0;
+    for(int i=0;i<ROW;i++){
+        if(board[i][myCoord.y].value==myPlayer){
+            counter++;
+        }
+        else{
+            counter=0;
+        }
+        if(counter==4){
+            cout<<"Game Over. Player "<<myPlayer<<" has won the game!";
+            return true;
+        }
+    }
     return false;
-
 }
 int main(int argc, char** argv) {
 
