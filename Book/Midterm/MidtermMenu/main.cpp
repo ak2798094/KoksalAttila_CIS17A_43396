@@ -58,9 +58,9 @@ bool fiveDigit(int);
 void encrypt(int);
 void decrypt(int);
 string nameForNumber(long);
-Primes factor(int);
-void prntPrm(Primes);
-void addToPrime(Primes&,int&,int,int&);
+Primes* factor(int);
+void prntPrm(Primes*);
+Primes* addToPrime(Primes*,int&,int,int&);
 
 //Execution Begins Here
 int main(int argc, char** argv) {
@@ -119,6 +119,7 @@ void prblm1(){
     customer->address=address;
     cout<<"Enter the five digit account number: ";
     cin>>account;
+    
     while(!fiveDigit(account)){
         cout<<"Invalid account number. Please enter a 5 digit account number: ";
         cin>>account;
@@ -156,51 +157,42 @@ void prblm1(){
 // Problem 2
 void prblm2(){
     cout<<"Problem 2"<<endl;
-    Employee* ary;
-    int currSize=0;
     string compName;
     string address;
-    
+    int numOfEmp = 0;
+
     cout<<"Enter company name: ";
     cin>>compName;
     cout<<"Enter company address: ";
     cin.ignore();
     getline(cin,address);
     
-    while(true){
-        Employee emp;
+    cout<<"Enter number of employees"<<endl;
+    cin>>numOfEmp;
+    
+    while(numOfEmp<=0){
+        cout<<"incorrect Employee size, please try again"<<endl;
+        cin>>numOfEmp;
+    }    
+    Employee* ary=  new Employee[numOfEmp];
 
+    for(int i =0;i<numOfEmp;i++){
+        Employee emp;
         cout<<"Enter employee name: ";
         cin>>emp.name;
 
         cout<<"Enter employee's hours worked: ";
         cin>>emp.hrw;
-        if(emp.hrw<0){
-            break;
-        }
+        if(emp.hrw<0){break;}
 
         cout<<"Enter employee's pay rate: ";
         cin>>emp.pr;
-        if(emp.pr<0){
-            break;
-        }
-
-        //create a new array with +1 size
-	Employee* aryNew = new Employee[currSize+1];
-  
-        //copy old info
-  
-        for(int i=0;i<currSize;i++){
-            aryNew[i]=ary[i];
-        }
-  
-	aryNew[currSize] = emp;
-        currSize+=1;
-        delete [] ary;
-        ary = aryNew;
+        if(emp.pr<0){break;}
+        
+        ary[i] =  emp;
     }
 
-    for(int i=0;i<currSize;i++){
+    for(int i=0;i<numOfEmp;i++){
     //--------------gross pay-----------------------
         float grosspay=0;
         if(ary[i].hrw<=40){//less than 40 hrs
@@ -213,7 +205,7 @@ void prblm2(){
             grosspay=(ary[i].pr*40) + ((ary[i].pr*2)*10) + ((ary[i].pr*3)+(ary[i].hrw-50));
         }
     //---------------------------------------------
-  
+
         cout<<endl;
         cout<<compName<<endl;
         cout<<address<<endl;
@@ -278,21 +270,16 @@ void prblm7(){
     cout<<"Give me a number to factor: ";
     cin>>number;
     cout<<"Factors of "<<number<<": ";
-    prntPrm(factor(number));
+    Primes* prm = factor(number);
+    prntPrm(prm);
+    delete prm;
 }
 
 bool fiveDigit(int number){
-    int a=0;
-    while(number>0){
-        a++;
-        number=number/10;
-    }
-    if(a==5){
-        return true;
-    }
-    else{
-        return false;
-    }
+   //char *intStr = itoa(number);
+   return true;// (strlen(intStr)==5);
+    
+    
 }
 
 void encrypt(int num){
@@ -357,28 +344,28 @@ string nameForNumber(long number){
     }
     return "error";
 }
-Primes factor(int num){
-    Primes primes;
+Primes* factor(int num){
+    Primes* primes= new Primes;
     int nPrimes=0;
     while (num%2==0){
-       addToPrime(primes,nPrimes,2,num);
+       primes = addToPrime(primes,nPrimes,2,num);
     }
     for(int j=3;j<=sqrt(num);j=j+2){
        while(num%j==0){
-       addToPrime(primes,nPrimes,j,num);
+        primes = addToPrime(primes,nPrimes,j,num);
         }
     }
     if(num!=0&&num!=1){
-       addToPrime(primes,nPrimes,num,num);
+        primes = addToPrime(primes,nPrimes,num,num);
     }
-    primes.nPrimes=int(nPrimes);
+    primes->nPrimes=int(nPrimes);
     return primes;
 }
-void addToPrime(Primes &primes,int& nPrimes, int number,int& num){
+Primes* addToPrime(Primes* primes,int& nPrimes, int number,int& num){
     bool found=false;
     for(int i=0;i<nPrimes;i++){
-        if (primes.prime[i].prime==number){
-            primes.prime[i].power=(char)(int(primes.prime[i].power)+1);
+        if (primes->prime[i].prime==number){
+            primes->prime[i].power=(char)(int(primes->prime[i].power)+1);
             num=num/number;
             found=true;
             break;
@@ -387,22 +374,26 @@ void addToPrime(Primes &primes,int& nPrimes, int number,int& num){
     if(!found){
         Prime* newArr=new Prime[nPrimes+1];
         for(int i=0;i<nPrimes;i++){
-            newArr[i] = primes.prime[i];   
+            newArr[i] = primes->prime[i];   
         }
         Prime newPri;
         newPri.prime=number;
         newPri.power=(char)1; 
         newArr[nPrimes]=newPri;
-        primes.prime=newArr;
+        
+        
+        primes->prime=newArr;
         nPrimes=nPrimes+1;
         num=num/number;
         }
+    return primes;
 }
-void prntPrm(Primes prme){
-    if (prme.nPrimes>0){
-        cout<<prme.prime[0].prime<<"^"<<(int)prme.prime[0].power;
+
+void prntPrm(Primes* prme){
+    if (prme->nPrimes>0){
+        cout<<prme->prime[0].prime<<"^"<<(int)prme->prime[0].power;
     }
-    for (int i =1; i<prme.nPrimes;i++){
-        cout<<"*"<<prme.prime[i].prime<<"^"<<(int)prme.prime[i].power;
+    for (int i =1; i<prme->nPrimes;i++){
+        cout<<"*"<<prme->prime[i].prime<<"^"<<(int)prme->prime[i].power;
     }
 }

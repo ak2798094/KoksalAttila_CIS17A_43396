@@ -14,8 +14,8 @@ struct Customer{
     string address;
     int account;
     float balance;
-    float ctotal[100];
-    float dtotal[100];
+    float *ctotal[];
+    float *dtotal[];
 };
 
 //User Libraries
