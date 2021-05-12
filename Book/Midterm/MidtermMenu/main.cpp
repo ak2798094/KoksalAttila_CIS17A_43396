@@ -254,13 +254,13 @@ void prblm5(){
 // Problem 6
 void prblm6(){
     cout<<"Problem 6"<<endl;
-    cout<<"a) The conversion of 2.875 into binary, octal, and hex"<<endl<<"Binary: "<<"10.111"<<endl<<"Octal: "<<"2.7"<<endl<<"Hex: "<<"2E"<<endl;
-    cout<<"The conversion of 0.1796875 into binary, octal, and hex"<<endl<<"Binary: "<<"0010111"<<endl<<"Octal: "<<"0.134"<<endl<<"Hex: "<<"0.2E"<<endl;
-    cout<<"b) The conversion of -2.875 into binary, octal, and hex"<<endl<<"Binary: "<<"-10.111"<<endl<<"Octal: "<<"-2.7"<<endl<<"Hex: "<<"-2E"<<endl;
-    cout<<"The conversion of -0.1796875 into binary, octal, and hex"<<endl<<"Binary: "<<"-0010111"<<endl<<"Octal: "<<"-0.134"<<endl<<"Hex: "<<"-0.2E"<<endl;
-    cout<<"c) The decimal number of 59999901 is 0.1503238401."<<endl;
-    cout<<"The decimal number of 59999902 is 0.1503238402."<<endl;
-    cout<<"The decimal number of A66667FE is -0.2791729150."<<endl;
+    cout<<"a) The conversion of 2.875 into binary, octal, and hex"<<endl<<"Binary: "<<"10.111"<<endl<<"Octal: "<<"2.7"<<endl<<"Hex: "<<"2E"<<endl<<"8 digit hex number representation using 4 byte float specification: "<<"5C000002"<<endl;
+    cout<<"The conversion of 0.1796875 into binary, octal, and hex"<<endl<<"Binary: "<<"0010111"<<endl<<"Octal: "<<"0.134"<<endl<<"Hex: "<<"0.2E"<<endl<<"8 digit hex number representation using 4 byte float specification: "<<"5C0000FE"<<endl;
+    cout<<"b) The conversion of -2.875 into binary, octal, and hex"<<endl<<"Binary: "<<"-10.111"<<endl<<"Octal: "<<"-2.7"<<endl<<"Hex: "<<"-2E"<<endl<<"8 digit hex number representation using 4 byte float specification: "<<"A4000002"<<endl;
+    cout<<"The conversion of -0.1796875 into binary, octal, and hex"<<endl<<"Binary: "<<"-0010111"<<endl<<"Octal: "<<"-0.134"<<endl<<"Hex: "<<"-0.2E"<<endl<<"8 digit hex number representation using 4 byte float specification: "<<"A40000FE"<<endl;
+    cout<<"c) The decimal number of 59999901 is 1.4"<<endl;
+    cout<<"The decimal number of 59999902 is 2.8"<<endl;
+    cout<<"The decimal number of A66667FE is -0.175"<<endl;
 }
 
 // Problem 7
