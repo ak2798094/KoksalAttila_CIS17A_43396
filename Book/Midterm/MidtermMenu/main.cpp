@@ -247,8 +247,8 @@ void prblm5(){
     cout<<"b) The largest factorial using long int is 12."<<endl;
     cout<<"b) The largest factorial using signed long int is 12."<<endl;
     cout<<"b) The largest factorial using unsigned long int is 12."<<endl;
-    cout<<"b) The largest factorial using float is 12."<<endl;
-    cout<<"b) The largest factorial using double is 12."<<endl;
+    cout<<"b) The largest factorial using float is 34."<<endl;
+    cout<<"b) The largest factorial using double is 170."<<endl;
 }
 
 // Problem 6
