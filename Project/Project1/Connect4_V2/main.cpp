@@ -27,6 +27,31 @@ void printGame(Space);
 Coordinate playerMove(Space,string);
 bool gameOver(Space,Coordinate);
 
+int main(int argc, char** argv) {
+
+    Space board[ROW][COLUMN]; 
+    
+    string player1 = "X";
+    string player2 = "O";
+    
+    cout<<"Welcome to Connect 4. There are two players in this game, so let's play!"<<endl;
+    
+    initialize(board);
+    printGame(board);
+    
+    
+    
+    while(true){
+        if(gameOver(board,playerMove(board,player1))){
+            break;
+        }
+        if(gameOver(board,playerMove(board,player2))){
+            break;
+        }
+    }
+    
+    return 0;   
+}
 void initialize(Space board[ROW][COLUMN]){
     for(int i=0;i<ROW;i++){
 	for(int j=0;j<COLUMN;j++){		
@@ -116,29 +141,4 @@ Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){
         }
     }
     return false;
-}
-int main(int argc, char** argv) {
-
-    Space board[ROW][COLUMN]; 
-    
-    string player1 = "X";
-    string player2 = "O";
-    
-    cout<<"Welcome to Connect 4. There are two players in this game, so let's play!"<<endl;
-    
-    initialize(board);
-    printGame(board);
-    
-    
-    
-    while(true){
-        if(gameOver(board,playerMove(board,player1))){
-            break;
-        }
-        if(gameOver(board,playerMove(board,player2))){
-            break;
-        }
-    }
-    
-    return 0;   
 }
