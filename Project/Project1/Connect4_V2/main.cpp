@@ -22,6 +22,11 @@ struct Coordinate{
 const int ROW = 6;
 const int COLUMN = 7;
 
+void initialize(Space);
+void printGame(Space);
+Coordinate playerMove(Space,string);
+bool gameOver(Space,Coordinate);
+
 void initialize(Space board[ROW][COLUMN]){
     for(int i=0;i<ROW;i++){
 	for(int j=0;j<COLUMN;j++){		
