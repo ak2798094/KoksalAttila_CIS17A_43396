@@ -22,6 +22,36 @@ struct Coordinate{
 const int ROW = 6;
 const int COLUMN = 7;
 
+void initialize(Space[ROW][COLUMN]);
+void printGame(Space[ROW][COLUMN]);
+Coordinate playerMove(Space[ROW][COLUMN],string);
+bool gameOver(Space[ROW][COLUMN],Coordinate);
+
+int main(int argc, char** argv) {
+
+    Space board[ROW][COLUMN]; 
+    
+    string player1 = "X";
+    string player2 = "O";
+    
+    cout<<"Welcome to Connect 4. There are two players in this game, so let's play!"<<endl;
+    
+    initialize(board);
+    printGame(board);
+    
+    
+    
+    while(true){
+        if(gameOver(board,playerMove(board,player1))){
+            break;
+        }
+        if(gameOver(board,playerMove(board,player2))){
+            break;
+        }
+    }
+    
+    return 0;   
+}
 void initialize(Space board[ROW][COLUMN]){
     for(int i=0;i<ROW;i++){
 	for(int j=0;j<COLUMN;j++){		
@@ -80,33 +110,8 @@ Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){
     
 }
 
- bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
+bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
  
     return false;
 
- }
-int main(int argc, char** argv) {
-
-    Space board[ROW][COLUMN]; 
-    
-    string player1 = "X";
-    string player2 = "O";
-    
-    cout<<"Welcome to Connect 4. There are two players in this game, so let's play!"<<endl;
-    
-    initialize(board);
-    printGame(board);
-    
-    
-    
-    while(true){
-        if(gameOver(board,playerMove(board,player1))){
-            break;
-        }
-        if(gameOver(board,playerMove(board,player2))){
-            break;
-        }
-    }
-    
-    return 0;   
 }
