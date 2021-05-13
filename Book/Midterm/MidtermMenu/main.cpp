@@ -9,15 +9,19 @@
 #include <iostream>  //I/O Library
 #include <vector>
 #include <cmath>
+#include <string>
+
+
+
 using namespace std;
 
 struct Customer{
     string name;
     string address;
-    int account;
+    string account;
     float balance;
-    float *ctotal[100];
-    float *dtotal[100];
+    float *ctotal;
+    float *dtotal;
 };
 
 struct Employee{
@@ -54,7 +58,7 @@ void prblm4();
 void prblm5();
 void prblm6();
 void prblm7();
-bool fiveDigit(int);
+bool fiveDigit(string);
 void encrypt(int);
 void decrypt(int);
 string nameForNumber(long);
@@ -104,8 +108,8 @@ void menu(){
 void prblm1(){
     cout<<"Problem 1"<<endl;
     
-    string name,address;
-    int checks,deposits,account;
+    string name,address,account;
+    int checks,deposits;
     float balance,sum=0,diff=0,total=0,current;
     Customer* customer=new Customer;
     
@@ -130,6 +134,7 @@ void prblm1(){
     sum=sum+balance;
     cout<<"How many checks did you write this month?: ";
     cin>>checks;
+    customer->ctotal = new float(checks);
     for(int i=0;i<checks;i++){
         cout<<"Enter the current check amount: ";
         cin>>current;
@@ -139,6 +144,8 @@ void prblm1(){
     cout<<"Total amount from checks: "<<diff<<endl;
     cout<<"How many deposits would you like to enter for this month?: ";
     cin>>deposits;
+    customer->dtotal = new float(deposits);
+
     for(int i=0;i<deposits;i++){
         cout<<"Enter the current deposit amount: ";
         cin>>current;
@@ -153,7 +160,7 @@ void prblm1(){
         cout<<"The account has been overdrawn. An additional $20 dollar fee has been accessed. The new balance is: "<<total-20<<endl;
     }
     cout<<customer->name<<" at "<<customer->address<<" with the account number of "<<customer->account<<" has a balance of $"<<total<<endl;
-    delete [] customer;
+    delete customer;
 }    
 // Problem 2
 void prblm2(){
@@ -276,12 +283,16 @@ void prblm7(){
     delete prm;
 }
 
-bool fiveDigit(int number){
-   //char *intStr = itoa(number);
-   return true;// (strlen(intStr)==5);
+bool fiveDigit(string number){
+     
+
+   
+   return (number.length()==5);
     
-    
+   
 }
+
+
 
 void encrypt(int num){
     int first,second,third,fourth; // storing respective digit of number
