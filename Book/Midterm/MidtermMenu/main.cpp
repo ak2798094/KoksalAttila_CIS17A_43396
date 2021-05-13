@@ -16,8 +16,8 @@ struct Customer{
     string address;
     int account;
     float balance;
-    float ctotal[100];
-    float dtotal[100];
+    float *ctotal[100];
+    float *dtotal[100];
 };
 
 struct Employee{
@@ -153,6 +153,7 @@ void prblm1(){
         cout<<"The account has been overdrawn. An additional $20 dollar fee has been accessed. The new balance is: "<<total-20<<endl;
     }
     cout<<customer->name<<" at "<<customer->address<<" with the account number of "<<customer->account<<" has a balance of $"<<total<<endl;
+    delete [] customer;
 }    
 // Problem 2
 void prblm2(){
