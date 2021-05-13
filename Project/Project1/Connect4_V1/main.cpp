@@ -81,11 +81,10 @@ Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){
 }
 
  bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
-    
-    
+ 
     return false;
 
-}
+ }
 int main(int argc, char** argv) {
 
     Space board[ROW][COLUMN]; 

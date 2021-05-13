@@ -22,10 +22,10 @@ struct Coordinate{
 const int ROW = 6;
 const int COLUMN = 7;
 
-void initialize(Space);
-void printGame(Space);
-Coordinate playerMove(Space,string);
-bool gameOver(Space,Coordinate);
+void initialize(Space[ROW][COLUMN]);
+void printGame(Space[ROW][COLUMN]);
+Coordinate playerMove(Space[ROW][COLUMN],string);
+bool gameOver(Space[ROW][COLUMN],Coordinate);
 
 int main(int argc, char** argv) {
 
@@ -140,5 +140,71 @@ Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){
             return true;
         }
     }
+    // Diagonal Win Test
+    counter=1;
+    Coordinate* newCoord = new Coordinate();
+    newCoord->x=myCoord.x;
+    newCoord->y=myCoord.y;
+    
+    //slash
+    //up
+    newCoord->x=newCoord->x-1;
+    newCoord->y=newCoord->y+1;
+    while(newCoord->x>=0 && newCoord->y>=0 && newCoord->x<ROW && newCoord->y<COLUMN){
+        if(board[newCoord->x][newCoord->y].value!=myPlayer){
+            break;
+        }else{
+            counter++;
+            if(counter==4){cout<<"Game Over. Player "<<myPlayer<<" has won the game!";delete newCoord;return true;}
+            newCoord->x=newCoord->x-1;
+            newCoord->y=newCoord->y+1;
+        }
+    }
+    //down
+    newCoord->x=myCoord.x+1;
+    newCoord->y=myCoord.y-1;
+    while(newCoord->x>=0 && newCoord->y>=0 && newCoord->x<ROW && newCoord->y<COLUMN){
+        if(board[newCoord->x][newCoord->y].value!=myPlayer){
+            break;
+        }else{
+            counter++;
+            if(counter==4){cout<<"Game Over. Player "<<myPlayer<<" has won the game!";delete newCoord;return true;}
+            newCoord->x=newCoord->x+1;
+            newCoord->y=newCoord->y-1;
+        }
+    }
+    
+    
+    
+    //backslash
+    //up
+    newCoord->x=newCoord->x-1;
+    newCoord->y=newCoord->y-1;
+    while(newCoord->x>=0 && newCoord->y>=0 && newCoord->x<ROW && newCoord->y<COLUMN){
+        if(board[newCoord->x][newCoord->y].value!=myPlayer){
+            break;
+        }else{
+            counter++;
+            if(counter==4){cout<<"Game Over. Player "<<myPlayer<<" has won the game!";delete newCoord;return true;}
+            newCoord->x=newCoord->x-1;
+            newCoord->y=newCoord->y-1;
+        }
+    }
+    //down
+    newCoord->x=myCoord.x+1;
+    newCoord->y=myCoord.y+1;
+    while(newCoord->x>=0 && newCoord->y>=0 && newCoord->x<ROW && newCoord->y<COLUMN){
+        if(board[newCoord->x][newCoord->y].value!=myPlayer){
+            break;
+        }else{
+            counter++;
+            if(counter==4){cout<<"Game Over. Player "<<myPlayer<<" has won the game!";delete newCoord;return true;}
+            newCoord->x=newCoord->x+1;
+            newCoord->y=newCoord->y+1;
+        }
+    }
+    
+    
+    delete newCoord;
     return false;
 }
