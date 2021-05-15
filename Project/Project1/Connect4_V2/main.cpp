@@ -205,6 +205,6 @@ Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){
     }
     
     
-    delete newCoord;
+    delete newCoord; // Deallocates the new coordinate after usage
     return false;
 }
