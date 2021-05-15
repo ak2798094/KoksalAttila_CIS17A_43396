@@ -15,47 +15,47 @@ struct Space{ // Whether if a spot on the board is filled or not
 };
 
 
-struct Coordinate{
+struct Coordinate{ // Represents a spot on the board
     int x;
     int y;
 };
-const int ROW = 6;
-const int COLUMN = 7;
+const int ROW = 6; // Number of rows in the Connect 4 game
+const int COLUMN = 7; // Number of columns in the Connect 4 game
 
-void initialize(Space[ROW][COLUMN]);
-void printGame(Space[ROW][COLUMN]);
-Coordinate playerMove(Space[ROW][COLUMN],string);
-bool gameOver(Space[ROW][COLUMN],Coordinate);
+void initialize(Space[ROW][COLUMN]); // Initializing the game board to where all the spots are empty and creates a board with given number of rows and columns
+void printGame(Space[ROW][COLUMN]); // Prints the game board onto the screen
+Coordinate playerMove(Space[ROW][COLUMN],string); // Plays and prints to a specific spot on the board according to the player's input
+bool gameOver(Space[ROW][COLUMN],Coordinate); // Checks if the game is over by checking win conditions (Horizontal, Vertical, Diagonal Slash and Backslash, and Draw)
 
 int main(int argc, char** argv) {
 
-    Space board[ROW][COLUMN]; 
+    Space board[ROW][COLUMN]; // Creates a game board with the designated number of rows and columns
     
-    string player1 = "X";
-    string player2 = "O";
+    string player1 = "X"; // Creates player1 or Player X
+    string player2 = "O"; // Creates player2 or Player O
     
-    cout<<"Welcome to Connect 4. There are two players in this game, so let's play!"<<endl;
+    cout<<"Welcome to Connect 4. There are two players in this game, so let's play!"<<endl; // Prints a welcome message before game starts
     
-    initialize(board);
-    printGame(board);
+    initialize(board); // Cleans the board completely, making all spots empty
+    printGame(board); // Prints the game board onto the screen
     
     
     
-    while(true){
-        if(gameOver(board,playerMove(board,player1))){
-            break;
+    while(true){ // Using a while loop to check if a player's move resulted in victory
+        if(gameOver(board,playerMove(board,player1))){ // Checks if player1's move on the game board resulted in victory
+            break; // If victory, the program exits out of the game
         }
-        if(gameOver(board,playerMove(board,player2))){
-            break;
+        if(gameOver(board,playerMove(board,player2))){ // Checks if player2's move on the game board resulted in victory
+            break; // If victory, the program exits out of the game
         }
     }
     
     return 0;   
 }
-void initialize(Space board[ROW][COLUMN]){
-    for(int i=0;i<ROW;i++){
-	for(int j=0;j<COLUMN;j++){		
-            board[i][j].value="_";
+void initialize(Space board[ROW][COLUMN]){ // Initializing the game board to where all the spots are empty and creates a board with given number of rows and columns
+    for(int i=0;i<ROW;i++){ // For loop that goes through each row of the game board
+	for(int j=0;j<COLUMN;j++){ // For loop that goes through each column of the game board
+            board[i][j].value="_"; // Prints an string "_" to each spot on the game board using the nested for loops above
         }  
     }
 }
