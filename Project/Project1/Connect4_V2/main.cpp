@@ -75,7 +75,7 @@ void printGame(Space board[ROW][COLUMN]){ // Prints the game board onto the scre
     }
 }
 
-Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){
+Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){ // Do the flowchart representation of this function
     int playRow = 0;
     int playCol=0;
     Coordinate coord;
