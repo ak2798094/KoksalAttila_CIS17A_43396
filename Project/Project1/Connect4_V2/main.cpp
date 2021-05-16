@@ -60,18 +60,17 @@ void initialize(Space board[ROW][COLUMN]){ // Initializing the game board to whe
     }
 }
 
-void printGame(Space board[ROW][COLUMN]){
-    
-    for(int i=0;i<COLUMN;i++){
-        cout<<i<<" ";
+void printGame(Space board[ROW][COLUMN]){ // Prints the game board onto the screen
+    for(int i=0;i<COLUMN;i++){ // For loop that loops through the board from COLUMN 0 to COLUMN-1
+        cout<<i<<" "; // Prints an empty space for each spot
     }
-    cout<<endl;
+    cout<<endl; // Prints a newline
     
-    for(int i=0;i<ROW;i++){
-      for(int j=0;j<COLUMN;j++){
-        cout<<board[i][j].value<<" ";
+    for(int i=0;i<ROW;i++){ // For loop that goes through each row of the game board
+      for(int j=0;j<COLUMN;j++){ // For loop that goes through each column of the game board
+        cout<<board[i][j].value<<" "; // Prints the player's representation of play (X or O) on the chosen spot of the board according to the player's input
       }
-      cout<<endl;
+      cout<<endl; // Prints a newline
     }
 }
 
