@@ -19,6 +19,7 @@ struct Coordinate{ // Represents a spot on the board
     int x;
     int y;
 };
+
 const int ROW = 6; // Number of rows in the Connect 4 game
 const int COLUMN = 7; // Number of columns in the Connect 4 game
 
@@ -33,9 +34,11 @@ int main(int argc, char** argv) {
     
     string player1 = "X"; // Creates player1 or Player X
     string player2 = "O"; // Creates player2 or Player O
+    int turnCnt=0; // Number of turns taken before game reaches conclusion
     
     cout<<"Welcome to Connect 4. There are two players in this game, so let's play!"<<endl; // Prints a welcome message before game starts
-    cout<<"This Connect 4 contains two players. The players are player1 or Player X and player2 or Player O."; // Gives info on how many players can play the game and how they are represented when playing the game
+    cout<<"This Connect 4 contains two players."; // Gives info on how many players can play the game
+    cout<<"The players are player1 or Player X and player2 or Player O."<<endl; // How the players are represented when playing the game
     
     initialize(board); // Cleans the board completely, making all spots empty
     printGame(board); // Prints the game board onto the screen
@@ -43,17 +46,23 @@ int main(int argc, char** argv) {
     
     
     while(true){ // Using a while loop to check if a player's move resulted in victory
+        turnCnt++;
         if(gameOver(board,playerMove(board,player1))){ // Checks if player1's move on the game board resulted in victory
+            cout<<"The game ended after "<<turnCnt<<" turns.";
             break; // If victory, the program exits out of the game
         }
         if(gameOver(board,playerMove(board,player2))){ // Checks if player2's move on the game board resulted in victory
+            cout<<"The game ended after "<<turnCnt<<" turns.";
             break; // If victory, the program exits out of the game
         }
     }
+    cout<<endl<<"Thank you for playing the game."<<endl;
     
     return 0;   
 }
-void initialize(Space board[ROW][COLUMN]){ // Initializing the game board to where all the spots are empty and creates a board with given number of rows and columns
+
+// Initializing the game board to where all the spots are empty and creates a board with given number of rows and columns
+void initialize(Space board[ROW][COLUMN]){
     for(int i=0;i<ROW;i++){ // For loop that goes through each row of the game board
 	for(int j=0;j<COLUMN;j++){ // For loop that goes through each column of the game board
             board[i][j].value="_"; // Prints an string "_" to each spot on the game board using the nested for loops above
@@ -61,13 +70,16 @@ void initialize(Space board[ROW][COLUMN]){ // Initializing the game board to whe
     }
 }
 
-void printGame(Space board[ROW][COLUMN]){ // Prints the game board onto the screen
+// Prints the game board onto the screen
+void printGame(Space board[ROW][COLUMN]){
+    cout<<"  ";
     for(int i=0;i<COLUMN;i++){ // For loop that loops through the board from COLUMN 0 to COLUMN-1
         cout<<i<<" "; // Prints an empty space for each spot
     }
     cout<<endl; // Prints a newline
     
     for(int i=0;i<ROW;i++){ // For loop that goes through each row of the game board
+      cout<<i<<" ";
       for(int j=0;j<COLUMN;j++){ // For loop that goes through each column of the game board
         cout<<board[i][j].value<<" "; // Prints the player's representation of play (X or O) on the chosen spot of the board according to the player's input
       }
@@ -75,21 +87,32 @@ void printGame(Space board[ROW][COLUMN]){ // Prints the game board onto the scre
     }
 }
 
-Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){ // Do the flowchart representation of this function
+// Do the flowchart representation of this function
+Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){
     int playRow = 0;
     int playCol=0;
     Coordinate coord;
     bool found=false;
+    char input[100];
     
+    cout<<"Player: "<<myPlayer<<". Enter which column to put: (0-"<<COLUMN-1<<")"<<endl;
     while(found==false){
         
-        cout<<"Player: "<<myPlayer<<". Enter which column to put: (0-"<<COLUMN-1<<")"<<endl;
-        cin>>playCol;
+        cin>>input;
+        // Checks if input is letter, word, or number
+        if(input[0]<'0'||input[0]>'9'){
+            cout<<"Please enter a number. We don't accept.";
+            continue;
+        }
+        playCol=input[0]-'0';
+        
+        // Checks if the number is valid or not
         while(playCol>=COLUMN || playCol<0){
            cout<<"Please enter again. Column Number needs to be less than "<<COLUMN<<" and greater than 0."<<endl;
-           cin>>playCol;
+           continue;
         }
-    
+        
+        // Checks the column availability for input
         for(int i=ROW-1;i>=0;i--){        
             if(board[i][playCol].value=="_"){
                 found=true;
@@ -110,7 +133,9 @@ Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){ // Do the flowc
     
 }
 
- bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
+// 
+bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
+    
     // Horizontal Win Test
     int counter=0;
     string myPlayer=board[myCoord.x][myCoord.y].value;
@@ -126,6 +151,7 @@ Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){ // Do the flowc
             return true;
         }
     }
+    
     // Vertical Win Test
     counter=0;
     for(int i=0;i<ROW;i++){
@@ -153,9 +179,14 @@ Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){ // Do the flowc
     while(newCoord->x>=0 && newCoord->y>=0 && newCoord->x<ROW && newCoord->y<COLUMN){
         if(board[newCoord->x][newCoord->y].value!=myPlayer){
             break;
-        }else{
+        }
+        else{
             counter++;
-            if(counter==4){cout<<"Game Over. Player "<<myPlayer<<" has won the game!";delete newCoord;return true;}
+            if(counter==4){
+                cout<<"Game Over. Player "<<myPlayer<<" has won the game!";
+                delete newCoord;
+                return true;
+            }
             newCoord->x=newCoord->x-1;
             newCoord->y=newCoord->y+1;
         }
@@ -166,9 +197,14 @@ Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){ // Do the flowc
     while(newCoord->x>=0 && newCoord->y>=0 && newCoord->x<ROW && newCoord->y<COLUMN){
         if(board[newCoord->x][newCoord->y].value!=myPlayer){
             break;
-        }else{
+        }
+        else{
             counter++;
-            if(counter==4){cout<<"Game Over. Player "<<myPlayer<<" has won the game!";delete newCoord;return true;}
+            if(counter==4){
+                cout<<"Game Over. Player "<<myPlayer<<" has won the game!";
+                delete newCoord;
+                return true;
+            }
             newCoord->x=newCoord->x+1;
             newCoord->y=newCoord->y-1;
         }
@@ -180,9 +216,14 @@ Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){ // Do the flowc
     while(newCoord->x>=0 && newCoord->y>=0 && newCoord->x<ROW && newCoord->y<COLUMN){
         if(board[newCoord->x][newCoord->y].value!=myPlayer){
             break;
-        }else{
+        }
+        else{
             counter++;
-            if(counter==4){cout<<"Game Over. Player "<<myPlayer<<" has won the game!";delete newCoord;return true;}
+            if(counter==4){
+                cout<<"Game Over. Player "<<myPlayer<<" has won the game!";
+                delete newCoord;
+                return true;
+            }
             newCoord->x=newCoord->x-1;
             newCoord->y=newCoord->y-1;
         }
@@ -193,9 +234,14 @@ Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){ // Do the flowc
     while(newCoord->x>=0 && newCoord->y>=0 && newCoord->x<ROW && newCoord->y<COLUMN){
         if(board[newCoord->x][newCoord->y].value!=myPlayer){
             break;
-        }else{
+        }
+        else{
             counter++;
-            if(counter==4){cout<<"Game Over. Player "<<myPlayer<<" has won the game!";delete newCoord;return true;}
+            if(counter==4){
+                cout<<"Game Over. Player "<<myPlayer<<" has won the game!";
+                delete newCoord;
+                return true;
+            }
             newCoord->x=newCoord->x+1;
             newCoord->y=newCoord->y+1;
         }
