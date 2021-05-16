@@ -202,8 +202,6 @@ Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){
             newCoord->y=newCoord->y+1;
         }
     }
-    
-    
     delete newCoord; // Deallocates the new coordinate after usage
     return false; // Returns false automatically if no victory is in existence
 }
