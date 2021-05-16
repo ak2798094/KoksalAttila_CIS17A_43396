@@ -14,7 +14,6 @@ struct Space{ // Whether if a spot on the board is filled or not
     string value;
 };
 
-
 struct Coordinate{ // Represents a spot on the board
     int x;
     int y;
@@ -35,6 +34,8 @@ int main(int argc, char** argv) {
     string player1 = "X"; // Creates player1 or Player X
     string player2 = "O"; // Creates player2 or Player O
     int turnCnt=0; // Number of turns taken before game reaches conclusion
+    Coordinate coord1;
+    Coordinate coord2;
     
     cout<<"Welcome to Connect 4. There are two players in this game, so let's play!"<<endl; // Prints a welcome message before game starts
     cout<<"This Connect 4 contains two players."; // Gives info on how many players can play the game
@@ -43,15 +44,15 @@ int main(int argc, char** argv) {
     initialize(board); // Cleans the board completely, making all spots empty
     printGame(board); // Prints the game board onto the screen
     
-    
-    
     while(true){ // Using a while loop to check if a player's move resulted in victory
         turnCnt++;
-        if(gameOver(board,playerMove(board,player1))){ // Checks if player1's move on the game board resulted in victory
+        coord1=playerMove(board,player1);
+        if(gameOver(board,coord1)){ // Checks if player1's move on the game board resulted in victory
             cout<<"The game ended after "<<turnCnt<<" turns.";
             break; // If victory, the program exits out of the game
         }
-        if(gameOver(board,playerMove(board,player2))){ // Checks if player2's move on the game board resulted in victory
+        coord2=playerMove(board,player2);
+        if(gameOver(board,coord2)){ // Checks if player2's move on the game board resulted in victory
             cout<<"The game ended after "<<turnCnt<<" turns.";
             break; // If victory, the program exits out of the game
         }
@@ -129,8 +130,7 @@ Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){
     printGame(board);  
     coord.x=playRow;
     coord.y=playCol;
-    return coord;
-    
+    return coord;  
 }
 
 // 
