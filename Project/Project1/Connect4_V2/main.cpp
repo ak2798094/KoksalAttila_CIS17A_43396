@@ -205,5 +205,5 @@ Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){
     
     
     delete newCoord; // Deallocates the new coordinate after usage
-    return false;
+    return false; // Returns false automatically if no victory is in existence
 }
