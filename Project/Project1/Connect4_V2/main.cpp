@@ -35,6 +35,7 @@ int main(int argc, char** argv) {
     string player2 = "O"; // Creates player2 or Player O
     
     cout<<"Welcome to Connect 4. There are two players in this game, so let's play!"<<endl; // Prints a welcome message before game starts
+    cout<<"This Connect 4 contains two players. The players are player1 or Player X and player2 or Player O."; // Gives info on how many players can play the game and how they are represented when playing the game
     
     initialize(board); // Cleans the board completely, making all spots empty
     printGame(board); // Prints the game board onto the screen
@@ -172,9 +173,6 @@ Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){
             newCoord->y=newCoord->y-1;
         }
     }
-    
-    
-    
     //backslash
     //up
     newCoord->x=newCoord->x-1;
