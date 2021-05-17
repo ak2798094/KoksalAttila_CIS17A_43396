@@ -120,7 +120,7 @@ Coordinate playerMove(Space board[ROW][COLUMN],Piece myPlayer){
         playCol=input[0]-'0';
         
         // Checks if the number is valid or not
-        while(playCol>=COLUMN||playCol<0){//check if the column is out of bounds
+        if(playCol>=COLUMN||playCol<0){//check if the column is out of bounds
            cout<<"Please enter again. Column Number needs to be less than "<<COLUMN<<" and greater than 0."<<endl;
            continue;// if it is not valid, go back to ask input again
         }
