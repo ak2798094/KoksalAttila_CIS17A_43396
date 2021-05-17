@@ -23,8 +23,7 @@ const int COLUMN = 7;
 
 void initialize(Space[ROW][COLUMN]);
 void printGame(Space[ROW][COLUMN]);
-Coordinate playerMove(Space[ROW][COLUMN],string);
-bool gameOver(Space[ROW][COLUMN],Coordinate);
+
 
 int main(int argc, char** argv) {
 
@@ -38,14 +37,7 @@ int main(int argc, char** argv) {
     initialize(board);
     printGame(board);
     
-    while(true){
-        if(gameOver(board,playerMove(board,player1))){
-            break;
-        }
-        if(gameOver(board,playerMove(board,player2))){
-            break;
-        }
-    }
+ 
     
     return 0;   
 }

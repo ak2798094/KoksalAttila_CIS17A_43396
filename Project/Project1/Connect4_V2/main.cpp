@@ -23,7 +23,7 @@ const int COLUMN = 7;
 
 void initialize(Space[ROW][COLUMN]);
 void printGame(Space[ROW][COLUMN]);
-Coordinate playerMove(Space[ROW][COLUMN],string);
+void playerMove(Space[ROW][COLUMN],string);
 bool gameOver(Space[ROW][COLUMN],Coordinate);
 
 int main(int argc, char** argv) {
@@ -39,12 +39,11 @@ int main(int argc, char** argv) {
     printGame(board);
     
     while(true){
-        if(gameOver(board,playerMove(board,player1))){
-            break;
-        }
-        if(gameOver(board,playerMove(board,player2))){
-            break;
-        }
+        playerMove(board,player1);
+        printGame(board);
+        playerMove(board,player2);
+        printGame(board);
+
     }
     
     return 0;   
@@ -70,4 +69,12 @@ void printGame(Space board[ROW][COLUMN]){
       }
       cout<<endl;
     }
+}
+void playerMove(Space board[ROW][COLUMN],string myPlayer){
+   int playCol=0;
+   cout<<"Player: "<<myPlayer<<". Enter which column to put: (0-"<<COLUMN-1<<")"<<endl;
+   cin>>playCol;
+   
+   board[0][playCol].value = myPlayer;
+   
 }
