@@ -10,7 +10,7 @@
 #include <iostream>  //I/O Library
 using namespace std;
 
-enum Piece{//Piece represents all possible values an spot of a board can be, in traditional board, it spot can be either red or yellow, or empty. Here we use X and O to represent yellow and empty
+enum Piece{//Piece represents all possible values of a spot on a board can be, in traditional board, its spot can be either red or yellow, or empty. Here we use X and O to represent yellow and empty
     X,
     O,
     Empty
@@ -40,8 +40,8 @@ int main(int argc, char** argv) {
     Piece player1 = X; // Creates player1 or Player X
     Piece player2 = O; // Creates player2 or Player O
     int turnCnt=0; // Number of turns taken before game reaches conclusion
-    Coordinate coord1;
-    Coordinate coord2;
+    Coordinate coord1; //Holds the location player1 played
+    Coordinate coord2; //Holds the location player2 played
     
     cout<<"Welcome to Connect 4. There are two players in this game, so let's play!"<<endl; // Prints a welcome message before game starts
     cout<<"This Connect 4 contains two players."; // Gives info on how many players can play the game
@@ -102,8 +102,8 @@ void printGame(Space board[ROW][COLUMN]){
 
 // Do the flowchart representation of this function
 Coordinate playerMove(Space board[ROW][COLUMN],Piece myPlayer){
-    int playRow = 0;//used to store which row would a user placed piece drop down to    
-    int playCol=0; // used to store which column user decides to place a piece
+    int playRow = 0;//used to store which row a user's placed piece drops down to    
+    int playCol=0; // used to store which column the user decides to place a piece
     Coordinate coord; // used to later store the two above info with x and y info
     bool found=false; // checks if it finds the first empty from the bottom up, as connect 4 piece drops to top of pile
     char input[100]; // used to store user input before verifying it 
