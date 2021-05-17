@@ -14,7 +14,6 @@ struct Space{ // Whether if a spot on the board is filled or not
     string value;
 };
 
-
 struct Coordinate{
     int x;
     int y;
@@ -110,8 +109,6 @@ Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){
     
 }
 
-bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
- 
+bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){ 
     return false;
-
 }
