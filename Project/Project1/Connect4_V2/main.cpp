@@ -10,8 +10,14 @@
 #include <iostream>  //I/O Library
 using namespace std;
 
+enum Piece{//Piece represents all possible values an spot of a board can be, in traditional board, it spot can be either red or yellow, or empty. Here we use X and O to represent yellow and empty
+    X,
+    O,
+    Empty
+};
+
 struct Space{ // Whether if a spot on the board is filled or not
-    string value;
+    Piece value;
 };
 
 struct Coordinate{ // Represents a spot on the board
@@ -24,15 +30,15 @@ const int COLUMN = 7; // Number of columns in the Connect 4 game
 
 void initialize(Space[ROW][COLUMN]); // Initializing the game board to where all the spots are empty and creates a board with given number of rows and columns
 void printGame(Space[ROW][COLUMN]); // Prints the game board onto the screen
-Coordinate playerMove(Space[ROW][COLUMN],string); // Plays and prints to a specific spot on the board according to the player's input
+Coordinate playerMove(Space[ROW][COLUMN],Piece); // Plays and prints to a specific spot on the board according to the player's input
 bool gameOver(Space[ROW][COLUMN],Coordinate); // Checks if the game is over by checking win conditions (Horizontal, Vertical, Diagonal Slash and Backslash, and Draw)
 
 int main(int argc, char** argv) {
 
     Space board[ROW][COLUMN]; // Creates a game board with the designated number of rows and columns
     
-    string player1 = "X"; // Creates player1 or Player X
-    string player2 = "O"; // Creates player2 or Player O
+    Piece player1 = X; // Creates player1 or Player X
+    Piece player2 = O; // Creates player2 or Player O
     int turnCnt=0; // Number of turns taken before game reaches conclusion
     Coordinate coord1;
     Coordinate coord2;
@@ -66,7 +72,7 @@ int main(int argc, char** argv) {
 void initialize(Space board[ROW][COLUMN]){
     for(int i=0;i<ROW;i++){ // For loop that goes through each row of the game board
 	for(int j=0;j<COLUMN;j++){ // For loop that goes through each column of the game board
-            board[i][j].value="_"; // Prints an string "_" to each spot on the game board using the nested for loops above
+            board[i][j].value=Empty; // Prints an string "_" to each spot on the game board using the nested for loops above
         }  
     }
 }
@@ -82,168 +88,174 @@ void printGame(Space board[ROW][COLUMN]){
     for(int i=0;i<ROW;i++){ // For loop that goes through each row of the game board
       cout<<i<<" ";
       for(int j=0;j<COLUMN;j++){ // For loop that goes through each column of the game board
-        cout<<board[i][j].value<<" "; // Prints the player's representation of play (X or O) on the chosen spot of the board according to the player's input
+          string value;
+          switch(board[i][j].value){
+              case X: value="X";break;
+              case O: value="O";break;
+              case Empty: value="_";break;
+          }
+          cout<<value<<" "; // Prints the player's representation of play (X or O) on the chosen spot of the board according to the player's input
       }
       cout<<endl; // Prints a newline
     }
 }
 
 // Do the flowchart representation of this function
-Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){
-    int playRow = 0;
-    int playCol=0;
-    Coordinate coord;
-    bool found=false;
-    char input[100];
+Coordinate playerMove(Space board[ROW][COLUMN],Piece myPlayer){
+    int playRow = 0;//used to store which row would a user placed piece drop down to    
+    int playCol=0; // used to store which column user decides to place a piece
+    Coordinate coord; // used to later store the two above info with x and y info
+    bool found=false; // checks if it finds the first empty from the bottom up, as connect 4 piece drops to top of pile
+    char input[100]; // used to store user input before verifying it 
     
-    cout<<"Player: "<<myPlayer<<". Enter which column to put: (0-"<<COLUMN-1<<")"<<endl;
-    while(found==false){
+    cout<<"Player: "<<myPlayer<<". Enter which column to put: (0-"<<COLUMN-1<<")"<<endl; // ask for input
+    while(found==false){ // while user inputs is not valid, we keep asking user to try again
         
         cin>>input;
         // Checks if input is letter, word, or number
         if(input[0]<'0'||input[0]>'9'){
-            cout<<"Please enter a number. We don't accept.";
-            continue;
+            cout<<"Please enter a number. We don't accept";
+            continue;// if it is not valid, go back to ask input again
         }
         playCol=input[0]-'0';
         
         // Checks if the number is valid or not
-        while(playCol>=COLUMN || playCol<0){
+        while(playCol>=COLUMN||playCol<0){//check if the column is out of bounds
            cout<<"Please enter again. Column Number needs to be less than "<<COLUMN<<" and greater than 0."<<endl;
-           continue;
+           continue;// if it is not valid, go back to ask input again
         }
         
         // Checks the column availability for input
         for(int i=ROW-1;i>=0;i--){        
-            if(board[i][playCol].value=="_"){
+            if(board[i][playCol].value==Empty){
                 found=true;
                 playRow=i;
-                break;
+                break;// if valid location found, break and place
             }
         }
-        if (found==false){
-            printGame(board);
+        if(found==false){//if board full
+            printGame(board);//display bored
             cout<<"Sorry, column "<<playCol<<" is full, please select another column."<<endl<<endl;
         }
     }
-    board[playRow][playCol].value=myPlayer;
-    printGame(board);  
-    coord.x=playRow;
-    coord.y=playCol;
-    return coord;  
+    board[playRow][playCol].value=myPlayer;//place user's piece at the location
+    printGame(board);  //display board
+    coord.x=playRow; //prep to return the x info for later result check
+    coord.y=playCol; //prep to return the y info for later result check
+    return coord;   //Return the info for later result check
 }
 
-// 
+// Checks if the game is over by checking win conditions (Horizontal, Vertical, Diagonal Slash and Backslash, and Draw)
 bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
     
     // Horizontal Win Test
-    int counter=0;
-    string myPlayer=board[myCoord.x][myCoord.y].value;
-    for(int i=0;i<COLUMN;i++){
-        if(board[myCoord.x][i].value==myPlayer){
-            counter++;
+    int counter=0;// used to count how much in a row we have
+    Piece myPlayer=board[myCoord.x][myCoord.y].value;//get the piece that is just put down
+    for(int i=0;i<COLUMN;i++){ //loop through the row and see if there are four in a row
+        if(board[myCoord.x][i].value==myPlayer){//if the piece is what user just placed
+            counter++;//counter goes up
         }
-        else{
-            counter=0;
+        else{//otherwise
+            counter=0;//counter resets
         }
-        if(counter==4){
-            cout<<"Game Over. Player "<<myPlayer<<" has won the game!";
+        if(counter==4){// if we have four in a row of the piece type user just put down
+            cout<<"Game Over. Player "<<myPlayer<<" has won the game!"; //player won, display method and return true
             return true;
         }
     }
     
     // Vertical Win Test
-    counter=0;
-    for(int i=0;i<ROW;i++){
-        if(board[i][myCoord.y].value==myPlayer){
-            counter++;
+    counter=0;// used to count how much in a row we have
+    for(int i=0;i<ROW;i++){//for the whole column,check if we have 4 in piece together
+        if(board[i][myCoord.y].value==myPlayer){//if the piece at the current location is same as user placed
+            counter++;// counter goes up
         }
-        else{
-            counter=0;
+        else{//otherwise 
+            counter=0;//counter gets reseted
         }
-        if(counter==4){
-            cout<<"Game Over. Player "<<myPlayer<<" has won the game!";
+        if(counter==4){//if found 4 pieces connected
+            cout<<"Game Over. Player "<<myPlayer<<" has won the game!";//player won, display method and return true
             return true;
         }
     }
     // Diagonal Win Test
-    counter=1;
-    Coordinate* newCoord = new Coordinate();
-    newCoord->x=myCoord.x;
-    newCoord->y=myCoord.y;
+    counter=1;// in diagonal cases, we check two diagonal directions, for each direction, we count the number of connected pieces on two sub directions up, and down
+    Coordinate* newCoord = new Coordinate();// a index pointer that we use to scan through the matrix
+    newCoord->x=myCoord.x; //initialize x to the coordinate user just placed
+    newCoord->y=myCoord.y; //initialize y to the coordinate user just placed
     
-    //slash
+    //slash direction /
     //up
-    newCoord->x=newCoord->x-1;
-    newCoord->y=newCoord->y+1;
-    while(newCoord->x>=0 && newCoord->y>=0 && newCoord->x<ROW && newCoord->y<COLUMN){
-        if(board[newCoord->x][newCoord->y].value!=myPlayer){
-            break;
+    newCoord->x=newCoord->x-1; // start from one row up
+    newCoord->y=newCoord->y+1;// start from one column down
+    while(newCoord->x>=0 && newCoord->y>=0 && newCoord->x<ROW && newCoord->y<COLUMN){// while we are not out of bounds
+        if(board[newCoord->x][newCoord->y].value!=myPlayer){// if we see none user placed piece like empty or opponents piece
+            break;//break and check other directions as there won't be 4 in a row on this direction
         }
-        else{
-            counter++;
-            if(counter==4){
-                cout<<"Game Over. Player "<<myPlayer<<" has won the game!";
+        else{// if see player's piece
+            counter++;// increase counter
+            if(counter==4){//if counted 4 in a row
+                cout<<"Game Over. Player "<<myPlayer<<" has won the game!";//player won, deallocate space and turn true
                 delete newCoord;
                 return true;
             }
-            newCoord->x=newCoord->x-1;
-            newCoord->y=newCoord->y+1;
+            newCoord->x=newCoord->x-1;// move to the next row up in the diagonal
+            newCoord->y=newCoord->y+1;// move to the next column down in the diagonal
         }
     }
     //down
-    newCoord->x=myCoord.x+1;
-    newCoord->y=myCoord.y-1;
-    while(newCoord->x>=0 && newCoord->y>=0 && newCoord->x<ROW && newCoord->y<COLUMN){
-        if(board[newCoord->x][newCoord->y].value!=myPlayer){
-            break;
+    newCoord->x=myCoord.x+1; // start from one row down
+    newCoord->y=myCoord.y-1; // start from one column up
+    while(newCoord->x>=0 && newCoord->y>=0 && newCoord->x<ROW && newCoord->y<COLUMN){ // while we are not out of bounds
+        if(board[newCoord->x][newCoord->y].value!=myPlayer){ // if we see none user placed piece like empty or opponents piece
+            break;//break and check other directions as there won't be 4 in a row on this direction
         }
-        else{
-            counter++;
-            if(counter==4){
-                cout<<"Game Over. Player "<<myPlayer<<" has won the game!";
+        else{// if see player's piece
+            counter++;// increase counter
+            if(counter==4){//if counted 4 in a row
+                cout<<"Game Over. Player "<<myPlayer<<" has won the game!";//player won, deallocate space and turn true
                 delete newCoord;
                 return true;
             }
-            newCoord->x=newCoord->x+1;
-            newCoord->y=newCoord->y-1;
+            newCoord->x=newCoord->x+1;// move to the next row down in the diagonal
+            newCoord->y=newCoord->y-1;// move to the next column up in the diagonal
         }
     }
     //backslash
     //up
-    newCoord->x=newCoord->x-1;
-    newCoord->y=newCoord->y-1;
-    while(newCoord->x>=0 && newCoord->y>=0 && newCoord->x<ROW && newCoord->y<COLUMN){
-        if(board[newCoord->x][newCoord->y].value!=myPlayer){
-            break;
+    newCoord->x=newCoord->x-1;// start from one row up
+    newCoord->y=newCoord->y-1;// start from one column up
+    while(newCoord->x>=0 && newCoord->y>=0 && newCoord->x<ROW && newCoord->y<COLUMN){// while we are not out of bounds
+        if(board[newCoord->x][newCoord->y].value!=myPlayer){// if we see none user placed piece like empty or opponents piece
+            break;//break and check other directions as there won't be 4 in a row on this direction
         }
-        else{
-            counter++;
-            if(counter==4){
-                cout<<"Game Over. Player "<<myPlayer<<" has won the game!";
+        else{// if see player's piece
+            counter++;// increase counter
+            if(counter==4){//if counted 4 in a row
+                cout<<"Game Over. Player "<<myPlayer<<" has won the game!";//player won, deallocate space and turn true
                 delete newCoord;
                 return true;
             }
-            newCoord->x=newCoord->x-1;
-            newCoord->y=newCoord->y-1;
+            newCoord->x=newCoord->x-1;//move to the next row up in the diagonal
+            newCoord->y=newCoord->y-1;// move to the next column up in the diagonal
         }
     }
     //down
-    newCoord->x=myCoord.x+1;
-    newCoord->y=myCoord.y+1;
-    while(newCoord->x>=0 && newCoord->y>=0 && newCoord->x<ROW && newCoord->y<COLUMN){
-        if(board[newCoord->x][newCoord->y].value!=myPlayer){
-            break;
+    newCoord->x=myCoord.x+1;// start from one row down
+    newCoord->y=myCoord.y+1;// start from one column down
+    while(newCoord->x>=0 && newCoord->y>=0 && newCoord->x<ROW && newCoord->y<COLUMN){// while we are not out of bounds
+        if(board[newCoord->x][newCoord->y].value!=myPlayer){// if we see none user placed piece like empty or opponents piece
+            break;//break and check other directions as there won't be 4 in a row on this direction
         }
-        else{
-            counter++;
-            if(counter==4){
-                cout<<"Game Over. Player "<<myPlayer<<" has won the game!";
+        else{// if see player's piece
+            counter++;// increase counter
+            if(counter==4){//if counted 4 in a row
+                cout<<"Game Over. Player "<<myPlayer<<" has won the game!";//player won, deallocate space and turn true
                 delete newCoord;
                 return true;
             }
-            newCoord->x=newCoord->x+1;
-            newCoord->y=newCoord->y+1;
+            newCoord->x=newCoord->x+1;// move to the next row down in the diagonal
+            newCoord->y=newCoord->y+1;// move to the next column down in the diagonal
         }
     }
     delete newCoord; // Deallocates the new coordinate after usage
