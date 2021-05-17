@@ -89,7 +89,7 @@ void printGame(Space board[ROW][COLUMN]){
       cout<<i<<" ";
       for(int j=0;j<COLUMN;j++){ // For loop that goes through each column of the game board
           string value;
-          switch(board[i][j].value){
+          switch(board[i][j].value){ // Switch statement that checks the value of the piece and return the corresponding string
               case X: value="X";break;
               case O: value="O";break;
               case Empty: value="_";break;
@@ -180,7 +180,7 @@ bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
     }
     // Diagonal Win Test
     counter=1;// in diagonal cases, we check two diagonal directions, for each direction, we count the number of connected pieces on two sub directions up, and down
-    Coordinate* newCoord = new Coordinate();// a index pointer that we use to scan through the matrix
+    Coordinate* newCoord = new Coordinate();// an index pointer that we use to scan through the matrix
     newCoord->x=myCoord.x; //initialize x to the coordinate user just placed
     newCoord->y=myCoord.y; //initialize y to the coordinate user just placed
     
