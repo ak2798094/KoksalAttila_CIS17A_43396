@@ -38,8 +38,6 @@ int main(int argc, char** argv) {
     initialize(board);
     printGame(board);
     
-    
-    
     while(true){
         if(gameOver(board,playerMove(board,player1))){
             break;
@@ -106,7 +104,6 @@ Coordinate playerMove(Space board[ROW][COLUMN],string myPlayer){
     coord.x=playRow;
     coord.y=playCol;
     return coord;
-    
 }
 
 bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){ 
