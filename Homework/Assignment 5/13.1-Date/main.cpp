@@ -13,7 +13,7 @@ using namespace std;
 class Date{
     int mnth,dy,yr;
 public:
-    Date(int month=9,int day=20,int year=1990){
+    Date(int month=1,int day=1,int year=2000){
         Date::mnth=month;
         Date::dy=day;
         Date::yr=year;
