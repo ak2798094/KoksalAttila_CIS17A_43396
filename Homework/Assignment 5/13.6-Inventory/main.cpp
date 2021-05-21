@@ -23,10 +23,10 @@ public:
         cost=0;
         totalCost=0;
     }
-    Inventory(int itemNumber,int quantity,float cost){
-        itemNumber=getItemNumber();
-        quantity=getQuantity();
-        cost=getCost();
+    Inventory(int newItemNumber,int newQuantity,float newCost){
+        itemNumber=newItemNumber;
+        quantity=newQuantity;
+        cost=newCost;
         setTotalCost(quantity,cost);
     }
     void setItemNumber(int){
