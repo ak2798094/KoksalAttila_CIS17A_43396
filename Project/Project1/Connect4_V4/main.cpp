@@ -35,6 +35,7 @@ void printGame(Space[ROW][COLUMN]); // Prints the game board onto the screen
 Coordinate playerMove(Space[ROW][COLUMN],Piece); // Plays and prints to a specific spot on the board according to the player's input
 bool gameOver(Space[ROW][COLUMN],Coordinate); // Checks if the game is over by checking win conditions (Horizontal, Vertical, Diagonal Slash and Backslash, and Draw)
 void saveGame(Space[ROW][COLUMN]);
+bool loadGame(Space[ROW][COLUMN],Piece);
 
 
 int main(int argc, char** argv) {
@@ -57,14 +58,19 @@ int main(int argc, char** argv) {
     while(true){ // Using a while loop to check if a player's move resulted in victory
         turnCnt++;
         coord1=playerMove(board,player1);
+        if (coord1.x!=-1){
         if(gameOver(board,coord1)){ // Checks if player1's move on the game board resulted in victory
-            cout<<"The game ended after "<<turnCnt<<" turns.";
+            cout<<" The game ended after "<<turnCnt<<" turns.";
             break; // If victory, the program exits out of the game
         }
+        }
+        
         coord2=playerMove(board,player2);
+        if (coord2.x!=-1){
         if(gameOver(board,coord2)){ // Checks if player2's move on the game board resulted in victory
             cout<<"The game ended after "<<turnCnt<<" turns.";
             break; // If victory, the program exits out of the game
+        }
         }
     }
     cout<<endl<<"Thank you for playing the game."<<endl;
@@ -111,8 +117,12 @@ Coordinate playerMove(Space board[ROW][COLUMN],Piece myPlayer){
     Coordinate coord; // used to later store the two above info with x and y info
     bool found=false; // checks if it finds the first empty from the bottom up, as connect 4 piece drops to top of pile
     char input[100]; // used to store user input before verifying it 
+    char playerLetter;
+    if (myPlayer == X){playerLetter='X';}
+    else if (myPlayer == O){playerLetter='O';}
     
-    cout<<"Player: "<<myPlayer<<". Enter which column to put: (0-"<<COLUMN-1<<"), or 'X'to save and quit"<<endl; // ask for input
+    
+    cout<<"Player: "<<playerLetter<<". Enter which column to put: (0-"<<COLUMN-1<<"), or 'X'to save and quit,'L' to load game"<<endl; // ask for input
     
     
     while(found==false){ // while user inputs is not valid, we keep asking user to try again
@@ -121,6 +131,13 @@ Coordinate playerMove(Space board[ROW][COLUMN],Piece myPlayer){
         
         if (input[0]=='x'||input[0]=='X'){
             saveGame(board);
+            cout<<"Player: "<<playerLetter<<". Enter which column to put: (0-"<<COLUMN-1<<"), or 'X'to save and quit,'L' to load game"<<endl; // ask for input
+            continue;
+        }else if (input[0]=='L'||input[0]=='l'){
+            
+            if (!loadGame(board,myPlayer)){Coordinate returnCord;returnCord.x=-1;returnCord.y=-1;return returnCord;}
+            cout<<"Player: "<<playerLetter<<". Enter which column to put: (0-"<<COLUMN-1<<"), or 'X'to save and quit,'L' to load game"<<endl; // ask for input
+            continue;
         }
         
         // Checks if input is letter, word, or number
@@ -161,16 +178,46 @@ void saveGame(Space board[ROW][COLUMN]){
     file.open("save.dat",ios::out|ios::binary);
     for(int i=0;i<ROW;i++){
         for(int j=0;j<COLUMN;j++){
-            file.write((char*)&board[i][j],(sizeof(int)));
+            char writeTarget;
+            if (board[i][j].value==X){writeTarget='X';}
+            else if (board[i][j].value==O){writeTarget='O';}
+            else if (board[i][j].value==Empty){writeTarget='_';}
+          
+            file.write(&writeTarget,(sizeof(char)));
         }
     }
     file.close();
-    
     cout<<"Game Saved"<<endl;
-    
 }
-void loadGame(Space board[ROW][COLUMN]){
-    
+bool loadGame(Space board[ROW][COLUMN],Piece myPlayer){
+    fstream file;
+    file.open("save.dat",ios::in|ios::binary);
+    int playerXCount = 0;
+    int playerOCount = 0;
+    bool result =true;
+    for(int i=0;i<ROW;i++){
+        for(int j=0;j<COLUMN;j++){
+            char ch;
+            file.read(&ch,(sizeof(ch)));
+           if (ch=='X'){board[i][j].value=X;playerXCount++;}
+           else if (ch=='O'){board[i][j].value=O;playerOCount++;}
+           else if (ch=='_'){board[i][j].value=Empty;}
+           // cout<<"char:"<<ch;
+            
+            
+            
+        }
+        if (myPlayer==X && (playerXCount>playerOCount)){
+            result = false;
+        }
+        else if (myPlayer==O && (playerXCount<=playerOCount)){
+            result = false;
+        }
+    }
+         printGame(board);
+            //cout<<"Loaded Game from Previous Save"<<endl;
+    file.close();
+    return result;
 }
 
 
@@ -180,6 +227,9 @@ bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
     // Horizontal Win Test
     int counter=0;// used to count how much in a row we have
     Piece myPlayer=board[myCoord.x][myCoord.y].value;//get the piece that is just put down
+    char playerLetter;
+    if (myPlayer == X){playerLetter='X';}
+    else if (myPlayer == O){playerLetter='O';}
     for(int i=0;i<COLUMN;i++){ //loop through the row and see if there are four in a row
         if(board[myCoord.x][i].value==myPlayer){//if the piece is what user just placed
             counter++;//counter goes up
@@ -188,7 +238,7 @@ bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
             counter=0;//counter resets
         }
         if(counter==4){// if we have four in a row of the piece type user just put down
-            cout<<"Game Over. Player "<<myPlayer<<" has won the game!"; //player won, display method and return true
+            cout<<"Game Over. Player (hor)"<<playerLetter<<" has won the game!"; //player won, display method and return true
             return true;
         }
     }
@@ -203,7 +253,7 @@ bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
             counter=0;//counter gets reseted
         }
         if(counter==4){//if found 4 pieces connected
-            cout<<"Game Over. Player "<<myPlayer<<" has won the game!";//player won, display method and return true
+            cout<<"Game Over(ver). Player "<<playerLetter<<" has won the game!";//player won, display method and return true
             return true;
         }
     }
@@ -224,7 +274,7 @@ bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
         else{// if see player's piece
             counter++;// increase counter
             if(counter==4){//if counted 4 in a row
-                cout<<"Game Over. Player "<<myPlayer<<" has won the game!";//player won, deallocate space and turn true
+                cout<<"Game Over(Diagonal1). Player "<<playerLetter<<" has won the game!";//player won, deallocate space and turn true
                 delete newCoord;
                 return true;
             }
@@ -242,7 +292,7 @@ bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
         else{// if see player's piece
             counter++;// increase counter
             if(counter==4){//if counted 4 in a row
-                cout<<"Game Over. Player "<<myPlayer<<" has won the game!";//player won, deallocate space and turn true
+                cout<<"Game Over(Diagonal2). Player "<<playerLetter<<" has won the game!";//player won, deallocate space and turn true
                 delete newCoord;
                 return true;
             }
@@ -252,6 +302,7 @@ bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
     }
     //backslash
     //up
+    counter = 1;
     newCoord->x=newCoord->x-1;// start from one row up
     newCoord->y=newCoord->y-1;// start from one column up
     while(newCoord->x>=0 && newCoord->y>=0 && newCoord->x<ROW && newCoord->y<COLUMN){// while we are not out of bounds
@@ -261,7 +312,7 @@ bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
         else{// if see player's piece
             counter++;// increase counter
             if(counter==4){//if counted 4 in a row
-                cout<<"Game Over. Player "<<myPlayer<<" has won the game!";//player won, deallocate space and turn true
+                cout<<"Game Over. Player "<<playerLetter<<" has won the game!";//player won, deallocate space and turn true
                 delete newCoord;
                 return true;
             }
@@ -279,7 +330,7 @@ bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
         else{// if see player's piece
             counter++;// increase counter
             if(counter==4){//if counted 4 in a row
-                cout<<"Game Over. Player "<<myPlayer<<" has won the game!";//player won, deallocate space and turn true
+                cout<<"Game Over(Diagonal4). Player "<<playerLetter<<" has won the game!";//player won, deallocate space and turn true
                 delete newCoord;
                 return true;
             }
