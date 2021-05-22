@@ -8,6 +8,8 @@
 
 //System Libraries
 #include <iostream>  //I/O Library
+#include <fstream>   // F Stream Library
+#include <string>
 using namespace std;
 
 enum Piece{//Piece represents all possible values of a spot on a board can be, in traditional board, its spot can be either red or yellow, or empty. Here we use X and O to represent yellow and empty
@@ -25,20 +27,22 @@ struct Coordinate{ // Represents a spot on the board
     int y;
 };
 
-const int ROW = 6; // Number of rows in the Connect 4 game
-const int COLUMN = 7; // Number of columns in the Connect 4 game
+const int ROW=6; // Number of rows in the Connect 4 game
+const int COLUMN=7; // Number of columns in the Connect 4 game
 
 void initialize(Space[ROW][COLUMN]); // Initializing the game board to where all the spots are empty and creates a board with given number of rows and columns
 void printGame(Space[ROW][COLUMN]); // Prints the game board onto the screen
 Coordinate playerMove(Space[ROW][COLUMN],Piece); // Plays and prints to a specific spot on the board according to the player's input
 bool gameOver(Space[ROW][COLUMN],Coordinate); // Checks if the game is over by checking win conditions (Horizontal, Vertical, Diagonal Slash and Backslash, and Draw)
+void saveGame(Space[ROW][COLUMN]);
+
 
 int main(int argc, char** argv) {
 
     Space board[ROW][COLUMN]; // Creates a game board with the designated number of rows and columns
     
-    Piece player1 = X; // Creates player1 or Player X
-    Piece player2 = O; // Creates player2 or Player O
+    Piece player1=X; // Creates player1 or Player X
+    Piece player2=O; // Creates player2 or Player O
     int turnCnt=0; // Number of turns taken before game reaches conclusion
     Coordinate coord1; //Holds the location player1 played
     Coordinate coord2; //Holds the location player2 played
@@ -108,15 +112,23 @@ Coordinate playerMove(Space board[ROW][COLUMN],Piece myPlayer){
     bool found=false; // checks if it finds the first empty from the bottom up, as connect 4 piece drops to top of pile
     char input[100]; // used to store user input before verifying it 
     
-    cout<<"Player: "<<myPlayer<<". Enter which column to put: (0-"<<COLUMN-1<<")"<<endl; // ask for input
+    cout<<"Player: "<<myPlayer<<". Enter which column to put: (0-"<<COLUMN-1<<"), or 'X'to save and quit"<<endl; // ask for input
+    
+    
     while(found==false){ // while user inputs is not valid, we keep asking user to try again
         
         cin>>input;
+        
+        if (input[0]=='x'||input[0]=='X'){
+            saveGame(board);
+        }
+        
         // Checks if input is letter, word, or number
         if(input[0]<'0'||input[0]>'9'){
             cout<<"Please enter a number. We don't accept";
             continue;// if it is not valid, go back to ask input again
         }
+        
         playCol=input[0]-'0';
         
         // Checks if the number is valid or not
@@ -144,6 +156,23 @@ Coordinate playerMove(Space board[ROW][COLUMN],Piece myPlayer){
     coord.y=playCol; //prep to return the y info for later result check
     return coord;   //Return the info for later result check
 }
+void saveGame(Space board[ROW][COLUMN]){
+    fstream file;
+    file.open("save.dat",ios::out|ios::binary);
+    for(int i=0;i<ROW;i++){
+        for(int j=0;j<COLUMN;j++){
+            file.write((char*)&board[i][j],(sizeof(int)));
+        }
+    }
+    file.close();
+    
+    cout<<"Game Saved"<<endl;
+    
+}
+void loadGame(Space board[ROW][COLUMN]){
+    
+}
+
 
 // Checks if the game is over by checking win conditions (Horizontal, Vertical, Diagonal Slash and Backslash, and Draw)
 bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
