@@ -55,6 +55,9 @@ int main(int argc, char** argv) {
     //Initialize the Random Number Seed
     
     //Declare Variables
+    PersonalInfo attila=new PersonalInfo("Attila","3094 Celeste Drive",19,9519617819);
+    PersonalInfo mom=new PersonalInfo("Mom","3094 Celeste Drive",19,9519617718);
+    PersonalInfo dad=new PersonalInfo("Dad","3094 Celeste Drive",19,9519617879);
     
     //Initialize Variables
     
