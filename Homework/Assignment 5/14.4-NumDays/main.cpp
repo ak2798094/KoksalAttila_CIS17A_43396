@@ -10,6 +10,16 @@
 #include <iostream>  //I/O Library
 using namespace std;
 
+class NumDays{
+private:
+    int days;
+    int hrs;
+public:
+    NumDays(int hrs){
+        
+    }
+};
+
 //User Libraries
 
 //Global Constants
