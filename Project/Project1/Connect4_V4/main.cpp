@@ -177,9 +177,9 @@ void saveGame(Space board[ROW][COLUMN]){// save the current board to be loaded a
     for(int i=0;i<ROW;i++){ //for all rows
         for(int j=0;j<COLUMN;j++){ // for all columns
             char writeTarget; //create char to be written to
-            if (board[i][j].value==X){writeTarget='X';}// if player X is at the location, write X in file
-            else if (board[i][j].value==O){writeTarget='O';} // if player O is at the location, write O in file
-            else if (board[i][j].value==Empty){writeTarget='_';} // if no player is at the location, write _ in file
+            if(board[i][j].value==X){writeTarget='X';}// if player X is at the location, write X in file
+            else if(board[i][j].value==O){writeTarget='O';} // if player O is at the location, write O in file
+            else if(board[i][j].value==Empty){writeTarget='_';} // if no player is at the location, write _ in file
           
             file.write(&writeTarget,(sizeof(char)));//write to document
         }
@@ -190,30 +190,26 @@ void saveGame(Space board[ROW][COLUMN]){// save the current board to be loaded a
 bool loadGame(Space board[ROW][COLUMN],Piece myPlayer){//when user enter "L" or "l". update board to reflect saved game and then the next player would play
     fstream file;//create file
     file.open("save.dat",ios::in|ios::binary);//open file to read
-    int playerXCount = 0;//counter check how many x pieces are there,to see whos turn is next
-    int playerOCount = 0;//counter check how many o pieces are there,to see whos turn is next
-    bool result =true;// if it is not "myPlayer"'s turn next, return false
+    int playerXCount=0;//counter check how many x pieces are there,to see whos turn is next
+    int playerOCount=0;//counter check how many o pieces are there,to see whos turn is next
+    bool result=true;// if it is not "myPlayer"'s turn next, return false
     for(int i=0;i<ROW;i++){//for each row
         for(int j=0;j<COLUMN;j++){//for each column
             char ch;//character to read file with
             file.read(&ch,(sizeof(ch)));//read char from file
-           if (ch=='X'){board[i][j].value=X;playerXCount++;}//if character read is X, put that value on board then add to counter 
-           else if (ch=='O'){board[i][j].value=O;playerOCount++;}//if character read is O, put that value on board then add to counter 
-           else if (ch=='_'){board[i][j].value=Empty;}//if character read is _, put that value on board then add to counter 
-           // cout<<"char:"<<ch;
-            
-            
+           if(ch=='X'){board[i][j].value=X;playerXCount++;}//if character read is X, put that value on board then add to counter 
+           else if(ch=='O'){board[i][j].value=O;playerOCount++;}//if character read is O, put that value on board then add to counter 
+           else if(ch=='_'){board[i][j].value=Empty;}//if character read is _, put that value on board then add to counter 
             
         }
-        if (myPlayer==X && (playerXCount>playerOCount)){// if it is player X's turn but loaded game indicates that O should play next
-            result = false;//return false
+        if(myPlayer==X&&(playerXCount>playerOCount)){// if it is player X's turn but loaded game indicates that O should play next
+            result=false;//return false
         }
-        else if (myPlayer==O && (playerXCount<=playerOCount)){// if it is player O's turn but loaded game indicates that X should play next
-            result = false;//return false
+        else if(myPlayer==O&&(playerXCount<=playerOCount)){// if it is player O's turn but loaded game indicates that X should play next
+            result=false;//return false
         }
     }
-         printGame(board);//show board
-            //cout<<"Loaded Game from Previous Save"<<endl;
+        printGame(board);//show board
     file.close();//close file
     return result;//return result
 }
@@ -226,8 +222,8 @@ bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
     int counter=0;// used to count how much in a row we have
     Piece myPlayer=board[myCoord.x][myCoord.y].value;//get the piece that is just put down
     char playerLetter;
-    if (myPlayer == X){playerLetter='X';}
-    else if (myPlayer == O){playerLetter='O';}
+    if(myPlayer == X){playerLetter='X';}
+    else if(myPlayer == O){playerLetter='O';}
     for(int i=0;i<COLUMN;i++){ //loop through the row and see if there are four in a row
         if(board[myCoord.x][i].value==myPlayer){//if the piece is what user just placed
             counter++;//counter goes up
@@ -257,7 +253,7 @@ bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
     }
     // Diagonal Win Test
     counter=1;// in diagonal cases, we check two diagonal directions, for each direction, we count the number of connected pieces on two sub directions up, and down
-    Coordinate* newCoord = new Coordinate();// an index pointer that we use to scan through the matrix
+    Coordinate* newCoord=new Coordinate();// an index pointer that we use to scan through the matrix
     newCoord->x=myCoord.x; //initialize x to the coordinate user just placed
     newCoord->y=myCoord.y; //initialize y to the coordinate user just placed
     
@@ -265,14 +261,14 @@ bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
     //up
     newCoord->x=newCoord->x-1; // start from one row up
     newCoord->y=newCoord->y+1;// start from one column down
-    while(newCoord->x>=0 && newCoord->y>=0 && newCoord->x<ROW && newCoord->y<COLUMN){// while we are not out of bounds
+    while(newCoord->x>=0&&newCoord->y>=0&&newCoord->x<ROW&&newCoord->y<COLUMN){// while we are not out of bounds
         if(board[newCoord->x][newCoord->y].value!=myPlayer){// if we see none user placed piece like empty or opponents piece
             break;//break and check other directions as there won't be 4 in a row on this direction
         }
         else{// if see player's piece
             counter++;// increase counter
             if(counter==4){//if counted 4 in a row
-                cout<<"Game Over(Diagonal1). Player "<<playerLetter<<" has won the game!";//player won, deallocate space and turn true
+                cout<<"Game Over. Player "<<playerLetter<<" has won the game!";//player won, deallocate space and turn true
                 delete newCoord;
                 return true;
             }
@@ -283,14 +279,14 @@ bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
     //down
     newCoord->x=myCoord.x+1; // start from one row down
     newCoord->y=myCoord.y-1; // start from one column up
-    while(newCoord->x>=0 && newCoord->y>=0 && newCoord->x<ROW && newCoord->y<COLUMN){ // while we are not out of bounds
+    while(newCoord->x>=0&&newCoord->y>=0&&newCoord->x<ROW&&newCoord->y<COLUMN){ // while we are not out of bounds
         if(board[newCoord->x][newCoord->y].value!=myPlayer){ // if we see none user placed piece like empty or opponents piece
             break;//break and check other directions as there won't be 4 in a row on this direction
         }
         else{// if see player's piece
             counter++;// increase counter
             if(counter==4){//if counted 4 in a row
-                cout<<"Game Over(Diagonal2). Player "<<playerLetter<<" has won the game!";//player won, deallocate space and turn true
+                cout<<"Game Over. Player "<<playerLetter<<" has won the game!";//player won, deallocate space and turn true
                 delete newCoord;
                 return true;
             }
@@ -300,10 +296,10 @@ bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
     }
     //backslash
     //up
-    counter = 1;
+    counter=1;
     newCoord->x=newCoord->x-1;// start from one row up
     newCoord->y=newCoord->y-1;// start from one column up
-    while(newCoord->x>=0 && newCoord->y>=0 && newCoord->x<ROW && newCoord->y<COLUMN){// while we are not out of bounds
+    while(newCoord->x>=0&&newCoord->y>=0&&newCoord->x<ROW&&newCoord->y<COLUMN){// while we are not out of bounds
         if(board[newCoord->x][newCoord->y].value!=myPlayer){// if we see none user placed piece like empty or opponents piece
             break;//break and check other directions as there won't be 4 in a row on this direction
         }
@@ -321,14 +317,14 @@ bool gameOver(Space board[ROW][COLUMN],Coordinate myCoord){
     //down
     newCoord->x=myCoord.x+1;// start from one row down
     newCoord->y=myCoord.y+1;// start from one column down
-    while(newCoord->x>=0 && newCoord->y>=0 && newCoord->x<ROW && newCoord->y<COLUMN){// while we are not out of bounds
+    while(newCoord->x>=0&&newCoord->y>=0&&newCoord->x<ROW&&newCoord->y<COLUMN){// while we are not out of bounds
         if(board[newCoord->x][newCoord->y].value!=myPlayer){// if we see none user placed piece like empty or opponents piece
             break;//break and check other directions as there won't be 4 in a row on this direction
         }
         else{// if see player's piece
             counter++;// increase counter
             if(counter==4){//if counted 4 in a row
-                cout<<"Game Over(Diagonal4). Player "<<playerLetter<<" has won the game!";//player won, deallocate space and turn true
+                cout<<"Game Over. Player "<<playerLetter<<" has won the game!";//player won, deallocate space and turn true
                 delete newCoord;
                 return true;
             }
