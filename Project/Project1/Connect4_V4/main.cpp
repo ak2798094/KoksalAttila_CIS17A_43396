@@ -144,7 +144,6 @@ Coordinate playerMove(Space board[ROW][COLUMN],Piece myPlayer){
             cout<<"Please enter a number. We don't accept";
             continue;// if it is not valid, go back to ask input again
         }
-        
         playCol=input[0]-'0';
         
         // Checks if the number is valid or not
