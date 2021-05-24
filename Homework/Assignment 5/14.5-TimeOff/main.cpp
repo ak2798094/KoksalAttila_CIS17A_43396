@@ -8,10 +8,62 @@
 
 //System Libraries
 #include <iostream>  //I/O Library
-#include "NumDays.h" // NumDays class file
 using namespace std;
 
-class NumDays;
+class NumDays{
+private:
+    float hours;
+    float days;
+public:
+    NumDays(float h=0){
+        hours=h;
+        days=h/(8.00);
+    }
+    float getHours(){
+        return hours;
+    }
+    float getDays(){
+        return days;
+    }
+    void setHours(float h){
+        hours=h;
+        days=h/(8.00);
+    }
+    void setDays(float d){
+        days=d;
+        hours=d*(8.00);
+    }
+    float operator+(const NumDays &right){
+        return hours+right.hours;
+    }
+    float operator-(const NumDays &right){
+        if(hours<right.hours){
+            cout<<"Error! Can't solve. Exiting";
+            exit(0);
+        }
+        return hours-right.hours;
+    }
+    NumDays operator++(){
+        ++hours;
+        days=hours/(8.00);
+        return *this;
+    }
+    NumDays operator++(int){
+        hours++;
+        days=hours/(8.00);
+        return *this;
+    }
+    NumDays operator--(){
+        --hours;
+        days=hours/(8.00);
+        return *this;
+    }
+    NumDays operator--(int){
+        hours--;
+        days=hours/(8.00);
+        return *this;
+    }
+};
 
 class TimeOff{
 private:
