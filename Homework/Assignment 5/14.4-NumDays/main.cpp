@@ -8,8 +8,8 @@
 
 //System Libraries
 #include <iostream>  //I/O Library
-#ifndef NUMDAYS_H // NumDays.h class file
-#define NUMDAYS_H // NumDays.h class file
+#ifndef NumDays_H // NumDays.h class file
+#define NumDays_H // NumDays.h class file
 using namespace std;
 
 class NumDays{
