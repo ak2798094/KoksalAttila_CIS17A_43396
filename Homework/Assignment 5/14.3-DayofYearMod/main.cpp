@@ -139,7 +139,7 @@ int main(int argc, char** argv) {
     test1.print();
     cout<<"----------------"<<endl;
     
-    DayofYear test2("December",30);
+    DayofYear test2("March",5);
     test2.print();
     ++test2;
     test2.print();
