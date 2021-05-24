@@ -8,7 +8,7 @@
 
 //System Libraries
 #include <iostream>  //I/O Library
-#include "NumDays.b" // NumDays class file
+#include "NumDays.h" // NumDays class file
 using namespace std;
 
 class NumDays;
