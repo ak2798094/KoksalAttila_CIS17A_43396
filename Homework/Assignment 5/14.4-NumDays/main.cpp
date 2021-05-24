@@ -8,8 +8,6 @@
 
 //System Libraries
 #include <iostream>  //I/O Library
-#ifndef NumDays_H // NumDays.h class file
-#define NumDays_H // NumDays.h class file
 using namespace std;
 
 class NumDays{
@@ -66,7 +64,6 @@ public:
         return *this;
     }
 };
-#endif
 
 //User Libraries
 
