@@ -12,59 +12,99 @@ using namespace std;
 
 class DayofYear{
 private:
-    int day;
+    int day=0;
+    static string months[12];
+    static int numberOfDays[12];
+    int month=0;
 public:
-    DayofYear(int num){
-        while(true){
-            if(num<1||num>365){
-                cout<<"Error! Give a number between 1-365: ";
-                cin>>num;
-            }
-            else{
-                day=num;
+    DayofYear(int d){
+        if(d<1||d>365){
+            cout<<"Error! Can't accept this number. Exiting."<<endl;
+            exit(0);
+        }
+        else{
+            day=d;
+        }
+    }
+    DayofYear(string m,int d){
+        int counter;
+        for(counter=0;counter<12;counter++){
+            if(m==months[counter]){
                 break;
             }
+            if(counter==11){
+                cout<<"Month input error! "<<m<<" doesn't exist! Exiting."<<endl;
+                exit(0);
+            }
         }
+        if(d<1||d>numberOfDays[counter]){
+            cout<<"Day number input error! "<<m<<" doesn't exist! Exiting."<<endl;
+            exit(0);
+        }
+        if(counter==0){
+            day+=d;
+        }
+        else{
+            while(counter>=0){
+                day+=numberOfDays[--counter];
+            }
+            day+=d;
+        }
+    }
+    DayofYear operator++(){
+        if(day==365){
+            day=1;
+        }
+        else{
+            ++day;
+        }
+        return *this;
+    }
+    DayofYear operator++(int){
+        if(day==365){
+            day=1;
+        }
+        else{
+            day++;
+        }
+        return *this;
+    }
+    DayofYear operator--(){
+        if(day==1){
+            day=365;
+        }
+        else{
+            --day;
+        }
+        return *this;
+    }
+    DayofYear operator--(int){
+        if(day==1){
+            day=365;
+        }
+        else{
+            day--;
+        }
+        return *this;
     }
     void print(){
-        if(day>=1&&day<=31){
-            cout<<"January "<<day<<endl;
+        int d=day;
+        for(int counter=0;counter<12;counter++){
+            if(d<=numberOfDays[counter]){
+                break;
+            }
+            else{
+                d-=numberOfDays[counter];
+                month++;
+            }
         }
-        else if(day>=32&&day<=59){
-            cout<<"February "<<day-31<<endl;
-        }
-        else if(day>=60&&day<=90){
-            cout<<"March "<<day-59<<endl;
-        }
-        else if(day>=91&&day<=120){
-            cout<<"April "<<day-90<<endl;
-        }
-        else if(day>=121&&day<=151){
-            cout<<"May "<<day-120<<endl;
-        }
-        else if(day>=152&&day<=181){
-            cout<<"June "<<day-151<<endl;
-        }
-        else if(day>=182&&day<=212){
-            cout<<"July "<<day-181<<endl;
-        }
-        else if(day>=213&&day<=243){
-            cout<<"August "<<day-212<<endl;
-        }
-        else if(day>=244&&day<=273){
-            cout<<"September "<<day-243<<endl;
-        }
-        else if(day>=274&&day<=304){
-            cout<<"October "<<day-273<<endl;
-        }
-        else if(day>=305&&day<=334){
-            cout<<"November "<<day-304<<endl;
-        }
-        else if(day>=335&&day<=365){
-            cout<<"December "<<day-334<<endl;
-        }
+        cout<<months[month]<<" "<<d<<endl;
+        month=0;
     }
 };
+
+string DayofYear::months[12]={"January","February","March","April","May","June","July","August","September","October","November","December"};
+int DayofYear::numberOfDays[12]={31,28,31,30,31,30,31,31,30,31,30,31};
 
 //User Libraries
 
@@ -85,10 +125,30 @@ int main(int argc, char** argv) {
     //Map Inputs to Outputs -> Process
     
     //Display Inputs/Outputs
-    cout<<"Give a number between 1-365: ";
+    cout<<"Please enter a number between 1-365: ";
     cin>>input;
-    DayofYear day(input);
-    day.print();
+    DayofYear test1(input);
+    test1.print();
+    ++test1;
+    test1.print();
+    test1++;
+    test1.print();
+    --test1;
+    test1.print();
+    test1--;
+    test1.print();
+    cout<<"----------------"<<endl;
+    
+    DayofYear test2("December",30);
+    test2.print();
+    ++test2;
+    test2.print();
+    test2++;
+    test2.print();
+    --test2;
+    test2.print();
+    test2--;
+    test2.print();
     
     //Exit the Program - Cleanup
     return 0;
