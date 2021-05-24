@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=14.10-CorporateSales
+PROJECTNAME=14.5-TimeOff
 
 # Active Configuration
 DEFAULTCONF=Debug
