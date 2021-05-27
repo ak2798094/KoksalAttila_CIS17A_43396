@@ -8,7 +8,6 @@
 
 //System Libraries
 #include <iostream>  //I/O Library
-#include <string> // String Library
 using namespace std;
 
 class Employee{
