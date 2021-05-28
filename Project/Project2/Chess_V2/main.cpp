@@ -8,10 +8,11 @@
 
 //System Libraries
 #include <iostream>  //I/O Library
+#include<iomanip>
 using namespace std;
 const int ROW = 8;
 const int COLUMN = 8;
-const string pieceNames[7]={"Pawn","Rook","Bishop","Knight","Queen","King","___"};
+const string pieceNames[7]={"Pawn","Rook","Bishop","Knight","Queen","King","____"};
 
 enum Piece{//Piece represents all possible values of a spot on a board can be, in traditional board, its spot can be either red or yellow, or empty. Here we use X and O to represent yellow and empty
     Pawn=0,
@@ -78,7 +79,7 @@ void Board::initializeBoard(){
             defaultSpace.setValue(Empty,NONE);
             board[i][j]=defaultSpace;
         }
-     }
+    }
     setPiece({0,0},Rook,WHITE);
     setPiece({0,1},Knight,WHITE);
     setPiece({0,2},Bishop,WHITE);
@@ -108,7 +109,7 @@ void Board::initializeBoard(){
 void Board::printBoard(){
     for(int i=0;i<ROW;i++){
         for(int j=0;j<COLUMN;j++){
-             
+            cout<<setw(10);
             cout<<pieceNames[getSpace({i,j})->getValue()]<<" ";
             
         }
