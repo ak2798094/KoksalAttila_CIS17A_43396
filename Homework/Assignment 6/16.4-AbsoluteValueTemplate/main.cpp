@@ -41,9 +41,11 @@ int main(int argc, char** argv) {
     cout<<"Enter integer value: ";
     cin>>input1;
     cout<<"Absolute value: "<<absolute(input1)<<endl;
+    
     cout<<"Enter double value: ";
     cin>>input2;
     cout<<"Absolute value: "<<absolute(input2)<<endl;
+    
     cout<<"Enter long value: ";
     cin>>input3;
     cout<<"Absolute value: "<<absolute(input3)<<endl;
