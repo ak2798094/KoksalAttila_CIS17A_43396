@@ -78,10 +78,10 @@ int main(int argc, char** argv) {
     //Initialize the Random Number Seed
     
     //Declare Variables
-    int evMonth;
-    int evDay;
-    int evYear;
-    Date myEvent;
+    int month;
+    int day;
+    int year;
+    Date event;
 
     //Initialize Variables
     
@@ -89,24 +89,24 @@ int main(int argc, char** argv) {
     
     //Display Inputs/Outputs
     cout<<"Enter the month number: ";
-    cin>>evMonth;
+    cin>>month;
     cout<<"Enter the day number: ";
-    cin>>evDay;
+    cin>>day;
     cout<<"Enter the year number: ";
-    cin>>evYear;
+    cin>>year;
     try{
-        myEvent.setMonth(evMonth);
-        myEvent.setDay(evDay);
-        myEvent.setYear(evYear);
+        event.setMonth(month);
+        event.setDay(day);
+        event.setYear(year);
 
         cout<<endl<<"The date of your event is:"<<endl;
-        myEvent.format1();
-        myEvent.format2();
-        myEvent.format3();
+        event.format1();
+        event.format2();
+        event.format3();
     }
-    catch (Date::InvalidDay e){
+    catch(Date::InvalidDay e){
         cout<<"Error: "<<e.getValue()<<" is an invalid value"<<" for the date's day."<<endl;
-    }catch (Date::InvalidMonth e){
+    }catch(Date::InvalidMonth e){
         cout<<"Error: "<<e.getValue()<<" is an invalid value"<<" for the date's month."<<endl;
     }
     //Exit the Program - Cleanup
@@ -171,8 +171,6 @@ void Date::format2()const{
     }
     cout<<whatMonth<<" "<<day<<", "<<year<<endl;
 }
-
-// displays date in format 3
 void Date::format3()const{
     string whatMonth;
 

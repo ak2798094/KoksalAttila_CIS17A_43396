@@ -128,18 +128,18 @@ int main(int argc, char** argv) {
     //Initialize the Random Number Seed
     
     //Declare Variables
-    MilTime time1(1345, 59);
+    MilTime time(1345, 59);
     
     //Initialize Variables
     
     //Map Inputs to Outputs -> Process
     
     //Display Inputs/Outputs
-    cout << "Military format: " << time1.getHours() << endl;
-    cout << "Standard format: " << time1.getStandHr() << endl;
+    cout<<"Military format: "<<time.getHours()<<endl;
+    cout<<"Standard format: "<<time.getStandHr()<<endl;
 
     try{
-        time1.setTime(2500,10);
+        time.setTime(2500,10);
     }
     catch(MilTime::BadHour e){
         cout<<"Error caught!"<<endl;
@@ -149,11 +149,11 @@ int main(int argc, char** argv) {
         cout<<"Error caught!"<<endl;
         cout<<e.getMsg()<<endl;
     }
-    cout<<"Military format: "<<time1.getHours()<<endl;
-    cout<<"Standard format: "<<time1.getStandHr()<<endl;
+    cout<<"Military format: "<<time.getHours()<<endl;
+    cout<<"Standard format: "<<time.getStandHr()<<endl;
     
     try{
-        time1.setTime(1630,65);
+        time.setTime(1630,65);
     }
     catch(MilTime::BadHour e){
         cout<<"Error caught!"<<endl;
@@ -163,8 +163,8 @@ int main(int argc, char** argv) {
         cout<<"Error caught!"<<endl;
         cout<<e.getMsg()<<endl;
     }
-    cout<<"Military format: "<<time1.getHours()<<endl;
-    cout<<"Standard format: "<<time1.getStandHr()<<endl;
+    cout<<"Military format: "<<time.getHours()<<endl;
+    cout<<"Standard format: "<<time.getStandHr()<<endl;
     
     //Exit the Program - Cleanup
     return 0;
