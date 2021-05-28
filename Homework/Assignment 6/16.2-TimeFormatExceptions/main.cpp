@@ -60,7 +60,7 @@ public:
             hours=h;
         }
         string getMsg(){
-            msg+=to_string(hours)+" is not a valid"+" value for hours in Military Time!"<<endl;
+            msg+=to_string(hours)+" is not a valid value for hours in Military Time!\n";
             return msg;
         }
     };
@@ -73,7 +73,7 @@ public:
             seconds=s;
         }
         string getMsg(){
-            msg+=to_string(seconds)+" is not a valid"+" value for seconds in Military Time!"<<endl;
+            msg+=to_string(seconds)+" is not a valid value for seconds in Military Time!\n";
             return msg;
         }
     };

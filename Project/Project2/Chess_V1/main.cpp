@@ -115,6 +115,11 @@ void Board::printBoard(){
         cout<<endl;
     }
 }
+
+Color Space::getColor(){
+    return color;
+}
+
 void Board::setPiece(Coordinate coor,Piece pece,Color clr){
     getSpace(coor)->setValue(pece,clr);
 }
