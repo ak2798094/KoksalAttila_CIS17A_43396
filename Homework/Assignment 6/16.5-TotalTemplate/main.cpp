@@ -35,16 +35,16 @@ int main(int argc, char** argv) {
     //Initialize the Random Number Seed
     
     //Declare Variables
-    int intVal=5;		
-    double doubVal=4.0;
+    int num1=5;		
+    double num2=4.0;
     
     //Initialize Variables
     
     //Map Inputs to Outputs -> Process
     
     //Display Inputs/Outputs
-    cout<<"The total for int values is: "<<total(intVal)<<endl;
-    cout<<endl<<"The total for double values is: "<<total(doubVal)<<endl;
+    cout<<"The total for int values is: "<<total(num1)<<endl;
+    cout<<endl<<"The total for double values is: "<<total(num2)<<endl;
     
     //Exit the Program - Cleanup
     return 0;

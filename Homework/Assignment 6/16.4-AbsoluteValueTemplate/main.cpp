@@ -28,9 +28,9 @@ int main(int argc, char** argv) {
     //Initialize the Random Number Seed
     
     //Declare Variables
-    int iInput;
-    double dInput;
-    long lInput;
+    int input1;
+    double input2;
+    long input3;
     
     //Initialize Variables
     
@@ -39,14 +39,14 @@ int main(int argc, char** argv) {
     //Display Inputs/Outputs
     cout<<"Enter an value and this program will return its absolute value."<<endl;
     cout<<"Enter integer value: ";
-    cin>>iInput;
-    cout<<"Absolute value: "<<absolute(iInput)<<endl;
+    cin>>input1;
+    cout<<"Absolute value: "<<absolute(input1)<<endl;
     cout<<"Enter double value: ";
-    cin>>dInput;
-    cout<<"Absolute value: "<<absolute(dInput)<<endl;
+    cin>>input2;
+    cout<<"Absolute value: "<<absolute(input2)<<endl;
     cout<<"Enter long value: ";
-    cin>>lInput;
-    cout<<"Absolute value: "<<absolute(lInput)<<endl;
+    cin>>input3;
+    cout<<"Absolute value: "<<absolute(input3)<<endl;
 
     //Exit the Program - Cleanup
     return 0;
