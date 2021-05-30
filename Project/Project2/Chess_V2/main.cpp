@@ -48,7 +48,40 @@ struct Coordinate{
     int y;
 };
 
-class Board{
+class Game{
+private:
+    string player1="";
+    string player2="";
+public:
+    void announceWinner(int winner){
+        string winnerName="";
+        if(winner==0){
+            winnerName=player1;
+        }
+        else{
+            winnerName=player2;
+        }
+        cout<<"Congratulations, the winner is "<<winnerName<<endl;
+    }
+    void setPlayerName(int playerNumber,string name){
+        if(playerNumber==0){
+            player1=name;
+        }
+        else if(playerNumber==1){
+            player2=name;
+        }
+    }
+    string getPlayerName(int playerNumber){
+        if(playerNumber==0){
+            return player1;
+        }
+        else if(playerNumber==1){
+            return player2;
+        }
+    }
+};
+
+class Board:public Game{
     Space board[ROW][COLUMN];
     Color turn=WHITE;
     
@@ -58,10 +91,24 @@ public:
     void movePiece(Color);
     void printBoard();
     void setPiece(Coordinate,Piece,Color);
+    void announceWinner(int winner){
+        string winnerName="";
+        string player1=getPlayerName(0);
+        string player2=getPlayerName(1);
+        string color="";
+        
+        if(winner==0){
+            winnerName=player1;
+            color="WHITE";
+        }
+        else{
+            winnerName=player2;
+            color="BLACK";
+        }
+        cout<<"Congratulations! The winner is "<<winnerName<<", who is playing the color "<<color<<"."<<endl;
+    }
     
 };
-
-
 
 
 int main(int argc, char** argv) {
@@ -81,6 +128,21 @@ int main(int argc, char** argv) {
 }
 
 void Board::initializeBoard(){
+    
+    string player1="";
+    string player2="";
+    cout<<"Welcome to the amazing Chess game! You're in for a treat!"<<endl;
+    cout<<"Enter a player display name for the WHITE piece: ";
+    cin>>player1;
+    cout<<endl;
+    cout<<"Enter a player display name for the BLACK piece: ";
+    cin>>player2;
+    cout<<endl;
+    
+    setPlayerName(0,player1);
+    setPlayerName(1,player2);
+    announceWinner(0);
+    
     for(int i=0;i<ROW;i++){
         for(int j=0;j<COLUMN;j++){
             Space defaultSpace;
