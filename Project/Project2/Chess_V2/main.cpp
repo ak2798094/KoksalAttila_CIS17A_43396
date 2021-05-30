@@ -46,6 +46,9 @@ public:
 struct Coordinate{
     int x;
     int y;
+    bool operator==(const Coordinate& other)const{
+        return (x==other.x&&y==other.y);
+    }
 };
 
 class Game{
@@ -91,6 +94,7 @@ public:
     void movePiece(Color);
     void printBoard();
     void setPiece(Coordinate,Piece,Color);
+    void searchAndAdd(Coordinate[],int,Coordinate,int,int);
     void announceWinner(int winner){
         string winnerName="";
         string player1=getPlayerName(0);
@@ -311,4 +315,9 @@ void Board::movePiece(Color myColor){
         startSpace->setValue(Empty,NONE);
     }
     Board::printBoard();
+}
+void Board::searchAndAdd(Coordinate arr[],int size,Coordinate startCoord,int xd,int yd){
+    Coordinate currentCoord=startCoord;
+    currentCoord.x=xd;
+    currentCoord.y=yd;
 }
