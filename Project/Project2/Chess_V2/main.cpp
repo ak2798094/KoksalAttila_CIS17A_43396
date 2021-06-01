@@ -121,12 +121,14 @@ int main(int argc, char** argv) {
     
     board.initializeBoard();
     board.printBoard();
+    cout<<endl;
     while(true){
         board.movePiece(WHITE);
 
         board.movePiece(BLACK);
 
     }
+    cout<<endl;
 
     
 }
@@ -157,8 +159,8 @@ void Board::initializeBoard(){
     setPiece({0,0},Rook,WHITE);
     setPiece({0,1},Knight,WHITE);
     setPiece({0,2},Bishop,WHITE);
-    setPiece({0,3},King,WHITE);
-    setPiece({0,4},Queen,WHITE);
+    setPiece({0,3},Queen,WHITE);
+    setPiece({0,4},King,WHITE);
     setPiece({0,5},Bishop,WHITE);
     setPiece({0,6},Knight,WHITE);
     setPiece({0,7},Rook,WHITE);
@@ -172,8 +174,8 @@ void Board::initializeBoard(){
     setPiece({7,0},Rook,BLACK);
     setPiece({7,1},Knight,BLACK);
     setPiece({7,2},Bishop,BLACK);
-    setPiece({7,3},King,BLACK);
-    setPiece({7,4},Queen,BLACK);
+    setPiece({7,3},Queen,BLACK);
+    setPiece({7,4},King,BLACK);
     setPiece({7,5},Bishop,BLACK);
     setPiece({7,6},Knight,BLACK);
     setPiece({7,7},Rook,BLACK);
@@ -181,14 +183,28 @@ void Board::initializeBoard(){
     
 }
 void Board::printBoard(){
-    for(int i=0;i<ROW;i++){
+    cout<<"-----------------------------------------------------------------------------"<<endl;
+    for(int i=ROW-1;i>=0;i--){
+        cout<<i+1<<" ";
         for(int j=0;j<COLUMN;j++){
             cout<<setw(10);
-            cout<<pieceNames[getSpace({i,j})->getValue()]<<" ";
+            string pieceString=pieceNames[getSpace({i,j})->getValue()];
+            if(getSpace({i,j})->getColor()==WHITE){
+                for(auto& x:pieceString){
+                    x=toupper(x);
+                }
+            }
+            cout<<pieceString<<" ";
             
         }
         cout<<endl;
     }
+    char letters[8]={'A','B','C','D','E','F','G','H'};
+    for(int i=0;i<COLUMN;i++){
+        cout<<setw(10);
+        cout<<letters[i]<<" "; // cheesy if elses here dude
+    }
+    cout<<endl;
 }
 void Board::setPiece(Coordinate coor,Piece pece,Color clr){
     getSpace(coor)->setValue(pece,clr);
@@ -214,110 +230,143 @@ void Space::setValue(Piece pece,Color clr){
 }
 
 void Board::movePiece(Color myColor){
-    
+    bool valid=false;
     char letter;
     Space* startSpace=new Space();
     Space* endSpace=new Space();
     Coordinate start;
     Coordinate end;
-    cout<<"Enter which piece to move (enter row and column with space in between i.e (E 2))";
-    cin>>letter;
-    cin>>start.x;
-    start.x--;
-    start.y=tolower(letter)-'a';
-    
-    cout<<"Enter where to move to (enter row and column with space in between i.e (E 3))";
-    cin>>letter;
-    cin>>end.x;
-    end.x--;
-    end.y=tolower(letter)-'a';
-
-    startSpace = getSpace(start);
-    endSpace=getSpace(end);
-    Piece startPiece = startSpace->getValue();
-    
-    
-    if(endSpace->getColor()==myColor){
-        cout<<"how can you move there if there is already a piece there of yours";
-    }
-    if (startSpace->getColor()!=myColor){
-        cout<<"Sorry you can only move your piece"<<endl;
-    }
-    
-    
-    
-    
-    
-    Coordinate ableToMove[64];
-    int size=0;
-      cout<<"Start Piece"<<startPiece;
-
-    if (startPiece==Pawn){
-        
-        int offset;
-        if(startSpace->getColor()==WHITE){
-            offset=1;
+    Piece startPiece;
+    while(!valid){
+        cout<<endl;
+        string colorString="";
+        if(myColor==WHITE){
+            colorString="WHITE";
         }
-        else if(startSpace->getColor()==BLACK){
-            offset=-1;
+        else if(myColor==BLACK){
+            colorString="BLACK";
+        }
+        cout<<"Player "<<colorString<<", enter which piece to move (enter row and column with space in between i.e (E 2))";
+        cin>>letter;
+        cin>>start.x;
+        start.x--;
+        start.y=tolower(letter)-'a';
+
+        cout<<"Player "<<colorString<<", enter where to move to (enter row and column with space in between i.e (E 3))";
+        cin>>letter;
+        cin>>end.x;
+        end.x--;
+        end.y=tolower(letter)-'a';
+
+        startSpace=getSpace(start);
+        endSpace=getSpace(end);
+        startPiece=startSpace->getValue();
+        
+        if(endSpace->getColor()==myColor){
+            cout<<"how can you move there if there is already a piece there of yours";
+            continue;
+        }
+        if(startSpace->getColor()!=myColor){
+            cout<<"Sorry you can only move your piece"<<endl;
+            continue;
         }
         
-        if(getSpace({start.x+offset,start.y})->getValue()==Empty){
-            ableToMove[size]={start.x+offset,start.y};
-            size++;
-        }
-        if((start.y-1)>0){
-            if(getSpace({start.x+offset,start.y-1})->getColor()!=myColor&&getSpace({start.x+offset,start.y-1})->getColor()!=NONE){
-                ableToMove[size]={start.x+offset,start.y-1};
+        Coordinate ableToMove[64];
+        int size=0;
+        if(startPiece==Pawn){
+
+            int offset;
+            if(startSpace->getColor()==WHITE){
+                offset=1;
+            }
+            else if(startSpace->getColor()==BLACK){
+                offset=-1;
+            }
+
+            if(getSpace({start.x+offset,start.y})->getValue()==Empty){
+                ableToMove[size]={start.x+offset,start.y};
                 size++;
             }
-        }
-        if(start.y+1<COLUMN){
-            if(getSpace({start.x+offset,start.y+1})->getColor()!=myColor&&getSpace({start.x+offset,start.y+1})->getColor()!=NONE){
-                ableToMove[size]={start.x+offset,start.y+1};
-                size++;
+            if((start.y-1)>0){
+                if(getSpace({start.x+offset,start.y-1})->getColor()!=myColor&&getSpace({start.x+offset,start.y-1})->getColor()!=NONE){
+                    ableToMove[size]={start.x+offset,start.y-1};
+                    size++;
+                }
+            }
+            if(start.y+1<COLUMN){
+                if(getSpace({start.x+offset,start.y+1})->getColor()!=myColor&&getSpace({start.x+offset,start.y+1})->getColor()!=NONE){
+                    ableToMove[size]={start.x+offset,start.y+1};
+                    size++;
+                }
             }
         }
-    }
-    else if(startPiece==Rook){
-        
-    }
-    else if(startPiece==Bishop){
-        
-    }
-    else if(startPiece==Knight){
-        
-    }
-    else if(startPiece==Queen){
-        
-    }
-    else if(startPiece==King){
-        
-    }
-    else if(startPiece==Empty){
-        
-    }
-    //----------------------check if valid move
-    //end.x end.y
-
-    bool found=false;
-    for(int i=0;i<size;i++){
-         cout<<"ableToMoveElement"<<ableToMove[i].x<<":"<<ableToMove[i].y<<endl;
-        if(ableToMove[i].x==end.x&&ableToMove[i].y==end.y){
-            found=true;
-            break;
+        else if(startPiece==Rook){
+            searchAndAdd(ableToMove,size,start,1,0); // up
+            searchAndAdd(ableToMove,size,start,0,1); // right
+            searchAndAdd(ableToMove,size,start,0,-1); // left
+            searchAndAdd(ableToMove,size,start,-1,0); // down
         }
+        else if(startPiece==Bishop){
+
+        }
+        else if(startPiece==Knight){
+
+        }
+        else if(startPiece==Queen){
+
+        }
+        else if(startPiece==King){
+
+        }
+        else if(startPiece==Empty){
+
+        }
+        //----------------------check if valid move
+        //end.x end.y
+
+        bool found=false;
+        for(int i=0;i<size;i++){
+            cout<<"ableToMoveElement"<<ableToMove[i].x<<":"<<ableToMove[i].y<<endl;
+            if(ableToMove[i].x==end.x&&ableToMove[i].y==end.y){
+                found=true;
+                break;
+            }
+        }
+
+
+        if(found){
+            endSpace->setValue(startPiece,myColor);
+            startSpace->setValue(Empty,NONE);
+            valid=true;
+        }
+        else{
+            cout<<"Sorry you cannot move to that location."<<endl;
+            continue;
+        }
+        Board::printBoard();
     }
-    
-    
-    if(found){
-        endSpace->setValue(startPiece,myColor);
-        startSpace->setValue(Empty,NONE);
-    }
-    Board::printBoard();
 }
 void Board::searchAndAdd(Coordinate arr[],int size,Coordinate startCoord,int xd,int yd){
     Coordinate currentCoord=startCoord;
-    currentCoord.x=xd;
-    currentCoord.y=yd;
+    Color playerColor=getSpace(startCoord)->getColor();
+    currentCoord.x+=xd;
+    currentCoord.y+=yd;
+    while(currentCoord.x<ROW&&currentCoord.y<COLUMN&&currentCoord.x>=0&&currentCoord.y>=0){
+        if(getSpace(currentCoord)->getValue()==Empty){
+            arr[size]=currentCoord;
+            cout<<"I have added."<<arr[size].x<<":"<<arr[size].y<<endl;
+            size++;
+        }
+        else if(getSpace(currentCoord)->getColor()!=playerColor&&getSpace(currentCoord)->getColor()!=NONE){
+            arr[size]=currentCoord;
+            cout<<"I have added.2"<<arr[size].x<<":"<<arr[size].y<<endl;
+            size++;
+            break;
+        }
+        else if(getSpace(currentCoord)->getColor()==playerColor){
+            break;
+        }
+        currentCoord.x+=xd;
+        currentCoord.y+=yd;
+    }
 }
