@@ -13,7 +13,7 @@
 using namespace std;
 const int ROW = 8;
 const int COLUMN = 8;
-const string pieceNames[7]={"Pawn","Rook","Bishop","Knight","Queen","King","____"};
+const string pieceNames[7]={"pwn","rok","bsh","kgh","qun","kng","____"};
 
 enum Piece{//Piece represents all possible values of a spot on a board can be, in traditional board, its spot can be either red or yellow, or empty. Here we use X and O to represent yellow and empty
     Pawn=0,
@@ -87,7 +87,7 @@ public:
 class Board:public Game{
     Space board[ROW][COLUMN];
     Color turn=WHITE;
-    
+    bool check=false;
 public:
     void initializeBoard();
     Space* getSpace(Coordinate);
@@ -95,6 +95,7 @@ public:
     void printBoard();
     void setPiece(Coordinate,Piece,Color);
     void searchAndAdd(Coordinate[],int &,Coordinate,int,int);
+    void findAttackSquares(Coordinate[],int &,Color);
     void announceWinner(int winner){
         string winnerName="";
         string player1=getPlayerName(0);
@@ -138,6 +139,7 @@ void Board::initializeBoard(){
     string player1="";
     string player2="";
     cout<<"Welcome to the amazing Chess game! You're in for a treat!"<<endl;
+    cout<<"The chess pieces all capitalized are the WHITE pieces and the lowercase chess pieces are the BLACK pieces."<<endl;
     cout<<"Enter a player display name for the WHITE piece: ";
     cin>>player1;
     cout<<endl;
@@ -183,11 +185,12 @@ void Board::initializeBoard(){
     
 }
 void Board::printBoard(){
-    cout<<"-----------------------------------------------------------------------------"<<endl;
     for(int i=ROW-1;i>=0;i--){
+        cout<<"-----------------------------------------------------------"<<endl;
         cout<<i+1<<" ";
         for(int j=0;j<COLUMN;j++){
-            cout<<setw(10);
+            cout<<"|";
+            cout<<setw(5);
             string pieceString=pieceNames[getSpace({i,j})->getValue()];
             if(getSpace({i,j})->getColor()==WHITE){
                 for(auto& x:pieceString){
@@ -200,8 +203,9 @@ void Board::printBoard(){
         cout<<endl;
     }
     char letters[8]={'A','B','C','D','E','F','G','H'};
+    cout<<endl<<"  ";
     for(int i=0;i<COLUMN;i++){
-        cout<<setw(10);
+        cout<<setw(6);
         cout<<letters[i]<<" "; // cheesy if elses here dude
     }
     cout<<endl;
@@ -343,7 +347,37 @@ void Board::movePiece(Color myColor){
             searchAndAdd(ableToMove,size,start,-1,1); // bottom right
         }
         else if(startPiece==King){
-            
+            int availablePos[][2]={{1,1},{1,0},{-1,0},{-1,-1},{1,-1},{-1,1},{0,1},{0,-1}};
+            for(int i=0;i<8;i++){
+                Coordinate usedToCheck={start.x+availablePos[i][0],start.y+availablePos[i][1]};
+                if(usedToCheck.x<ROW&&usedToCheck.y<COLUMN&&usedToCheck.x>=0&&usedToCheck.y>=0){
+                    if(getSpace(usedToCheck)->getColor()!=myColor){
+                        ableToMove[size]=usedToCheck;
+                        size++;
+                    }
+                }
+            }
+            Coordinate attackAble[64];
+            int attackSize=0;
+            Color enemyColor;
+            if(myColor==WHITE){
+                enemyColor=BLACK;
+            }
+            else{
+                enemyColor=WHITE;
+            }
+            findAttackSquares(attackAble,attackSize,enemyColor);
+            for(int i=0;i<attackSize;i++){
+                cout<<attackAble[i].x<<":"<<attackAble[i].y<<endl;
+            }
+            for(int i=0;i<size;i++){
+                for(int j=0;j<attackSize;j++){
+                    if(ableToMove[i]==attackAble[j]){
+                        ableToMove[i]=ableToMove[size-1];
+                        size--;
+                    }
+                }
+            }
         }
         //----------------------check if valid move
         //end.x end.y
@@ -393,4 +427,81 @@ void Board::searchAndAdd(Coordinate arr[],int &size,Coordinate startCoord,int xd
         currentCoord.x+=xd;
         currentCoord.y+=yd;
     }
+}
+void Board::findAttackSquares(Coordinate ableToMove[],int &size,Color myColor){
+    for(int i=0;i<ROW;i++){
+        for(int j=0;j<COLUMN;j++){
+            Coordinate currentCoord={i,j};
+            Piece currentPiece=getSpace(currentCoord)->getValue();
+            Space* currentSpace=getSpace(currentCoord);
+            if(getSpace(currentCoord)->getColor()!=myColor){
+                continue;
+            }
+            
+            if(currentPiece==Pawn){
+
+                int offset;
+                if(currentSpace->getColor()==WHITE){
+                    offset=1;
+                }
+                else if(currentSpace->getColor()==BLACK){
+                    offset=-1;
+                }
+                if((currentCoord.y-1)>0){
+                    ableToMove[size]={currentCoord.x+offset,currentCoord.y-1};
+                    size++;
+                }
+                if(currentCoord.y+1<COLUMN){
+                    ableToMove[size]={currentCoord.x+offset,currentCoord.y+1};
+                    size++;
+                }
+            }
+            else if(currentPiece==Rook){
+                searchAndAdd(ableToMove,size,currentCoord,1,0); // up
+                searchAndAdd(ableToMove,size,currentCoord,0,1); // right
+                searchAndAdd(ableToMove,size,currentCoord,0,-1); // left
+                searchAndAdd(ableToMove,size,currentCoord,-1,0); // down
+            }
+            else if(currentPiece==Bishop){
+                searchAndAdd(ableToMove,size,currentCoord,1,1); // up right
+                searchAndAdd(ableToMove,size,currentCoord,-1,-1); // bottom left
+                searchAndAdd(ableToMove,size,currentCoord,1,-1); // up left
+                searchAndAdd(ableToMove,size,currentCoord,-1,1); // bottom right
+            }
+            else if(currentPiece==Knight){
+                int availablePos[][2]={{1,2},{2,1},{-2,1},{-2,-1},{-1,2},{2,-1},{-1,-2},{1,-2}};
+                for(int i=0;i<8;i++){
+                    Coordinate usedToCheck={currentCoord.x+availablePos[i][0],currentCoord.y+availablePos[i][1]};
+                    if(usedToCheck.x<ROW&&usedToCheck.y<COLUMN&&usedToCheck.x>=0&&usedToCheck.y>=0){
+                        if(getSpace(usedToCheck)->getColor()!=myColor){
+                            ableToMove[size]=usedToCheck;
+                            size++;
+                        }
+                    }
+                }
+            }
+            else if(currentPiece==Queen){
+                searchAndAdd(ableToMove,size,currentCoord,1,0); // up
+                searchAndAdd(ableToMove,size,currentCoord,0,1); // right
+                searchAndAdd(ableToMove,size,currentCoord,0,-1); // left
+                searchAndAdd(ableToMove,size,currentCoord,-1,0); // down
+                searchAndAdd(ableToMove,size,currentCoord,1,1); // up right
+                searchAndAdd(ableToMove,size,currentCoord,-1,-1); // bottom left
+                searchAndAdd(ableToMove,size,currentCoord,1,-1); // up left
+                searchAndAdd(ableToMove,size,currentCoord,-1,1); // bottom right
+            }
+            else if(currentPiece==King){
+                int availablePos[][2]={{1,1},{1,0},{-1,0},{-1,-1},{1,-1},{-1,1},{0,1},{0,-1}};
+                for(int i=0;i<8;i++){
+                    Coordinate usedToCheck={currentCoord.x+availablePos[i][0],currentCoord.y+availablePos[i][1]};
+                    if(usedToCheck.x<ROW&&usedToCheck.y<COLUMN&&usedToCheck.x>=0&&usedToCheck.y>=0){
+                        if(getSpace(usedToCheck)->getColor()!=myColor){
+                            ableToMove[size]=usedToCheck;
+                            size++;
+                        }
+                    }
+                }
+            }
+            }
+        }
 }
