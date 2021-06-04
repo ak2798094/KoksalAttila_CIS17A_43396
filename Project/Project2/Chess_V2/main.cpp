@@ -94,7 +94,7 @@ public:
     void movePiece(Color);
     void printBoard();
     void setPiece(Coordinate,Piece,Color);
-    void searchAndAdd(Coordinate[],int,Coordinate,int,int);
+    void searchAndAdd(Coordinate[],int &,Coordinate,int,int);
     void announceWinner(int winner){
         string winnerName="";
         string player1=getPlayerName(0);
@@ -299,6 +299,14 @@ void Board::movePiece(Color myColor){
                     size++;
                 }
             }
+            Coordinate firstCheck={start.x+offset,start.y};
+            Coordinate secondCheck={start.x+(offset*2),start.y};
+            if(getSpace(firstCheck)->getValue()==Empty&&getSpace(secondCheck)->getValue()==Empty){
+                if((getSpace(start)->getColor()==WHITE&&start.x==1)||(getSpace(start)->getColor()==BLACK&&start.x==6)){
+                    ableToMove[size]=secondCheck;
+                    size++;
+                }
+            }
         }
         else if(startPiece==Rook){
             searchAndAdd(ableToMove,size,start,1,0); // up
@@ -307,19 +315,35 @@ void Board::movePiece(Color myColor){
             searchAndAdd(ableToMove,size,start,-1,0); // down
         }
         else if(startPiece==Bishop){
-
+            searchAndAdd(ableToMove,size,start,1,1); // up right
+            searchAndAdd(ableToMove,size,start,-1,-1); // bottom left
+            searchAndAdd(ableToMove,size,start,1,-1); // up left
+            searchAndAdd(ableToMove,size,start,-1,1); // bottom right
         }
         else if(startPiece==Knight){
-
+            int availablePos[][2]={{1,2},{2,1},{-2,1},{-2,-1},{-1,2},{2,-1},{-1,-2},{1,-2}};
+            for(int i=0;i<8;i++){
+                Coordinate usedToCheck={start.x+availablePos[i][0],start.y+availablePos[i][1]};
+                if(usedToCheck.x<ROW&&usedToCheck.y<COLUMN&&usedToCheck.x>=0&&usedToCheck.y>=0){
+                    if(getSpace(usedToCheck)->getColor()!=myColor){
+                        ableToMove[size]=usedToCheck;
+                        size++;
+                    }
+                }
+            }
         }
         else if(startPiece==Queen){
-
+            searchAndAdd(ableToMove,size,start,1,0); // up
+            searchAndAdd(ableToMove,size,start,0,1); // right
+            searchAndAdd(ableToMove,size,start,0,-1); // left
+            searchAndAdd(ableToMove,size,start,-1,0); // down
+            searchAndAdd(ableToMove,size,start,1,1); // up right
+            searchAndAdd(ableToMove,size,start,-1,-1); // bottom left
+            searchAndAdd(ableToMove,size,start,1,-1); // up left
+            searchAndAdd(ableToMove,size,start,-1,1); // bottom right
         }
         else if(startPiece==King){
-
-        }
-        else if(startPiece==Empty){
-
+            
         }
         //----------------------check if valid move
         //end.x end.y
@@ -346,7 +370,7 @@ void Board::movePiece(Color myColor){
         Board::printBoard();
     }
 }
-void Board::searchAndAdd(Coordinate arr[],int size,Coordinate startCoord,int xd,int yd){
+void Board::searchAndAdd(Coordinate arr[],int &size,Coordinate startCoord,int xd,int yd){
     Coordinate currentCoord=startCoord;
     Color playerColor=getSpace(startCoord)->getColor();
     currentCoord.x+=xd;
