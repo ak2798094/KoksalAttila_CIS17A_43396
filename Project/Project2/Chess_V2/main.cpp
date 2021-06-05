@@ -401,6 +401,24 @@ void Board::movePiece(Color myColor){
             cout<<"Sorry you cannot move to that location."<<endl;
             continue;
         }
+        Coordinate enemyKing;
+        for(int i=0;i<ROW;i++){
+            for(int j=0;j<COLUMN;j++){
+                if(getSpace({i,j})->getValue()==King&&getSpace({i,j})->getColor()!=myColor){
+                    enemyKing={i,j};
+                    break;
+                }
+            }
+        }
+        Coordinate attackMoves[64];
+        int attackMoveSize=0;
+        findAttackSquares(attackMoves,attackMoveSize,myColor);
+        for(int i=0;i<attackMoveSize;i++){
+            if(attackMoves[i]==enemyKing){
+                check=true;
+                break;
+            }
+        }
         Board::printBoard();
     }
 }
