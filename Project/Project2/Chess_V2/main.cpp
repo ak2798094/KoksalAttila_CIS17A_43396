@@ -89,6 +89,7 @@ class Board:public Game{
     Color turn=WHITE;
     bool check=false;
 public:
+    int winner=-1;
     void initializeBoard();
     Space* getSpace(Coordinate);
     void movePiece(Color);
@@ -128,9 +129,13 @@ int main(int argc, char** argv) {
     cout<<endl;
     while(true){
         board.movePiece(WHITE);
-
+        if(board.winner!=-1){
+            board.announceWinner(board.winner);
+        }
         board.movePiece(BLACK);
-
+        if(board.winner!=-1){
+            board.announceWinner(board.winner);
+        }
     }
     cout<<endl;
 
@@ -152,7 +157,6 @@ void Board::initializeBoard(){
     
     setPlayerName(0,player1);
     setPlayerName(1,player2);
-    announceWinner(0);
     
     for(int i=0;i<ROW;i++){
         for(int j=0;j<COLUMN;j++){
@@ -237,6 +241,31 @@ void Space::setValue(Piece pece,Color clr){
 }
 
 void Board::movePiece(Color myColor){
+    if(check){
+        bool foundMove=false;
+        Coordinate allMovable[64];
+        int size=0;
+        getAllMovableLocations(allMovable,size,myColor);
+        for(int i=0;i<size;i++){
+            Piece tempPiece=getSpace(allMovable[i])->getValue();
+            Color tempColor=getSpace(allMovable[i])->getColor();
+            setPiece(allMovable[i],Pawn,myColor);
+            if(!isUnderCheck(myColor)){
+                foundMove=true;
+            }
+        }
+        if(!foundMove){
+            if(myColor==WHITE){
+                winner=1;
+            }
+            else{
+                winner=0;
+            }
+            return;
+        }
+    }
+    
+    
     bool valid=false;
     char letter;
     Space* startSpace=new Space();
@@ -271,6 +300,7 @@ void Board::movePiece(Color myColor){
         cin>>end.x;
         end.x--;
         end.y=tolower(letter)-'a';
+        cout<<"END ."<<end.x+1<<":"<<end.y+1<<endl;
 
         startSpace=getSpace(start);
         endSpace=getSpace(end);
@@ -288,26 +318,15 @@ void Board::movePiece(Color myColor){
         Coordinate ableToMove[64];
         int size=0;
         getMovableLocations(ableToMove,size,start,myColor);
-        
-        Coordinate attackAble[64];
-        int attackSize=0;
-        findAttackSquares(attackAble,attackSize,enemyColor);
-        for(int i=0;i<attackSize;i++){
-            cout<<attackAble[i].x<<":"<<attackAble[i].y<<endl;
-        }
         for(int i=0;i<size;i++){
-            for(int j=0;j<attackSize;j++){
-                if(ableToMove[i]==attackAble[j]){
-                    ableToMove[i]=ableToMove[size-1];
-                    size--;
-                }
-            }
+            cout<<"I have added."<<ableToMove[i].x+1<<":"<<ableToMove[i].y+1<<endl;
         }
         //----------------------check if valid move
         //end.x end.y
         Piece replacedPiece;
         Color replacedColor;
         bool found=false;
+        cout<<size<<"efan is black"<<endl;
         for(int i=0;i<size;i++){
             if(ableToMove[i].x==end.x&&ableToMove[i].y==end.y){
                 found=true;
@@ -317,6 +336,8 @@ void Board::movePiece(Color myColor){
         if(found){
             replacedPiece=endSpace->getValue();
             replacedColor=endSpace->getColor();
+            cout<<"Replaced Piece: "<<replacedPiece<<endl;
+            cout<<"Replaced Color: "<<replacedColor<<endl;
             endSpace->setValue(startPiece,myColor);
             startSpace->setValue(Empty,NONE);
             valid=true;
@@ -354,12 +375,10 @@ void Board::searchAndAdd(Coordinate arr[],int &size,Coordinate startCoord,int xd
     while(currentCoord.x<ROW&&currentCoord.y<COLUMN&&currentCoord.x>=0&&currentCoord.y>=0){
         if(getSpace(currentCoord)->getValue()==Empty){
             arr[size]=currentCoord;
-            cout<<"I have added."<<arr[size].x<<":"<<arr[size].y<<endl;
             size++;
         }
         else if(getSpace(currentCoord)->getColor()!=playerColor&&getSpace(currentCoord)->getColor()!=NONE){
             arr[size]=currentCoord;
-            cout<<"I have added.2"<<arr[size].x<<":"<<arr[size].y<<endl;
             size++;
             break;
         }
@@ -478,6 +497,9 @@ bool Board::isUnderCheck(Color testColor){
 void Board::getAllMovableLocations(Coordinate ableToMove[],int& size,Color myColor){
     for(int i=0;i<ROW;i++){
         for(int j=0;j<COLUMN;j++){
+            if(getSpace({i,j})->getColor()!=myColor){
+                continue;
+            }
             getMovableLocations(ableToMove,size,{i,j},myColor);
         }
     }
@@ -562,6 +584,27 @@ void Board::getMovableLocations(Coordinate ableToMove[],int &size,Coordinate sta
                     if(getSpace(usedToCheck)->getColor()!=myColor){
                         ableToMove[size]=usedToCheck;
                         size++;
+                    }
+                }
+            }
+            Coordinate attackAble[64];
+            int attackSize=0;
+            Color enemyColor;
+            if(myColor==WHITE){
+                enemyColor=BLACK;
+            }
+            else{
+                enemyColor=WHITE;
+            }
+            findAttackSquares(attackAble,attackSize,enemyColor);
+            for(int i=0;i<attackSize;i++){
+                cout<<attackAble[i].x<<":"<<attackAble[i].y<<endl;
+            }
+            for(int i=0;i<size;i++){
+                for(int j=0;j<attackSize;j++){
+                    if(ableToMove[i]==attackAble[j]){
+                        ableToMove[i]=ableToMove[size-1];
+                        size--;
                     }
                 }
             }
