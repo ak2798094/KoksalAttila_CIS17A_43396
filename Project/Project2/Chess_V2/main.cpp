@@ -95,7 +95,7 @@ public:
     void movePiece(Color);
     void printBoard();
     void setPiece(Coordinate,Piece,Color);
-    void searchAndAdd(Coordinate[],int &,Coordinate,int,int);
+    void searchAndAdd(Coordinate[],int &,Coordinate,int,int,bool);
     void findAttackSquares(Coordinate[],int &,Color);
     bool isUnderCheck(Color);
     void getMovableLocations(Coordinate[],int &,Coordinate,Color);
@@ -250,9 +250,11 @@ void Board::movePiece(Color myColor){
             Piece tempPiece=getSpace(allMovable[i])->getValue();
             Color tempColor=getSpace(allMovable[i])->getColor();
             setPiece(allMovable[i],Pawn,myColor);
+
             if(!isUnderCheck(myColor)){
                 foundMove=true;
             }
+            setPiece(allMovable[i],tempPiece,tempColor);
         }
         if(!foundMove){
             if(myColor==WHITE){
@@ -367,7 +369,7 @@ void Board::movePiece(Color myColor){
         }
     }
 }
-void Board::searchAndAdd(Coordinate arr[],int &size,Coordinate startCoord,int xd,int yd){
+void Board::searchAndAdd(Coordinate arr[],int &size,Coordinate startCoord,int xd,int yd,bool attackable){
     Coordinate currentCoord=startCoord;
     Color playerColor=getSpace(startCoord)->getColor();
     currentCoord.x+=xd;
@@ -377,12 +379,16 @@ void Board::searchAndAdd(Coordinate arr[],int &size,Coordinate startCoord,int xd
             arr[size]=currentCoord;
             size++;
         }
-        else if(getSpace(currentCoord)->getColor()!=playerColor&&getSpace(currentCoord)->getColor()!=NONE){
+        else if(getSpace(currentCoord)->getColor()!=playerColor&&getSpace(currentCoord)->getColor()!=NONE){//enemy
             arr[size]=currentCoord;
             size++;
             break;
         }
         else if(getSpace(currentCoord)->getColor()==playerColor){
+            if(attackable){
+                arr[size]=currentCoord;
+                size++;
+            }
             break;
         }
         currentCoord.x+=xd;
@@ -418,23 +424,23 @@ void Board::findAttackSquares(Coordinate ableToMove[],int &size,Color myColor){
                 }
             }
             else if(currentPiece==Rook){
-                searchAndAdd(ableToMove,size,currentCoord,1,0); // up
-                searchAndAdd(ableToMove,size,currentCoord,0,1); // right
-                searchAndAdd(ableToMove,size,currentCoord,0,-1); // left
-                searchAndAdd(ableToMove,size,currentCoord,-1,0); // down
+                searchAndAdd(ableToMove,size,currentCoord,1,0,true); // up
+                searchAndAdd(ableToMove,size,currentCoord,0,1,true); // right
+                searchAndAdd(ableToMove,size,currentCoord,0,-1,true); // left
+                searchAndAdd(ableToMove,size,currentCoord,-1,0,true); // down
             }
             else if(currentPiece==Bishop){
-                searchAndAdd(ableToMove,size,currentCoord,1,1); // up right
-                searchAndAdd(ableToMove,size,currentCoord,-1,-1); // bottom left
-                searchAndAdd(ableToMove,size,currentCoord,1,-1); // up left
-                searchAndAdd(ableToMove,size,currentCoord,-1,1); // bottom right
+                searchAndAdd(ableToMove,size,currentCoord,1,1,true); // up right
+                searchAndAdd(ableToMove,size,currentCoord,-1,-1,true); // bottom left
+                searchAndAdd(ableToMove,size,currentCoord,1,-1,true); // up left
+                searchAndAdd(ableToMove,size,currentCoord,-1,1,true); // bottom right
             }
             else if(currentPiece==Knight){
                 int availablePos[][2]={{1,2},{2,1},{-2,1},{-2,-1},{-1,2},{2,-1},{-1,-2},{1,-2}};
                 for(int i=0;i<8;i++){
                     Coordinate usedToCheck={currentCoord.x+availablePos[i][0],currentCoord.y+availablePos[i][1]};
                     if(usedToCheck.x<ROW&&usedToCheck.y<COLUMN&&usedToCheck.x>=0&&usedToCheck.y>=0){
-                        if(getSpace(usedToCheck)->getColor()!=myColor){
+                        if(getSpace(usedToCheck)->getColor()!=NONE){
                             ableToMove[size]=usedToCheck;
                             size++;
                         }
@@ -442,14 +448,14 @@ void Board::findAttackSquares(Coordinate ableToMove[],int &size,Color myColor){
                 }
             }
             else if(currentPiece==Queen){
-                searchAndAdd(ableToMove,size,currentCoord,1,0); // up
-                searchAndAdd(ableToMove,size,currentCoord,0,1); // right
-                searchAndAdd(ableToMove,size,currentCoord,0,-1); // left
-                searchAndAdd(ableToMove,size,currentCoord,-1,0); // down
-                searchAndAdd(ableToMove,size,currentCoord,1,1); // up right
-                searchAndAdd(ableToMove,size,currentCoord,-1,-1); // bottom left
-                searchAndAdd(ableToMove,size,currentCoord,1,-1); // up left
-                searchAndAdd(ableToMove,size,currentCoord,-1,1); // bottom right
+                searchAndAdd(ableToMove,size,currentCoord,1,0,true); // up
+                searchAndAdd(ableToMove,size,currentCoord,0,1,true); // right
+                searchAndAdd(ableToMove,size,currentCoord,0,-1,true); // left
+                searchAndAdd(ableToMove,size,currentCoord,-1,0,true); // down
+                searchAndAdd(ableToMove,size,currentCoord,1,1,true); // up right
+                searchAndAdd(ableToMove,size,currentCoord,-1,-1,true); // bottom left
+                searchAndAdd(ableToMove,size,currentCoord,1,-1,true); // up left
+                searchAndAdd(ableToMove,size,currentCoord,-1,1,true); // bottom right
             }
             else if(currentPiece==King){
                 int availablePos[][2]={{1,1},{1,0},{-1,0},{-1,-1},{1,-1},{-1,1},{0,1},{0,-1}};
@@ -543,16 +549,16 @@ void Board::getMovableLocations(Coordinate ableToMove[],int &size,Coordinate sta
             }
         }
         else if(startPiece==Rook){
-            searchAndAdd(ableToMove,size,start,1,0); // up
-            searchAndAdd(ableToMove,size,start,0,1); // right
-            searchAndAdd(ableToMove,size,start,0,-1); // left
-            searchAndAdd(ableToMove,size,start,-1,0); // down
+            searchAndAdd(ableToMove,size,start,1,0,false); // up
+            searchAndAdd(ableToMove,size,start,0,1,false); // right
+            searchAndAdd(ableToMove,size,start,0,-1,false); // left
+            searchAndAdd(ableToMove,size,start,-1,0,false); // down
         }
         else if(startPiece==Bishop){
-            searchAndAdd(ableToMove,size,start,1,1); // up right
-            searchAndAdd(ableToMove,size,start,-1,-1); // bottom left
-            searchAndAdd(ableToMove,size,start,1,-1); // up left
-            searchAndAdd(ableToMove,size,start,-1,1); // bottom right
+            searchAndAdd(ableToMove,size,start,1,1,false); // up right
+            searchAndAdd(ableToMove,size,start,-1,-1,false); // bottom left
+            searchAndAdd(ableToMove,size,start,1,-1,false); // up left
+            searchAndAdd(ableToMove,size,start,-1,1,false); // bottom right
         }
         else if(startPiece==Knight){
             int availablePos[][2]={{1,2},{2,1},{-2,1},{-2,-1},{-1,2},{2,-1},{-1,-2},{1,-2}};
@@ -567,14 +573,14 @@ void Board::getMovableLocations(Coordinate ableToMove[],int &size,Coordinate sta
             }
         }
         else if(startPiece==Queen){
-            searchAndAdd(ableToMove,size,start,1,0); // up
-            searchAndAdd(ableToMove,size,start,0,1); // right
-            searchAndAdd(ableToMove,size,start,0,-1); // left
-            searchAndAdd(ableToMove,size,start,-1,0); // down
-            searchAndAdd(ableToMove,size,start,1,1); // up right
-            searchAndAdd(ableToMove,size,start,-1,-1); // bottom left
-            searchAndAdd(ableToMove,size,start,1,-1); // up left
-            searchAndAdd(ableToMove,size,start,-1,1); // bottom right
+            searchAndAdd(ableToMove,size,start,1,0,false); // up
+            searchAndAdd(ableToMove,size,start,0,1,false); // right
+            searchAndAdd(ableToMove,size,start,0,-1,false); // left
+            searchAndAdd(ableToMove,size,start,-1,0,false); // down
+            searchAndAdd(ableToMove,size,start,1,1,false); // up right
+            searchAndAdd(ableToMove,size,start,-1,-1,false); // bottom left
+            searchAndAdd(ableToMove,size,start,1,-1,false); // up left
+            searchAndAdd(ableToMove,size,start,-1,1,false); // bottom right
         }
         else if(startPiece==King){
             int availablePos[][2]={{1,1},{1,0},{-1,0},{-1,-1},{1,-1},{-1,1},{0,1},{0,-1}};
@@ -598,10 +604,11 @@ void Board::getMovableLocations(Coordinate ableToMove[],int &size,Coordinate sta
             }
             findAttackSquares(attackAble,attackSize,enemyColor);
             for(int i=0;i<attackSize;i++){
-                cout<<attackAble[i].x<<":"<<attackAble[i].y<<endl;
+                cout<<attackAble[i].x+1<<":"<<attackAble[i].y+1<<endl;
             }
             for(int i=0;i<size;i++){
                 for(int j=0;j<attackSize;j++){
+                   cout<<"Moveing ."<<ableToMove[i].x+1<<":"<<ableToMove[i].y+1<<endl<<"Attach ."<<attackAble[j].x+1<<":"<<attackAble[j].y+1<<endl;
                     if(ableToMove[i]==attackAble[j]){
                         ableToMove[i]=ableToMove[size-1];
                         size--;
