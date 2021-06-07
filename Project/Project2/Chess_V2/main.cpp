@@ -601,6 +601,7 @@ void Board::getMovableLocations(Coordinate ableToMoveResult[],int &resultSize,Co
         Coordinate attackAble[64];
         int attackSize=0;
         Color enemyColor;
+        
         if(myColor==WHITE){
             enemyColor=BLACK;
         }
