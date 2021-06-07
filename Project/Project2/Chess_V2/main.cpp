@@ -3,7 +3,7 @@
  * Author: Attila Koksal
  * Created on May 26, 2021, 11:43 PM
  * Purpose:  CPP Template 
- *           To be copied for each Assignment Problem
+ *           Chess Version 2
  */
 
 //System Libraries
