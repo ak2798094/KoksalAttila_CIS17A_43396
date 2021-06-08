@@ -1,4 +1,4 @@
-/* 
+/** 
  * @file:   main.cpp
  * @author: Attila Koksal
  * @version: 6.0
@@ -18,9 +18,9 @@
 #include <cmath>
 using namespace std;
 ///number of rows in the chess board
-const int ROW = 8; 
+const int ROW=8; 
 ///number of columns in the chess board
-const int COLUMN = 8; // m
+const int COLUMN=8;
 ///display name for different pieces for board use
 const string pieceNames[7]={"pwn","rok","bsh","kgh","qun","kng","____"};
 
