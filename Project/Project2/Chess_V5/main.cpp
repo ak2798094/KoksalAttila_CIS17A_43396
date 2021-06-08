@@ -85,7 +85,6 @@ public:
     void movePiece(Color);
     void printBoard();
     void setPiece(Coordinate,Piece,Color);
-    void searchAndAdd(Coordinate[],int &,Coordinate,int,int,bool);
     void findAttackSquares(Coordinate[],int &,Color);
     bool isUnderCheck(Color);
     void getMovableLocations(Coordinate[],int &,Coordinate,Color);
