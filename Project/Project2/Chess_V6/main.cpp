@@ -1,8 +1,8 @@
 /* 
  * @file:   main.cpp
  * @author: Attila Koksal
- * @version 6.0
- * Created on May 26, 2021, 11:43 PM
+ * @version: 6.0
+ * @date: Created on June 5, 2021, 5:30 PM
  * Purpose:  CPP Template 
  *           Chess Version 6
  */
