@@ -10,6 +10,7 @@
 #include <iostream>  //I/O Library
 #include<iomanip>
 #include <valarray>
+#include <cmath>
 using namespace std;
 const int ROW = 8;
 const int COLUMN = 8;
@@ -82,12 +83,45 @@ public:
             return player2;
         }
     }
+    // @returns 0 if first parameter is larger, 1 if second parameter is larger, -1 if tie
+    template<typename T>
+    int maxItem(T a,T b){
+        if(a>b){
+            return 0;
+        }
+        else if(b>a){
+            return 1;
+        }
+        else{
+            return -1;
+        }
+    }
+    void menu(int input){
+        if(input==0){
+            cout<<"Welcome to this game. For information, please select one of the following options below: "<<endl;
+            cout<<"'M 1': Display Game Creator Information"<<endl;
+            cout<<"'M 2': Display Players"<<endl;
+        }
+        else if(input==1){
+            cout<<"The game was developed by Attila Koksal for the CSC-17A final project."<<endl;
+        }
+        else if(input==2){
+            cout<<"The players of this game are: "<<endl;
+            cout<<"Player 1: "<<player1<<endl;
+            cout<<"Player 2: "<<player2<<endl;
+        }
+        else{
+            cout<<"Sorry, incorrect input."<<endl;
+        }
+    }
 };
 
 class Board:public Game{
     Space board[ROW][COLUMN];
     Color turn=WHITE;
     bool check=false;
+    int numberOfTurns=0;
+    bool castleAble[2][2]={{true,true},{true,true}};
 public:
     int winner=-1;
     void initializeBoard();
@@ -100,6 +134,22 @@ public:
     bool isUnderCheck(Color);
     void getMovableLocations(Coordinate[],int &,Coordinate,Color);
     void getAllMovableLocations(Coordinate[],int &,Color);
+    void displayWinningStatus();
+    bool castleAttempt(Coordinate from,int toY){
+        Piece movingPiece=getSpace(from)->getValue();
+        if(movingPiece!=King){
+            return false;
+        }
+        else if(movingPiece==King){
+            if(from.y!=4){
+                return false;
+            }
+            else if(toY==6||toY==2){
+                return true;
+            }
+        }
+        return true;
+    }
     void announceWinner(int winner){
         string winnerName="";
         string player1=getPlayerName(0);
@@ -116,7 +166,47 @@ public:
         }
         cout<<"Congratulations! The winner is "<<winnerName<<", who is playing the color "<<color<<"."<<endl;
     }
-    
+    void increaseNumberOfTurns(){
+        numberOfTurns++;
+    }
+    void menu(int input){
+        string player1=getPlayerName(0);
+        string player2=getPlayerName(1);
+        if(input==0){
+            cout<<"Welcome to this game. For information, please select one of the following options below: "<<endl;
+            cout<<"'M 1': Display Game Creator Information"<<endl;
+            cout<<"'M 2': Display Players"<<endl;
+            cout<<"'M 3': Display Current Winning Player Lead Status"<<endl;
+            cout<<"'M 4': Display Current Number of Turns"<<endl;
+            cout<<"'M 5': Display Board"<<endl;
+            cout<<"'M 6': Display Castle Instruction"<<endl;
+        }
+        else if(input==1){
+            cout<<"The game was developed by Attila Koksal for the CSC-17A final project."<<endl;
+        }
+        else if(input==2){
+            cout<<"The players of this game are: "<<endl;
+            cout<<"Player 1: "<<player1<<endl;
+            cout<<"Player 2: "<<player2<<endl;
+        }
+        else if(input==3){
+            displayWinningStatus();
+        }
+        else if(input==4){
+            cout<<"Current Number of Turns: "<<numberOfTurns<<endl;
+        }
+        else if(input==5){
+            printBoard();
+        }
+        else if(input==6){
+            cout<<"Castle Instructions: "<<endl;
+            cout<<"Short Castle: Move WHITE King to G 1 OR Move BLACK King to G 8 when allowed to castle"<<endl;
+            cout<<"Long Castle: Move WHITE King to C 1 OR Move BLACK King to C 8 when allowed to castle"<<endl;
+        }
+        else{
+            cout<<"Sorry, incorrect input."<<endl;
+        }
+    }
 };
 
 
@@ -136,6 +226,7 @@ int main(int argc, char** argv) {
         if(board.winner!=-1){
             board.announceWinner(board.winner);
         }
+        board.increaseNumberOfTurns();
     }
     cout<<endl;
 
@@ -213,7 +304,7 @@ void Board::printBoard(){
     cout<<endl<<"  ";
     for(int i=0;i<COLUMN;i++){
         cout<<setw(6);
-        cout<<letters[i]<<" "; // cheesy if elses here dude
+        cout<<letters[i]<<" ";
     }
     cout<<endl;
 }
@@ -267,7 +358,7 @@ void Board::movePiece(Color myColor){
         }
     }
     
-    
+    bool isCastleAttempt=false;
     bool valid=false;
     char letter;
     Space* startSpace=new Space();
@@ -292,18 +383,24 @@ void Board::movePiece(Color myColor){
             colorString="BLACK";
         }
         cout<<"Player "<<colorString<<", enter which piece to move (enter row and column with space in between i.e (E 2))";
+        cout<<"[Or enter 'M 0' for menu display]";
         cin>>letter;
         cin>>start.x;
+        if(letter=='m'||letter=='M'){
+            menu(start.x);
+            continue;
+        }
         start.x--;
         start.y=tolower(letter)-'a';
-
+        
         cout<<"Player "<<colorString<<", enter where to move to (enter row and column with space in between i.e (E 3))";
         cin>>letter;
         cin>>end.x;
         end.x--;
         end.y=tolower(letter)-'a';
-        cout<<"END ."<<end.x+1<<":"<<end.y+1<<endl;
-
+        
+        isCastleAttempt=castleAttempt(start,end.y);
+        
         startSpace=getSpace(start);
         endSpace=getSpace(end);
         startPiece=startSpace->getValue();
@@ -320,6 +417,35 @@ void Board::movePiece(Color myColor){
         Coordinate ableToMove[64];
         int size=0;
         getMovableLocations(ableToMove,size,start,myColor);
+        
+        if(myColor==WHITE){
+            if(castleAble[0][0]==true){
+                if(getSpace({0,3})->getValue()==Empty&&getSpace({0,2})->getValue()==Empty&&getSpace({0,1})->getValue()==Empty&&getSpace({0,0})->getValue()==Rook){
+                    ableToMove[size]={0,2};
+                    size++;
+                }
+            }
+            if(castleAble[0][1]==true){
+                if(getSpace({0,5})->getValue()==Empty&&getSpace({0,6})->getValue()==Empty&&getSpace({0,7})->getValue()==Rook){
+                    ableToMove[size]={0,6};
+                    size++;
+                }
+            }
+        }
+        else if(myColor==BLACK){
+            if(castleAble[1][0]==true){
+                if(getSpace({7,3})->getValue()==Empty&&getSpace({7,2})->getValue()==Empty&&getSpace({7,1})->getValue()==Empty&&getSpace({7,0})->getValue()==Rook){
+                    ableToMove[size]={7,2};
+                    size++;
+                }
+            }
+            if(castleAble[1][1]==true){
+                if(getSpace({7,5})->getValue()==Empty&&getSpace({7,6})->getValue()==Empty&&getSpace({7,7})->getValue()==Rook){
+                    ableToMove[size]={7,6};
+                    size++;
+                }
+            }
+        }
         for(int i=0;i<size;i++){
             cout<<"I have added."<<ableToMove[i].x+1<<":"<<ableToMove[i].y+1<<endl;
         }
@@ -328,7 +454,7 @@ void Board::movePiece(Color myColor){
         Piece replacedPiece;
         Color replacedColor;
         bool found=false;
-        cout<<size<<"efan is black"<<endl;
+        
         for(int i=0;i<size;i++){
             if(ableToMove[i].x==end.x&&ableToMove[i].y==end.y){
                 found=true;
@@ -342,6 +468,16 @@ void Board::movePiece(Color myColor){
             cout<<"Replaced Color: "<<replacedColor<<endl;
             endSpace->setValue(startPiece,myColor);
             startSpace->setValue(Empty,NONE);
+            if(isCastleAttempt){
+                if(end.y==6){
+                    getSpace({start.x,7})->setValue(Empty,NONE);
+                    getSpace({start.x,5})->setValue(Rook,myColor);
+                }
+                else if(end.y==2){
+                    getSpace({start.x,0})->setValue(Empty,NONE);
+                    getSpace({start.x,3})->setValue(Rook,myColor);
+                }
+            }
             valid=true;
         }
         else{
@@ -351,6 +487,16 @@ void Board::movePiece(Color myColor){
         if(check&&isUnderCheck(myColor)){
             startSpace->setValue(startPiece,myColor);
             endSpace->setValue(replacedPiece,replacedColor);
+            if(isCastleAttempt){
+                if(end.y==6){
+                    getSpace({start.x,5})->setValue(Empty,NONE);
+                    getSpace({start.x,7})->setValue(Rook,myColor);
+                }
+                else if(end.y==2){
+                    getSpace({start.x,3})->setValue(Empty,NONE);
+                    getSpace({start.x,0})->setValue(Rook,myColor);
+                }
+            }
             cout<<"You cannot do that while under check."<<endl;
             valid=false;
             continue;
@@ -358,9 +504,49 @@ void Board::movePiece(Color myColor){
         if(isUnderCheck(myColor)){
             startSpace->setValue(startPiece,myColor);
             endSpace->setValue(replacedPiece,replacedColor);
+            if(isCastleAttempt){
+                if(end.y==6){
+                    getSpace({start.x,5})->setValue(Empty,NONE);
+                    getSpace({start.x,7})->setValue(Rook,myColor);
+                }
+                else if(end.y==2){
+                    getSpace({start.x,3})->setValue(Empty,NONE);
+                    getSpace({start.x,0})->setValue(Rook,myColor);
+                }
+            }
             cout<<"You cannot do that, that move causes a check from the opponent."<<endl;
             valid=false;
             continue;
+        }
+        if(valid){
+            if(startPiece==King){
+                if(myColor==WHITE){
+                    castleAble[0][0]=false;
+                    castleAble[0][1]=false;
+                }
+                else if(myColor==BLACK){
+                    castleAble[1][0]=false;
+                    castleAble[1][1]=false;
+                }
+            }
+            else if(startPiece==Rook){
+                if(start.y==7){
+                    if(myColor==WHITE){
+                        castleAble[0][1]=false;
+                    }
+                    else if(myColor==BLACK){
+                        castleAble[1][1]=false;
+                    }
+                }
+                else if(start.y==0){
+                    if(myColor==WHITE){
+                        castleAble[0][0]=false;
+                    }
+                    else if(myColor==BLACK){
+                        castleAble[1][0]=false;
+                    }
+                }
+            }
         }
         check=isUnderCheck(enemyColor);
         Board::printBoard();
@@ -515,7 +701,6 @@ void Board::getMovableLocations(Coordinate ableToMoveResult[],int &resultSize,Co
     Coordinate ableToMove[64];
     int size=0;
     
-    
     Piece startPiece=getSpace(start)->getValue();
     Space* startSpace=getSpace(start);
     if(startPiece==Pawn){
@@ -628,4 +813,29 @@ void Board::getMovableLocations(Coordinate ableToMoveResult[],int &resultSize,Co
         ableToMoveResult[resultSize]=ableToMove[i];
         resultSize++;
     }
+}
+void Board::displayWinningStatus(){
+    int scoreValues[]={1,5,3,3,9,0};
+    int playerScores[2]={0,0};
+    string playerNames[2]={getPlayerName(0),getPlayerName(1)};
+    for(int i=0;i<ROW;i++){
+        for(int j=0;j<COLUMN;j++){
+            Piece currentPiece=getSpace({i,j})->getValue();
+            Color currentColor=getSpace({i,j})->getColor();
+            if(currentColor==WHITE&&currentPiece!=Empty){
+                playerScores[0]+=scoreValues[currentPiece];
+            }
+            else if(currentColor==BLACK&&currentPiece!=Empty){
+                playerScores[1]+=scoreValues[currentPiece];
+            }
+        }
+    }
+    int winningPlayerNumber=maxItem(playerScores[0],playerScores[1]);
+    if(winningPlayerNumber==-1){
+        cout<<"Based on the pieces currently on the board, the game is in a tie position."<<endl;
+        return;
+    }
+    int scoreDifference=abs(playerScores[0]-playerScores[1]);
+    cout<<"Current winning player is "<<playerNames[winningPlayerNumber]<<endl;
+    cout<<"Score difference is "<<scoreDifference<<" points (based on number of pieces still on the board)"<<endl;
 }
