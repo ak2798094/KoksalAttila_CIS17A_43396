@@ -1,0 +1,118 @@
+\hypertarget{class_game}{}\doxysection{Game Class Reference}
+\label{class_game}\index{Game@{Game}}
+Inheritance diagram for Game\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_game}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_game_a79027358777870aef2d8b6201fd5cedd}{announce\+Winner}} (int winner)
+\begin{DoxyCompactList}\small\item\em display who the winner is \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_a9be50c324abced2c30c6d49e9654cdf0}{set\+Player\+Name}} (int player\+Number, string name)
+\begin{DoxyCompactList}\small\item\em set player name \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_game_a3f2206c85c6e515415c8e7a3bbd2fdca}{get\+Player\+Name}} (int player\+Number)
+\begin{DoxyCompactList}\small\item\em get player name \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\int \mbox{\hyperlink{class_game_aa32da839bd667fb15439ea8c895e591c}{max\+Item}} (T \mbox{\hyperlink{classa}{a}}, T b)
+\begin{DoxyCompactList}\small\item\em find out which item is larger \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_abee4e161ecf81d386c68e3dc411b06f9}{menu}} (int input)
+\begin{DoxyCompactList}\small\item\em menu for users to interact \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_game_a79027358777870aef2d8b6201fd5cedd}\label{class_game_a79027358777870aef2d8b6201fd5cedd}} 
+\index{Game@{Game}!announceWinner@{announceWinner}}
+\index{announceWinner@{announceWinner}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{announceWinner()}{announceWinner()}}
+{\footnotesize\ttfamily void Game\+::announce\+Winner (\begin{DoxyParamCaption}\item[{int}]{winner }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+display who the winner is 
+
+declare the winner of the game 
+\begin{DoxyParams}{Parameters}
+{\em winner} & 0 is player 1 won, 1 if player 2 won ~\newline
+ \\
+\hline
+\end{DoxyParams}
+set winner name
+
+set winner name
+
+declare winner\mbox{\Hypertarget{class_game_a3f2206c85c6e515415c8e7a3bbd2fdca}\label{class_game_a3f2206c85c6e515415c8e7a3bbd2fdca}} 
+\index{Game@{Game}!getPlayerName@{getPlayerName}}
+\index{getPlayerName@{getPlayerName}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{getPlayerName()}{getPlayerName()}}
+{\footnotesize\ttfamily string Game\+::get\+Player\+Name (\begin{DoxyParamCaption}\item[{int}]{player\+Number }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+get player name 
+
+
+\begin{DoxyParams}{Parameters}
+{\em player\+Number} & 0 for player 1, 1 for player 2 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+name of the string 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_aa32da839bd667fb15439ea8c895e591c}\label{class_game_aa32da839bd667fb15439ea8c895e591c}} 
+\index{Game@{Game}!maxItem@{maxItem}}
+\index{maxItem@{maxItem}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{maxItem()}{maxItem()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+int Game\+::max\+Item (\begin{DoxyParamCaption}\item[{T}]{a,  }\item[{T}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+find out which item is larger 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & is template param \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+0 if first parameter is larger, 1 if second parameter is larger, -\/1 if tie 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_abee4e161ecf81d386c68e3dc411b06f9}\label{class_game_abee4e161ecf81d386c68e3dc411b06f9}} 
+\index{Game@{Game}!menu@{menu}}
+\index{menu@{menu}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{menu()}{menu()}}
+{\footnotesize\ttfamily void Game\+::menu (\begin{DoxyParamCaption}\item[{int}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+menu for users to interact 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & is number for which menu item to be called this function can be overwritten by subclasses if desired \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_game_a9be50c324abced2c30c6d49e9654cdf0}\label{class_game_a9be50c324abced2c30c6d49e9654cdf0}} 
+\index{Game@{Game}!setPlayerName@{setPlayerName}}
+\index{setPlayerName@{setPlayerName}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{setPlayerName()}{setPlayerName()}}
+{\footnotesize\ttfamily void Game\+::set\+Player\+Name (\begin{DoxyParamCaption}\item[{int}]{player\+Number,  }\item[{string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+set player name 
+
+
+\begin{DoxyParams}{Parameters}
+{\em player\+Number} & 0 for player 1, 1 for player2 \\
+\hline
+{\em name} & the name to set to \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{main_8cpp}{main.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,68 @@
+\hypertarget{main_8cpp}{}\doxysection{main.\+cpp File Reference}
+\label{main_8cpp}\index{main.cpp@{main.cpp}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$iomanip$>$}\newline
+{\ttfamily \#include $<$valarray$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_space}{Space}}
+\begin{DoxyCompactList}\small\item\em a space on the board \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_coordinate}{Coordinate}}
+\item 
+class \mbox{\hyperlink{class_game}{Game}}
+\item 
+class \mbox{\hyperlink{class_board}{Board}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{main_8cpp_ade35c903123b92bed5cc7b84e6a1314e}\label{main_8cpp_ade35c903123b92bed5cc7b84e6a1314e}} 
+enum \mbox{\hyperlink{main_8cpp_ade35c903123b92bed5cc7b84e6a1314e}{Piece}} \{ \newline
+{\bfseries Pawn} =0
+, {\bfseries Rook} =1
+, {\bfseries Bishop} =2
+, {\bfseries Knight} =3
+, \newline
+{\bfseries Queen} =4
+, {\bfseries King} =5
+, {\bfseries Empty} =6
+ \}
+\begin{DoxyCompactList}\small\item\em Piece represents all possible values of a spot on a board can be, in traditional board, its spot can be either red or yellow, or empty. Here we use X and O to represent yellow and empty. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{main_8cpp_ab87bacfdad76e61b9412d7124be44c1c}\label{main_8cpp_ab87bacfdad76e61b9412d7124be44c1c}} 
+enum {\bfseries Color} \{ {\bfseries WHITE}
+, {\bfseries BLACK}
+, {\bfseries NONE}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
+int {\bfseries main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{main_8cpp_a442a526f05e8429d610b777bb0a4446b}\label{main_8cpp_a442a526f05e8429d610b777bb0a4446b}} 
+const int \mbox{\hyperlink{main_8cpp_a442a526f05e8429d610b777bb0a4446b}{ROW}} =8
+\begin{DoxyCompactList}\small\item\em number of rows in the chess board \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{main_8cpp_a66d279b709332d38b008aa88cfed97fd}\label{main_8cpp_a66d279b709332d38b008aa88cfed97fd}} 
+const int \mbox{\hyperlink{main_8cpp_a66d279b709332d38b008aa88cfed97fd}{COLUMN}} =8
+\begin{DoxyCompactList}\small\item\em number of columns in the chess board \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{main_8cpp_aad19715354828831406f316703e9f0c4}\label{main_8cpp_aad19715354828831406f316703e9f0c4}} 
+const string \mbox{\hyperlink{main_8cpp_aad19715354828831406f316703e9f0c4}{piece\+Names}} \mbox{[}7\mbox{]} =\{\char`\"{}pwn\char`\"{},\char`\"{}rok\char`\"{},\char`\"{}bsh\char`\"{},\char`\"{}kgh\char`\"{},\char`\"{}qun\char`\"{},\char`\"{}kng\char`\"{},\char`\"{}\+\_\+\+\_\+\+\_\+\+\_\+\char`\"{}\}
+\begin{DoxyCompactList}\small\item\em display name for different pieces for board use \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+\+: Attila Koksal 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+\+: 6.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+\+: Created on June 5, 2021, 5\+:30 PM Purpose\+: CPP Template Chess Version 6 
+\end{DoxyDate}

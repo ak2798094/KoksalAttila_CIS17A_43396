@@ -1,0 +1,349 @@
+\hypertarget{class_board}{}\doxysection{Board Class Reference}
+\label{class_board}\index{Board@{Board}}
+Inheritance diagram for Board\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_board}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_board_a06c43f3ee4262259aa3535990ccd59f2}{initialize\+Board}} ()
+\begin{DoxyCompactList}\small\item\em initializes the game board \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_space}{Space}} $\ast$ \mbox{\hyperlink{class_board_a57e019c3904393258b74eb723555772e}{get\+Space}} (\mbox{\hyperlink{struct_coordinate}{Coordinate}})
+\begin{DoxyCompactList}\small\item\em gets the space of the given coordinate \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_board_a991f7389c8fc8fb6a7c7009235e18093}{move\+Piece}} (Color)
+\begin{DoxyCompactList}\small\item\em moves a specific piece on the board for a color \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_board_aca49f093314a104381d05998bbf62f7f}\label{class_board_aca49f093314a104381d05998bbf62f7f}} 
+void \mbox{\hyperlink{class_board_aca49f093314a104381d05998bbf62f7f}{print\+Board}} ()
+\begin{DoxyCompactList}\small\item\em prints the game board \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_board_a5fb0b9af3be98b861dcd78c6549b5154}{set\+Piece}} (\mbox{\hyperlink{struct_coordinate}{Coordinate}}, \mbox{\hyperlink{main_8cpp_ade35c903123b92bed5cc7b84e6a1314e}{Piece}}, Color)
+\begin{DoxyCompactList}\small\item\em sets a piece with a designated coordinate, piece type, and color on the game board \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_board_a59297fa71e8653617ef858cfb76a42cf}{search\+And\+Add}} (\mbox{\hyperlink{struct_coordinate}{Coordinate}}\mbox{[}$\,$\mbox{]}, int \&, \mbox{\hyperlink{struct_coordinate}{Coordinate}}, int, int, bool)
+\begin{DoxyCompactList}\small\item\em goes through the board in one direction, and adds spaces to array that is on the path until incounter a piece \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_board_acf2d9616a86a6a2266e201af6c6a85a9}{find\+Attack\+Squares}} (\mbox{\hyperlink{struct_coordinate}{Coordinate}}\mbox{[}$\,$\mbox{]}, int \&, Color)
+\item 
+bool \mbox{\hyperlink{class_board_a6c0a5cf6bc9320d08fdf9a3d514cecaf}{is\+Under\+Check}} (Color)
+\begin{DoxyCompactList}\small\item\em check if a color is being checked \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_board_a158e1994a63498038bb3786cb30b41ae}{get\+Movable\+Locations}} (\mbox{\hyperlink{struct_coordinate}{Coordinate}}\mbox{[}$\,$\mbox{]}, int \&, \mbox{\hyperlink{struct_coordinate}{Coordinate}}, Color)
+\begin{DoxyCompactList}\small\item\em add all space the piece can move to to a array \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_board_a3e585c2efd00e1d871ebb1045b0e4fa2}{get\+All\+Movable\+Locations}} (\mbox{\hyperlink{struct_coordinate}{Coordinate}}\mbox{[}$\,$\mbox{]}, int \&, Color)
+\begin{DoxyCompactList}\small\item\em loads into param array all spaces that a color can move to \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_board_ad498bf71532c29eaf4edf05b94bbe4b1}{display\+Winning\+Status}} ()
+\begin{DoxyCompactList}\small\item\em displays who is winning and by how much it is based on how many pieces each player have on the board \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_board_a6e5affecef98911f7e834a3f84debb16}{castle\+Attempt}} (\mbox{\hyperlink{struct_coordinate}{Coordinate}} from, int toY)
+\begin{DoxyCompactList}\small\item\em check if the move that is made is an attempt to castle \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_board_a087b47b13a82512788b58e34028f8257}{announce\+Winner}} (int \mbox{\hyperlink{class_board_a67eeec840d17ab997e32234493ac7e39}{winner}})
+\begin{DoxyCompactList}\small\item\em announces the winner of the game \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_board_a45a92fbfc6df3d11e82c197397c1f936}\label{class_board_a45a92fbfc6df3d11e82c197397c1f936}} 
+void \mbox{\hyperlink{class_board_a45a92fbfc6df3d11e82c197397c1f936}{increase\+Number\+Of\+Turns}} ()
+\begin{DoxyCompactList}\small\item\em increases the number of turns \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_board_ab6182dc30b3e554a0e16e313aae84dfe}{menu}} (int input)
+\begin{DoxyCompactList}\small\item\em displays a game menu on the screen \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_board_a67eeec840d17ab997e32234493ac7e39}\label{class_board_a67eeec840d17ab997e32234493ac7e39}} 
+int \mbox{\hyperlink{class_board_a67eeec840d17ab997e32234493ac7e39}{winner}} =-\/1
+\begin{DoxyCompactList}\small\item\em Tracks the winner. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_board_a087b47b13a82512788b58e34028f8257}\label{class_board_a087b47b13a82512788b58e34028f8257}} 
+\index{Board@{Board}!announceWinner@{announceWinner}}
+\index{announceWinner@{announceWinner}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{announceWinner()}{announceWinner()}}
+{\footnotesize\ttfamily void Board\+::announce\+Winner (\begin{DoxyParamCaption}\item[{int}]{winner }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+announces the winner of the game 
+
+
+\begin{DoxyParams}{Parameters}
+{\em winner} & the player who is victorious at the end of the game \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_board_a6e5affecef98911f7e834a3f84debb16}\label{class_board_a6e5affecef98911f7e834a3f84debb16}} 
+\index{Board@{Board}!castleAttempt@{castleAttempt}}
+\index{castleAttempt@{castleAttempt}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{castleAttempt()}{castleAttempt()}}
+{\footnotesize\ttfamily bool Board\+::castle\+Attempt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coordinate}{Coordinate}}}]{from,  }\item[{int}]{toY }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+check if the move that is made is an attempt to castle 
+
+
+\begin{DoxyParams}{Parameters}
+{\em from} & coordpiece moved from \\
+\hline
+{\em toY} & y coordinate to move to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if ttrying to castle 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_board_ad498bf71532c29eaf4edf05b94bbe4b1}\label{class_board_ad498bf71532c29eaf4edf05b94bbe4b1}} 
+\index{Board@{Board}!displayWinningStatus@{displayWinningStatus}}
+\index{displayWinningStatus@{displayWinningStatus}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{displayWinningStatus()}{displayWinningStatus()}}
+{\footnotesize\ttfamily void Board\+::display\+Winning\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+displays who is winning and by how much it is based on how many pieces each player have on the board 
+
+$<$ score value for each piece, ordered by its index number in enum
+
+records score for player one and two
+
+holds name of players, can be accessed by player index, 0 for player1 1 for player2
+
+the piece that is currently being viewed
+
+the color that is currently being viewed
+
+stores 0 if player1 is wining, 1 if player2 is winning, -\/1 if tie
+
+scores the score difference between players\mbox{\Hypertarget{class_board_acf2d9616a86a6a2266e201af6c6a85a9}\label{class_board_acf2d9616a86a6a2266e201af6c6a85a9}} 
+\index{Board@{Board}!findAttackSquares@{findAttackSquares}}
+\index{findAttackSquares@{findAttackSquares}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{findAttackSquares()}{findAttackSquares()}}
+{\footnotesize\ttfamily void Board\+::find\+Attack\+Squares (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coordinate}{Coordinate}}}]{able\+To\+Move\mbox{[}$\,$\mbox{]},  }\item[{int \&}]{size,  }\item[{Color}]{my\+Color }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em find} & all squares that is a color is attacking \\
+\hline
+{\em able\+To\+Move} & array to hold all squares that a color is attacking \\
+\hline
+{\em size} & is size of the array \\
+\hline
+{\em my\+Color} & is the color that is being evaluated \\
+\hline
+\end{DoxyParams}
+positional offsets for king to move(i.\+e 1,1 means one row up and one column right)
+
+coordinate that is being checked\mbox{\Hypertarget{class_board_a3e585c2efd00e1d871ebb1045b0e4fa2}\label{class_board_a3e585c2efd00e1d871ebb1045b0e4fa2}} 
+\index{Board@{Board}!getAllMovableLocations@{getAllMovableLocations}}
+\index{getAllMovableLocations@{getAllMovableLocations}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{getAllMovableLocations()}{getAllMovableLocations()}}
+{\footnotesize\ttfamily void Board\+::get\+All\+Movable\+Locations (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coordinate}{Coordinate}}}]{able\+To\+Move\mbox{[}$\,$\mbox{]},  }\item[{int \&}]{size,  }\item[{Color}]{my\+Color }\end{DoxyParamCaption})}
+
+
+
+loads into param array all spaces that a color can move to 
+
+
+\begin{DoxyParams}{Parameters}
+{\em able\+To\+Move} & array to store all spaces that a color can move to \\
+\hline
+{\em size} & tracks array size \\
+\hline
+{\em my\+Color} & tracks the color that is being observed \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_board_a158e1994a63498038bb3786cb30b41ae}\label{class_board_a158e1994a63498038bb3786cb30b41ae}} 
+\index{Board@{Board}!getMovableLocations@{getMovableLocations}}
+\index{getMovableLocations@{getMovableLocations}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{getMovableLocations()}{getMovableLocations()}}
+{\footnotesize\ttfamily void Board\+::get\+Movable\+Locations (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coordinate}{Coordinate}}}]{able\+To\+Move\+Result\mbox{[}$\,$\mbox{]},  }\item[{int \&}]{result\+Size,  }\item[{\mbox{\hyperlink{struct_coordinate}{Coordinate}}}]{start,  }\item[{Color}]{my\+Color }\end{DoxyParamCaption})}
+
+
+
+add all space the piece can move to to a array 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ableto\+Move\+Result} & an array to hold spaces that can be moved to \\
+\hline
+{\em resultsize} & array size \\
+\hline
+{\em start} & is the coordinate of the space that is being evaluated \\
+\hline
+{\em my\+Color} & is the color of the piece being evaluated \\
+\hline
+\end{DoxyParams}
+array to record all space the piece can move to
+
+array size
+
+the piece that is being moved
+
+a space where a piece is moved from
+
+$<$ the space before the pawn
+
+$<$ two space ahead of the pawn
+
+coordinate that we are checking if a king can move to
+
+$<$ all the offsetes where a king can move to(i.\+e 1,1 means one row up and one column right)
+
+coordinate that we are checking if a king can move to
+
+stores all squares that enemy are attacking
+
+stores the size of the array
+
+holds enemy color\mbox{\Hypertarget{class_board_a57e019c3904393258b74eb723555772e}\label{class_board_a57e019c3904393258b74eb723555772e}} 
+\index{Board@{Board}!getSpace@{getSpace}}
+\index{getSpace@{getSpace}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{getSpace()}{getSpace()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_space}{Space}} $\ast$ Board\+::get\+Space (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coordinate}{Coordinate}}}]{coor }\end{DoxyParamCaption})}
+
+
+
+gets the space of the given coordinate 
+
+
+\begin{DoxyParams}{Parameters}
+{\em coor} & takes in a coordinate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+specific space on the board 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_board_a06c43f3ee4262259aa3535990ccd59f2}\label{class_board_a06c43f3ee4262259aa3535990ccd59f2}} 
+\index{Board@{Board}!initializeBoard@{initializeBoard}}
+\index{initializeBoard@{initializeBoard}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{initializeBoard()}{initializeBoard()}}
+{\footnotesize\ttfamily void Board\+::initialize\+Board (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+initializes the game board 
+
+player1 name
+
+player2 name\mbox{\Hypertarget{class_board_a6c0a5cf6bc9320d08fdf9a3d514cecaf}\label{class_board_a6c0a5cf6bc9320d08fdf9a3d514cecaf}} 
+\index{Board@{Board}!isUnderCheck@{isUnderCheck}}
+\index{isUnderCheck@{isUnderCheck}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{isUnderCheck()}{isUnderCheck()}}
+{\footnotesize\ttfamily bool Board\+::is\+Under\+Check (\begin{DoxyParamCaption}\item[{Color}]{test\+Color }\end{DoxyParamCaption})}
+
+
+
+check if a color is being checked 
+
+
+\begin{DoxyParams}{Parameters}
+{\em test\+Color} & that color that is being verified of check status \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if test color is being checked 
+\end{DoxyReturn}
+coordinate to hold location of the king
+
+holds all spaces that is being attacked\mbox{\Hypertarget{class_board_ab6182dc30b3e554a0e16e313aae84dfe}\label{class_board_ab6182dc30b3e554a0e16e313aae84dfe}} 
+\index{Board@{Board}!menu@{menu}}
+\index{menu@{menu}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{menu()}{menu()}}
+{\footnotesize\ttfamily void Board\+::menu (\begin{DoxyParamCaption}\item[{int}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+displays a game menu on the screen 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & gets an input from the user depending on the user\textquotesingle{}s desire \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_board_a991f7389c8fc8fb6a7c7009235e18093}\label{class_board_a991f7389c8fc8fb6a7c7009235e18093}} 
+\index{Board@{Board}!movePiece@{movePiece}}
+\index{movePiece@{movePiece}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{movePiece()}{movePiece()}}
+{\footnotesize\ttfamily void Board\+::move\+Piece (\begin{DoxyParamCaption}\item[{Color}]{my\+Color }\end{DoxyParamCaption})}
+
+
+
+moves a specific piece on the board for a color 
+
+
+\begin{DoxyParams}{Parameters}
+{\em my\+Color} & takes in a color \\
+\hline
+\end{DoxyParams}
+checks to see if a move done by a player on the board results in check mate
+
+creates a coordinate array that holds all the movable positions on the board which is 64 (8$\ast$8)
+
+creates a size and initializes it to zero
+
+stores info on whether user is attempting to castle
+
+true if user input is acceptable and should not input again
+
+to store user input for column
+
+the space element where user moved a piece from
+
+the space element where user moved a piece to end
+
+create a start coordinate
+
+create a end coordinate
+
+create a piece called start\+Piece
+
+create a color called enemy\+Color to store the opposing color
+
+creates a string to hold the color
+
+array to load in all movable spaces of a piece
+
+tracks if the location user wants to move to is a location that user can move to\mbox{\Hypertarget{class_board_a59297fa71e8653617ef858cfb76a42cf}\label{class_board_a59297fa71e8653617ef858cfb76a42cf}} 
+\index{Board@{Board}!searchAndAdd@{searchAndAdd}}
+\index{searchAndAdd@{searchAndAdd}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{searchAndAdd()}{searchAndAdd()}}
+{\footnotesize\ttfamily void Board\+::search\+And\+Add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coordinate}{Coordinate}}}]{arr\mbox{[}$\,$\mbox{]},  }\item[{int \&}]{size,  }\item[{\mbox{\hyperlink{struct_coordinate}{Coordinate}}}]{start\+Coord,  }\item[{int}]{xd,  }\item[{int}]{yd,  }\item[{bool}]{attackable }\end{DoxyParamCaption})}
+
+
+
+goes through the board in one direction, and adds spaces to array that is on the path until incounter a piece 
+
+
+\begin{DoxyParams}{Parameters}
+{\em arr} & is the array to add spaces to \\
+\hline
+{\em size} & is the array size \\
+\hline
+{\em start\+Coord} & the coord to start from \\
+\hline
+{\em xd} & the x offset for direction to move to \\
+\hline
+{\em yd} & the y offset for direction to move to \\
+\hline
+{\em attackable} & is the bool that tracks if we should add our ally piece when encountered \\
+\hline
+\end{DoxyParams}
+a \char`\"{}pointer\char`\"{} that goes through the board
+
+get the color of the piece being checked\mbox{\Hypertarget{class_board_a5fb0b9af3be98b861dcd78c6549b5154}\label{class_board_a5fb0b9af3be98b861dcd78c6549b5154}} 
+\index{Board@{Board}!setPiece@{setPiece}}
+\index{setPiece@{setPiece}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{setPiece()}{setPiece()}}
+{\footnotesize\ttfamily void Board\+::set\+Piece (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coordinate}{Coordinate}}}]{coor,  }\item[{\mbox{\hyperlink{main_8cpp_ade35c903123b92bed5cc7b84e6a1314e}{Piece}}}]{pece,  }\item[{Color}]{clr }\end{DoxyParamCaption})}
+
+
+
+sets a piece with a designated coordinate, piece type, and color on the game board 
+
+
+\begin{DoxyParams}{Parameters}
+{\em coor} & takes in a coordinate \\
+\hline
+{\em pece} & takes in a piece \\
+\hline
+{\em clr} & takes in a color \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{main_8cpp}{main.\+cpp}}\end{DoxyCompactItemize}
