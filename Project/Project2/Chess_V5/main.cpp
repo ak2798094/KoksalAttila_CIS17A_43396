@@ -1,7 +1,7 @@
 /* 
  * File:   main.cpp
  * Author: Attila Koksal
- * Created on May 26, 2021, 11:43 PM
+ * Created on June 3, 2021, 3:35 PM
  * Purpose:  CPP Template 
  *           Chess Version 5
  */
@@ -11,8 +11,8 @@
 #include<iomanip>
 #include <valarray>
 using namespace std;
-const int ROW = 8;
-const int COLUMN = 8;
+const int ROW=8;
+const int COLUMN=8;
 const string pieceNames[7]={"pwn","rok","bsh","kgh","qun","kng","____"};
 
 enum Piece{//Piece represents all possible values of a spot on a board can be, in traditional board, its spot can be either red or yellow, or empty. Here we use X and O to represent yellow and empty
