@@ -120,6 +120,9 @@ public:
         else if(playerNumber==1){
             return player2;
         }
+        else{
+            return "Player Name";
+        }
     }
     ///@brief find out which item is larger 
     ///@tparam T is template param
@@ -196,11 +199,11 @@ public:
   	//gets all the movable locations where a piece can move
     void getAllMovableLocations(Coordinate[],int &,Color);
     //displays the winning player's status to the screen
-  	void displayWinningStatus();
-  	///@brief check if the move that is made is an attempt to castle
-  	///@param from coordpiece moved from
-  	///@param toY y coordinate to move to 
-  	///@return true if ttrying to castle
+    void displayWinningStatus();
+    ///@brief check if the move that is made is an attempt to castle
+    ///@param from coordpiece moved from
+    ///@param toY y coordinate to move to 
+    ///@return true if ttrying to castle
     bool castleAttempt(Coordinate from,int toY){
         Piece movingPiece=getSpace(from)->getValue();
         if(movingPiece!=King){
@@ -296,12 +299,12 @@ int main(int argc, char** argv) {
         board.movePiece(WHITE);
         if(board.winner!=-1){
             board.announceWinner(board.winner);
-            return;
+            return 0;
         }
         board.movePiece(BLACK);
         if(board.winner!=-1){
             board.announceWinner(board.winner);
-            return;
+            return 0;
         }
         board.increaseNumberOfTurns();
     }
