@@ -296,10 +296,12 @@ int main(int argc, char** argv) {
         board.movePiece(WHITE);
         if(board.winner!=-1){
             board.announceWinner(board.winner);
+            return;
         }
         board.movePiece(BLACK);
         if(board.winner!=-1){
             board.announceWinner(board.winner);
+            return;
         }
         board.increaseNumberOfTurns();
     }
