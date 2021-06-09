@@ -840,7 +840,7 @@ void Board::getMovableLocations(Coordinate ableToMoveResult[],int &resultSize,Co
     ///array to record all space the piece can move to
     Coordinate ableToMove[64];
     ///array size
-  	int size=0;
+    int size=0;
     ///the piece that is being moved
     Piece startPiece=getSpace(start)->getValue();
   	/// a space where a piece is moved from
@@ -871,9 +871,9 @@ void Board::getMovableLocations(Coordinate ableToMoveResult[],int &resultSize,Co
         if(start.y+1<COLUMN){
          		// if it is enemy color, and is on one block on diagonal
           	if(getSpace({start.x+offset,start.y+1})->getColor()!=myColor&&getSpace({start.x+offset,start.y+1})->getColor()!=NONE){
-                //if the space can be moved to, add it to array
-              	ableToMove[size]={start.x+offset,start.y+1};
-                size++;//increase array size
+                    //if the space can be moved to, add it to array
+                    ableToMove[size]={start.x+offset,start.y+1};
+                    size++;//increase array size
             }
         }
         Coordinate firstCheck={start.x+offset,start.y};///< the space before the pawn
