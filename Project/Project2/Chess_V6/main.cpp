@@ -798,7 +798,7 @@ bool Board::isUnderCheck(Color testColor){
     else{
         enemyColor=WHITE;
     }
-  	///coordinate to hold location of the king
+    ///coordinate to hold location of the king
     Coordinate myKing;
     for(int i=0;i<ROW;i++){
         for(int j=0;j<COLUMN;j++){
@@ -808,7 +808,7 @@ bool Board::isUnderCheck(Color testColor){
             }
         }
     }
-  	///holds all spaces that is being attacked
+    ///holds all spaces that is being attacked
     Coordinate attackMoves[64];
     int attackMoveSize=0;//size of array
     findAttackSquares(attackMoves,attackMoveSize,enemyColor);//gets all spaces that is under attack from enemy pieces
@@ -830,7 +830,7 @@ void Board::getAllMovableLocations(Coordinate ableToMove[],int& size,Color myCol
             if(getSpace({i,j})->getColor()!=myColor){//if the piece is not the color that is being checking, ignore
                 continue;
             }
-          	//get all space that a piece can move to, and load it into the able to move array
+            //get all space that a piece can move to, and load it into the able to move array
             getMovableLocations(ableToMove,size,{i,j},myColor);// load all position that this piece can move to
         }
     }
@@ -842,16 +842,16 @@ void Board::getAllMovableLocations(Coordinate ableToMove[],int& size,Color myCol
 ///@param start is the coordinate of the space that is being evaluated
 ///@param myColor is the color of the piece being evaluated
 void Board::getMovableLocations(Coordinate ableToMoveResult[],int &resultSize,Coordinate start,Color myColor){
-    ///array to record all space the piece can move to
+    ///array to record all spaces the piece can move to
     Coordinate ableToMove[64];
     ///array size
     int size=0;
     ///the piece that is being moved
     Piece startPiece=getSpace(start)->getValue();
-  	/// a space where a piece is moved from
+    ///a space where a piece is moved from
     Space* startSpace=getSpace(start);
     if(startPiece==Pawn){//if user player is trying to move a pawn
-				//row off set for different color pawn
+        //row off set for different color pawn
         int offset;
         if(startSpace->getColor()==WHITE){// if white pawn, ahead is one row up
             offset=1;
@@ -859,14 +859,14 @@ void Board::getMovableLocations(Coordinate ableToMoveResult[],int &resultSize,Co
         else if(startSpace->getColor()==BLACK){//if black pawn, ahead is one row down
             offset=-1;
         }
-				// if the space ahead of the pawn is empty
+        // if the space ahead of the pawn is empty
         if(getSpace({start.x+offset,start.y})->getValue()==Empty){
-          	//if the space can be moved to, add it to array
+            //if the space can be moved to, add it to array
             ableToMove[size]={start.x+offset,start.y};
             size++;//increase array size
         }
         if((start.y-1)>0){
-          	// if it is enemy color, and is on one block on diagonal
+            // if it is enemy color, and is on one block on diagonal
             if(getSpace({start.x+offset,start.y-1})->getColor()!=myColor&&getSpace({start.x+offset,start.y-1})->getColor()!=NONE){
                 //if the space can be moved to, add it to array
               	ableToMove[size]={start.x+offset,start.y-1};
@@ -906,7 +906,7 @@ void Board::getMovableLocations(Coordinate ableToMoveResult[],int &resultSize,Co
     else if(startPiece==Knight){//if user player is trying to move a Knight
         int availablePos[][2]={{1,2},{2,1},{-2,1},{-2,-1},{-1,2},{2,-1},{-1,-2},{1,-2}};
         for(int i=0;i<8;i++){
-          	/// coordinate that we are checking if a king can move to
+            /// coordinate that we are checking if a king can move to
             Coordinate usedToCheck={start.x+availablePos[i][0],start.y+availablePos[i][1]};
             if(usedToCheck.x<ROW&&usedToCheck.y<COLUMN&&usedToCheck.x>=0&&usedToCheck.y>=0){
               
@@ -931,12 +931,12 @@ void Board::getMovableLocations(Coordinate ableToMoveResult[],int &resultSize,Co
     else if(startPiece==King){// if user is trying to move a king
         int availablePos[][2]={{1,1},{1,0},{-1,0},{-1,-1},{1,-1},{-1,1},{0,1},{0,-1}}; ///< all the offsetes where a king can move to(i.e 1,1 means one row up and one column right)
         for(int i=0;i<8;i++){
-          	/// coordinate that we are checking if a king can move to
+            /// coordinate that we are checking if a king can move to
             Coordinate usedToCheck={start.x+availablePos[i][0],start.y+availablePos[i][1]};
             if(usedToCheck.x<ROW&&usedToCheck.y<COLUMN&&usedToCheck.x>=0&&usedToCheck.y>=0){
                 if(getSpace(usedToCheck)->getColor()!=myColor){
                     //if the space can be moved to, add it to array
-                  	ableToMove[size]=usedToCheck; 
+                    ableToMove[size]=usedToCheck; 
                     size++;
                 }
             }
@@ -978,20 +978,20 @@ void Board::getMovableLocations(Coordinate ableToMoveResult[],int &resultSize,Co
 ///@brief displays who is winning and by how much
 /// it is based on how many pieces each player have on the board
 void Board::displayWinningStatus(){
-    int scoreValues[]={1,5,3,3,9,0}; ///< score value for each piece, ordered by its index number in enum
-  	/// records score for player one and two
+    int scoreValues[]={1,5,3,3,9,0}; ///score value for each piece, ordered by its index number in enum
+    /// records score for player one and two
     int playerScores[2]={0,0};
-  	/// holds name of players, can be accessed by player index, 0 for player1 1 for player2
+    /// holds name of players, can be accessed by player index, 0 for player1 1 for player2
     string playerNames[2]={getPlayerName(0),getPlayerName(1)};
    
     for(int i=0;i<ROW;i++){// loop through the board and calculate how many piece is on the board
         for(int j=0;j<COLUMN;j++){
-   					///the piece that is currently being viewed
+            ///the piece that is currently being viewed
             Piece currentPiece=getSpace({i,j})->getValue();
-          	///the color that is currently being viewed
+            ///the color that is currently being viewed
             Color currentColor=getSpace({i,j})->getColor();
           
-            if(currentColor==WHITE&&currentPiece!=Empty){	//count score for white
+            if(currentColor==WHITE&&currentPiece!=Empty){//count score for white
               playerScores[0]+=scoreValues[currentPiece];
             }
             else if(currentColor==BLACK&&currentPiece!=Empty){//count score for black
@@ -999,7 +999,7 @@ void Board::displayWinningStatus(){
             }
         }
     }
-    ///stores 0 if player1 is wining, 1 if player2 is winning, -1 if tie
+    ///stores 0 if player1 is winning, 1 if player2 is winning, -1 if tie
     int winningPlayerNumber=maxItem(playerScores[0],playerScores[1]);
     if(winningPlayerNumber==-1){
         cout<<"Based on the pieces currently on the board, the game is in a tie position."<<endl;
