@@ -285,7 +285,7 @@ public:
 
 //main function
 int main(int argc, char** argv) {
-		//creates a board from the Board class
+    //creates a board from the Board class
     Board board;
     //initializes the board
     board.initializeBoard();
