@@ -316,7 +316,7 @@ int main(int argc, char** argv) {
 void Board::initializeBoard(){
     ///player1 name
     string player1="";
-  	///player2 name
+    ///player2 name
     string player2="";
     cout<<"Welcome to the amazing Chess game! You're in for a treat!"<<endl;
     cout<<"The chess pieces all capitalized are the WHITE pieces and the lowercase chess pieces are the BLACK pieces."<<endl;
