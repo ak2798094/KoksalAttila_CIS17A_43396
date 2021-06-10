@@ -184,19 +184,19 @@ public:
     Space* getSpace(Coordinate);
     //moves a piece according to the player's decision
     void movePiece(Color);
-  	//prints the game board
+    //prints the game board
     void printBoard();
-  	//sets a piece with a designated coordinate, piece type, and color on the game board
+    //sets a piece with a designated coordinate, piece type, and color on the game board
     void setPiece(Coordinate,Piece,Color);
-  	//adds space coordinates that a piece can move to in a direction
+    //adds space coordinates that a piece can move to in a direction
     void searchAndAdd(Coordinate[],int &,Coordinate,int,int,bool);
-   	//finds the attack squares of all the pieces on the board of the same color
+    //finds the attack squares of all the pieces on the board of the same color
     void findAttackSquares(Coordinate[],int &,Color);
-  	//checks if one of the two colors in the game is in check
+    //checks if one of the two colors in the game is in check
     bool isUnderCheck(Color);
-  	//gets the movable locations where a piece can move
+    //gets the movable locations where a piece can move
     void getMovableLocations(Coordinate[],int &,Coordinate,Color);
-  	//gets all the movable locations where a piece can move
+    //gets all the movable locations where a piece can move
     void getAllMovableLocations(Coordinate[],int &,Color);
     //displays the winning player's status to the screen
     void displayWinningStatus();
@@ -385,7 +385,7 @@ void Board::printBoard(){
         }
         cout<<endl;
     }
-  	//prints the row of letters for the rows on the bottom of the board for better game display
+    //prints the row of letters for the rows on the bottom of the board for better game display
     char letters[8]={'A','B','C','D','E','F','G','H'};
     cout<<endl<<"  ";
     for(int i=0;i<COLUMN;i++){
