@@ -328,7 +328,7 @@ void Board::initializeBoard(){
     cout<<endl;
     //sets player1 name
     setPlayerName(0,player1);
-  	//sets player2 name
+    //sets player2 name
     setPlayerName(1,player2);
     //creates two nested for loops (which loops through the entire board) in which it assigns all spaces on the game board to the piece value to Empty and the Color to NONE
     for(int i=0;i<ROW;i++){
@@ -367,7 +367,7 @@ void Board::initializeBoard(){
 }
 ///@brief prints the game board
 void Board::printBoard(){
-  	//formats the game board
+    //formats the game board
     for(int i=ROW-1;i>=0;i--){
         cout<<"-----------------------------------------------------------"<<endl;
         cout<<i+1<<" ";
