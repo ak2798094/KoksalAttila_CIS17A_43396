@@ -463,21 +463,21 @@ void Board::movePiece(Color myColor){
     }
     ///stores info on whether user is attempting to castle
     bool isCastleAttempt=false;
-  	///true if user input is acceptable and should not input again
+    ///true if user input is acceptable and should not input again
     bool valid=false;
-  	///to store user input for column
+    ///to store user input for column
     char letter;
-  	///the space element where user moved a piece from
+    ///the space element where user moved a piece from
     Space* startSpace=new Space();
-  	///the space element where user moved a piece to end
+    ///the space element where user moved a piece to end
     Space* endSpace=new Space();
-  	///create a start coordinate
+    ///create a start coordinate
     Coordinate start;
-  	///create a end coordinate
+    ///create a end coordinate
     Coordinate end;
-  	///create a piece called startPiece
+    ///create a piece called startPiece
     Piece startPiece;
-  	///create a color called enemyColor to store the opposing color
+    ///create a color called enemyColor to store the opposing color
     Color enemyColor;
     if(myColor==WHITE){//if the current color is WHITE, then the enemy color is BLACK
         enemyColor=BLACK;
@@ -529,7 +529,7 @@ void Board::movePiece(Color myColor){
         ///array to load in all movable spaces of a piece
         Coordinate ableToMove[64];
         int size=0;
-        getMovableLocations(ableToMove,size,start,myColor);//load moveable locations into array for a piece
+        getMovableLocations(ableToMove,size,start,myColor);//load movable locations into array for a piece
         
         if(myColor==WHITE){
             if(castleAble[0][0]==true){//if white can long castle
@@ -563,7 +563,7 @@ void Board::movePiece(Color myColor){
         //----------------------check if valid move
         //end.x end.y
         Piece replacedPiece;//save target location piece info in case a reset is needed
-        Color replacedColor;//save target location piece info in case a reset is needed
+        Color replacedColor;//save target location color info in case a reset is needed
         ///tracks if the location user wants to move to is a location that user can move to
       	bool found=false;
         
@@ -674,8 +674,8 @@ void Board::movePiece(Color myColor){
 ///@param attackable is the bool that tracks if we should add our ally piece when encountered
 void Board::searchAndAdd(Coordinate arr[],int &size,Coordinate startCoord,int xd,int yd,bool attackable){
     ///a "pointer" that goes through the board
-  	Coordinate currentCoord=startCoord;
-  	///get the color of the piece being checked
+    Coordinate currentCoord=startCoord;
+    ///get the color of the piece being checked
     Color playerColor=getSpace(startCoord)->getColor();
     currentCoord.x+=xd;//x move to first offset
     currentCoord.y+=yd;//y move to first offset
@@ -769,7 +769,7 @@ void Board::findAttackSquares(Coordinate ableToMove[],int &size,Color myColor){
                 searchAndAdd(ableToMove,size,currentCoord,-1,1,true); // bottom right
             }
             else if(currentPiece==King){// if the piece being checked is a king
-                int availablePos[][2]={{1,1},{1,0},{-1,0},{-1,-1},{1,-1},{-1,1},{0,1},{0,-1}};///positional offsets for king to move(i.e 1,1 means one row up and one column right)
+                int availablePos[][2]={{1,1},{1,0},{-1,0},{-1,-1},{1,-1},{-1,1},{0,1},{0,-1}};///positional offsets for king to move (i.e. 1,1 means one row up and one column right)
                 for(int i=0;i<8;i++){
                   	///coordinate that is being checked
                     Coordinate usedToCheck={currentCoord.x+availablePos[i][0],currentCoord.y+availablePos[i][1]};
