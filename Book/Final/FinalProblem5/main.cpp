@@ -12,8 +12,17 @@ using namespace std;
 
 class Employee{
     private:
-        double Tax(float){//Utility Procedure
-            
+        double Tax(float grossPay){//Utility Procedure
+            if(grossPay<500){
+                grossPay=grossPay*0.1;
+            }
+            else if(grossPay>500&&grossPay<1000){
+                grossPay=grossPay*0.2;
+            }
+            else if(grossPay>1000){
+                grossPay=grossPay*0.3;
+            }
+            return grossPay;
         }
         char MyName[20];//Property
         char JobTitle[20];//Property
@@ -22,8 +31,13 @@ class Employee{
         float GrossPay;//Property
         float NetPay;//Property
     public:
-        Employee(char[],char[],float){//Constructor
-            
+        Employee(char myName[],char jobTitle[],float hourlyRate){//Constructor
+            MyName[20]=myName;
+            JobTitle[20]=jobTitle;
+            HourlyRate=hourlyRate;
+            HoursWorked=0;
+            GrossPay=0;
+            NetPay=0;
         }
         float CalculatePay(float,int){//Procedure
             
