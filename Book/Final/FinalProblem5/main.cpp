@@ -11,6 +11,16 @@
 using namespace std;
 
 class Employee{
+    private:
+        double Tax(float){//Utility Procedure
+            
+        }
+        char MyName[20];//Property
+        char JobTitle[20];//Property
+        float HourlyRate;//Property
+        int HoursWorked;//Property
+        float GrossPay;//Property
+        float NetPay;//Property
     public:
         Employee(char[],char[],float){//Constructor
             
@@ -33,16 +43,6 @@ class Employee{
         float setHourlyRate(float){//Procedure
             
         }
-    private:
-        double Tax(float){//Utility Procedure
-            
-        }
-        char MyName[20];//Property
-        char JobTitle[20];//Property
-        float HourlyRate;//Property
-        int HoursWorked;//Property
-        float GrossPay;//Property
-        float NetPay;//Property
 };
 
 //User Libraries
