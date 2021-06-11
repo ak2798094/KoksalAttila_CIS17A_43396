@@ -42,11 +42,22 @@ class Employee{
         float CalculatePay(float,int){//Procedure
             
         }
-        float getGrossPay(float,int){//Procedure
-            
+        float getGrossPay(float hourlyRate,int hoursWorked){//Procedure
+            float grosspay=0;
+            if(hoursWorked<40){
+                grosspay=hourlyRate;
+            }
+            else if(hoursWorked>40&&hoursWorked<50){
+                grosspay=hourlyRate*0.5;
+            }
+            else if(hoursWorked>50){
+                grosspay=hourlyRate*2.0;
+            }
+            return grosspay;
         }
-        float getNetPay(float){//Procedure
-            
+        float getNetPay(float gross){//Procedure
+            float difference=gross-Tax(gross);
+            return difference;
         }
         void toString(){//Procedure
             
