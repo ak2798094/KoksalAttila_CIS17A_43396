@@ -268,7 +268,8 @@ void prblm1(){
 }
 
 // Problem 2
-void prblm1(){
+void prblm2(){
+    cout<<"Problem 2"<<endl;
     
 }
 
