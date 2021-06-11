@@ -270,13 +270,55 @@ void prblm1(){
 // Problem 2
 void prblm2(){
     cout<<"Problem 2"<<endl;
+    Prob2Sort<char> rc;
+    bool ascending=true;
+    ifstream infile;
+    infile.open("Problem2.txt",ios::in);
+    char *ch2=new char[10*16];
+    char *ch2p=ch2;
     
+    cout<<"The start of Problem 2, the sorting problem"<<endl;
+    while(infile.get(*ch2)){cout<<*ch2;ch2++;}
+    infile.close();
+    cout<<endl;
+    cout<<"Sorting on which column"<<endl;
+    int column;
+    cin>>column;
+    char *zc=rc.sortArray(ch2p,10,16,column,ascending);
+    for(int i=0;i<10;i++){
+        for(int j=0;j<16;j++){
+            cout<<zc[i*16+j];
+        }
+    }
+
+    delete []zc;
+    cout<<endl;
 }
 
 // Problem 3
 void prblm3(){
     cout<<"Problem 3"<<endl;
+    int rows=5;
+    int cols=6;
+    Prob3TableInherited<int> tab("Problem3.txt",rows,cols);
+    const int *naugT=tab.getTable();
+    const int *augT=tab.getAugTable();
     
+    cout<<"Entering problem number 3"<<endl;
+    for(int i=0;i<rows;i++){
+        for(int j=0;j<cols;j++){
+            cout<<naugT[i*cols+j]<<" ";
+        }
+        cout<<endl;
+    }
+    cout<<endl;
+	
+    for(int i=0;i<=rows;i++){
+        for(int j=0;j<=cols;j++){
+            cout<<augT[i*(cols+1)+j]<<" ";
+        }
+        cout<<endl;
+    }
 }
 
 // Problem 4
