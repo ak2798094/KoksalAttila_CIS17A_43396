@@ -17,8 +17,12 @@ class Prob2Sort{
     public:
         Prob2Sort(){index=NULL;};//Constructor
         ~Prob2Sort(){delete []index;};//Destructor
-        T * sortArray(const T*,int,bool);//Sorts a single column array
-        T * sortArray(const T*,int,int,int,bool);//Sorts a 2 dimensional array represented as a 1 dim array
+        T * sortArray(const T*,int columnNumber,bool direction){//Sorts a single column array
+            
+        }
+        T * sortArray(const T*,int rowNumber,int columnNumber,int selectColumn,bool direction){//Sorts a 2 dimensional array represented as a 1 dim array
+            
+        }
 }; 
 
 //User Libraries
