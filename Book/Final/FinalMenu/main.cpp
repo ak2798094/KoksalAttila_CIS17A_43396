@@ -267,6 +267,11 @@ void prblm1(){
     cout<<"The total number of random numbers is "<<a.getNumRand()<<endl;
 }
 
+// Problem 2
+void prblm1(){
+    
+}
+
 // Problem 3
 void prblm3(){
     cout<<"Problem 3"<<endl;
