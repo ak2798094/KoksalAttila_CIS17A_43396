@@ -8,7 +8,6 @@
 
 //System Libraries
 #include <iostream>  //I/O Library
-#include <cmath>
 using namespace std;
 
 class SavingsAccount{
@@ -34,15 +33,24 @@ class SavingsAccount{
             return newBalance;
         }
         float TotalRecursive(float savings=0,int timeLeft=0){
-            
+            Balance=Balance*(savings+1.0);
+            timeLeft--;
+            if(timeLeft>0){
+                TotalRecursive(savings,timeLeft);
+            }
+            return Balance;
         }
-        void toString();//Output Properties
+        void toString(){//Output Properties
+            cout<<"Balance="<<Balance<<endl;
+            cout<<"WithDraws="<<FreqWithDraw<<endl;
+            cout<<"Deposit="<<FreqDeposit<<endl;
+        }
     private:
         float Withdraw(float transA){//Utility Procedure
             FreqWithDraw++;
             float newBalance=Balance-transA;
             if(newBalance<0){
-                cout<<"You are trying to make a withdrawal that exceeds your balance."<<endl;
+                cout<<"WithDraw not Allowed"<<endl;
                 newBalance=Balance;
             }
             return newBalance;
@@ -75,8 +83,7 @@ int main(int argc, char** argv) {
     //Map Inputs to Outputs -> Process
     
     //Display Inputs/Outputs
-    for(int i=1;i<=10;i++)
-    {
+    for(int i=1;i<=10;i++){
         mine.Transaction((float)(rand()%500)*(rand()%3-1));
     }
     mine.toString();
