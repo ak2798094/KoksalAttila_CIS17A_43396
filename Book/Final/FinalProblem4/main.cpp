@@ -33,7 +33,7 @@ class SavingsAccount{
             }
             return newBalance;
         }
-        float TotalRecursive(float savings=0,int time=0){
+        float TotalRecursive(float savings=0,int timeLeft=0){
             
         }
         void toString();//Output Properties
