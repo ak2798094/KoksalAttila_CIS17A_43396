@@ -8,6 +8,7 @@
 
 //System Libraries
 #include <iostream>  //I/O Library
+#include <cmath>
 using namespace std;
 
 class Prob1Random{
@@ -17,12 +18,41 @@ class Prob1Random{
         int *freq;//Frequency of all the random numbers returned
         int numRand;//The total number of times the random number function is called
     public:
-        Prob1Random(const char,const char *);//Constructor
-        ~Prob1Random(void);//Destructor
-        char randFromSet(void);//Returns a random number from the set
-        int *getFreq(void)const;//Returns the frequency histogram
-        char *getSet(void)const;//Returns the set used
-        int getNumRand(void)const;//Gets the number of times randFromSet has been called
+        Prob1Random(const char numSize,const char *arraySet){//Constructor
+            nset=numSize;
+            numRand=0;
+            set=new char[numSize];
+            for(int i=0;i<nset;i++){
+                set[i]=arraySet[i];
+            }
+            freq=new int[numSize];
+            for(int i=0;i<nset;i++){
+                freq[i]=0;
+            }
+        }
+        ~Prob1Random(void){//Destructor
+            delete []set;
+            delete []freq;
+        }
+        char randFromSet(void){//Returns a random number from the set
+            int random=set[rand()%nset]; 
+            numRand++;
+            for(int i=0;i<nset;i++){
+                if(set[i]==random){
+                    freq[i]++;
+                }
+            }
+            return random;
+        }
+        int *getFreq(void)const{//Returns the frequency histogram
+            return freq;
+        }
+        char *getSet(void)const{//Returns the set used
+            return set;
+        }
+        int getNumRand(void)const{//Gets the number of times randFromSet has been called
+            return numRand;
+        }
 };
 
 //User Libraries
@@ -53,7 +83,7 @@ int main(int argc, char** argv) {
     int *x=a.getFreq();
     char *y=a.getSet();
     for(int i=0;i<n;i++){
-        cout<<int(y[i])<<" occured "<<x[i]<<" times"<<endl;
+        cout<<int(y[i])<<" occurred "<<x[i]<<" times"<<endl;
     }
     cout<<"The total number of random numbers is "<<a.getNumRand()<<endl;
     
