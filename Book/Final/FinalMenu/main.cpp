@@ -234,6 +234,8 @@ int main(int argc, char** argv) {
         }
     }while(choice<'7');
     
+    cout<<"Extra Credit: "<<endl;
+    
     //Exit the Program - Cleanup
     return 0;
 }
