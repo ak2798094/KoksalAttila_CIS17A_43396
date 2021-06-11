@@ -43,6 +43,10 @@ int main(int argc, char** argv) {
     4) multiply 3) by 1 byte value 7 then shift back to integer and output the result
     5) Then convert using IEEE 754 format
     */
+    cout<<"1) a) 3.75 in Binary: ,Octal: ,Hex: "<<endl;
+    cout<<"1) b) 0.7 in Binary: ,Octal: ,Hex: "<<endl;
+    cout<<"1) c) 89.9 in Binary: ,Octal: ,Hex: "<<endl;
+    
     
     //Exit the Program - Cleanup
     return 0;
