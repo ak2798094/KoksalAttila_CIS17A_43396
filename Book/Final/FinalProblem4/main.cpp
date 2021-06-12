@@ -41,7 +41,6 @@ class SavingsAccount{
             return Balance;
         }
         string toString(){//Output Properties
-           
             cout<<"Balance="<<Balance<<endl;
             cout<<"WithDraws="<<FreqWithDraw<<endl;
             cout<<"Deposit="<<FreqDeposit<<endl;
@@ -91,6 +90,8 @@ int main(int argc, char** argv) {
     mine.toString();
     cout<<"Balance after 7 years given 10% interest = "<<mine.Total((float)(0.10),7)<<endl;
     cout<<"Balance after 7 years given 10% interest = "<<mine.TotalRecursive((float)(0.10),7)<<" Recursive Calculation "<<endl;
+    cout<<"I did the modification of the toString() so that it returns a string."<<endl;
+
     
     //Exit the Program - Cleanup
     return 0;
