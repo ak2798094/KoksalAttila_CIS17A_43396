@@ -8,6 +8,8 @@
 
 //System Libraries
 #include <iostream>  //I/O Library
+#include <fstream>
+#include <string.h>
 using namespace std;
 
 template<class T>
@@ -17,11 +19,57 @@ class Prob2Sort{
     public:
         Prob2Sort(){index=NULL;};//Constructor
         ~Prob2Sort(){delete []index;};//Destructor
-        T * sortArray(const T*,int columnNumber,bool direction){//Sorts a single column array
-            
+        T * sortArray(const T* oldArr,int columnNumber,bool ascending){//Sorts a single column array
+            T arr[columnNumber];
+            for(int i=0;i<columnNumber;i++){
+                arr[i]=oldArr[i];
+            }
+            bool changed=true;
+            int i=0;
+            while(changed){
+                changed=false;
+                for(int j=0;j<columnNumber-i-1;j++){
+                    if((arr[j]>arr[j+1]&&ascending)||(arr[j]<arr[j+1]&&!ascending)){
+                        char temp=arr[j];
+                        arr[j]=arr[j+1];
+                        arr[j+1]=temp;
+                        changed=true;
+                    }
+                }
+                i++;
+            }
+            return arr;
         }
-        T * sortArray(const T*,int rowNumber,int columnNumber,int selectColumn,bool direction){//Sorts a 2 dimensional array represented as a 1 dim array
-            
+        T * sortArray(const T* oldArr,int rowNumber,int columnNumber,int selectColumn,bool ascending){//Sorts a 2 dimensional array represented as a 1 dim array
+            T *ch2=new T[columnNumber*rowNumber];
+            T *arr=ch2;
+            for(int i=0;i<columnNumber*rowNumber;i++){
+                arr[i]=oldArr[i];
+                cout<<oldArr[i]<<"shit";
+            }
+            strncpy(arr,oldArr,rowNumber*columnNumber);
+            bool changed=true;
+            int size=rowNumber*columnNumber;
+            while(changed){
+                changed=false;
+                for(int i=0;i<size-columnNumber;i=i+columnNumber){
+                    if((arr[i+selectColumn]>arr[(i+selectColumn)+columnNumber]&&ascending)||(arr[i+selectColumn]<arr[(i+selectColumn)+columnNumber]&&!ascending)){
+                        char temp[columnNumber];
+                        for(int j=i;j<=i+columnNumber-1;j++){
+                            temp[j-i]=arr[j];
+                        }
+                        for(int j=i;j<=i+columnNumber-1;j++){
+                            arr[j]=arr[j+columnNumber];
+                        }
+                        for(int j=i+columnNumber;j<=i+columnNumber-1+columnNumber;j++){
+                            arr[j]=temp[j-(i+columnNumber)];
+                        }
+                        changed=true;
+                    }
+                    cout<<arr[i]<<"fuck";
+                }
+            }
+            return arr;
         }
 }; 
 
