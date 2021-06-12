@@ -87,10 +87,11 @@ class SavingsAccount{
             }
             return Balance;
         }
-        void toString(){//Output Properties
+        string toString(){//Output Properties
             cout<<"Balance="<<Balance<<endl;
             cout<<"WithDraws="<<FreqWithDraw<<endl;
             cout<<"Deposit="<<FreqDeposit<<endl;
+            return ("Balance="+to_string(Balance)+"WithDraws="+to_string(FreqWithDraw)+"Deposit="+to_string(FreqDeposit));
         }
     private:
         float Withdraw(float transA){//Utility Procedure
@@ -518,6 +519,7 @@ void prblm4(){
     mine.toString();
     cout<<"Balance after 7 years given 10% interest = "<<mine.Total((float)(0.10),7)<<endl;
     cout<<"Balance after 7 years given 10% interest = "<<mine.TotalRecursive((float)(0.10),7)<<" Recursive Calculation "<<endl;
+    cout<<"I did the modification of the toString() so that it returns a string."<<endl;
 }
 
 // Problem 5

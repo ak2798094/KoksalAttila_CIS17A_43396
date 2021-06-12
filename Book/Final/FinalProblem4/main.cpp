@@ -40,10 +40,12 @@ class SavingsAccount{
             }
             return Balance;
         }
-        void toString(){//Output Properties
+        string toString(){//Output Properties
+           
             cout<<"Balance="<<Balance<<endl;
             cout<<"WithDraws="<<FreqWithDraw<<endl;
             cout<<"Deposit="<<FreqDeposit<<endl;
+            return ("Balance="+to_string(Balance)+"WithDraws="+to_string(FreqWithDraw)+"Deposit="+to_string(FreqDeposit));
         }
     private:
         float Withdraw(float transA){//Utility Procedure
