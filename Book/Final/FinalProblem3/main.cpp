@@ -8,6 +8,8 @@
 
 //System Libraries
 #include <iostream>  //I/O Library
+#include <fstream> // stream!   
+#include <string>
 using namespace std;
 
 template<class T>
@@ -21,7 +23,23 @@ class Prob3Table{
         T grandTotal;//Grand total
         void calcTable(void);//Calculate all the sums
     public:
-        Prob3Table(char *,int,int);//Constructor then Destructor
+        Prob3Table(char *fileName,int row,int col){
+            rows = row;
+            cols=col;
+            table = new int[row*col];
+            ifstream infile;
+            infile.open(fileName,ios::in);
+            string itemStr = "";
+            int item = 0;
+            int index= 0;
+            while(infile>>itemStr){
+                item = stoi(itemStr);
+                table[index] = item;
+                index++;
+            }
+             infile.close();
+            
+        }
         ~Prob3Table(){delete [] table;delete [] rowSum;delete [] colSum;};
         const T *getTable(void){return table;};
         const T *getRowSum(void){return rowSum;};
@@ -34,7 +52,39 @@ class Prob3TableInherited:public Prob3Table<T>{
     protected:
         T *augTable;//Augmented Table with sums
     public:
-        Prob3TableInherited(char *,int,int);//Constructor
+        Prob3TableInherited(char *fileName,int row,int col):Prob3Table<int>(fileName,row,col){
+             augTable = new int[(row+1)*(col+1)];
+             int* colSum = new int[col+1];
+             
+             for(int j=0;j<col;j++){
+             colSum[j]=0;    
+                 
+             
+             } 
+             for(int i =0;i<row;i++){
+                 int rowSum = 0;
+                 for(int j=0;j<col;j++){
+                     
+                     augTable[i*(col+1)+j]=this->table[i*col+j];
+                     rowSum+=this->table[i*col+j];
+                     colSum[j]=colSum[j]+this->table[i*col+j];
+                 }
+                 augTable[i*(col+1)+col]=rowSum;
+             }
+             int rowSum = 0;
+             
+             for(int j=0;j<col;j++){
+                     
+                augTable[row*(col+1)+j]=colSum[j];
+                rowSum=rowSum+colSum[j];
+               
+              }
+            augTable[row*(col+1)+col]=rowSum;
+            
+        }
+        
+        
+        
         ~Prob3TableInherited(){delete [] augTable;};//Destructor
         const T *getAugTable(void){return augTable;}; 
 };
