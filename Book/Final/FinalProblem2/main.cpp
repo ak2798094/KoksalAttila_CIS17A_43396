@@ -19,56 +19,103 @@ class Prob2Sort{
     public:
         Prob2Sort(){index=NULL;};//Constructor
         ~Prob2Sort(){delete []index;};//Destructor
-        T * sortArray(const T* oldArr,int columnNumber,bool ascending){//Sorts a single column array
-            T arr[columnNumber];
-            for(int i=0;i<columnNumber;i++){
-                arr[i]=oldArr[i];
-            }
+        T * sortArray(const T* oldArr,int rowNumber,bool ascending){//Sorts a single column array
+           T *ch2=new T[rowNumber];
+           int columnNumber = 1;
+            T *arr=ch2;
+            int selectColumn = 0;
+            int size=rowNumber*(columnNumber+1);
+            strncpy(arr,oldArr,size);
             bool changed=true;
-            int i=0;
+            
             while(changed){
                 changed=false;
-                for(int j=0;j<columnNumber-i-1;j++){
-                    if((arr[j]>arr[j+1]&&ascending)||(arr[j]<arr[j+1]&&!ascending)){
-                        char temp=arr[j];
-                        arr[j]=arr[j+1];
-                        arr[j+1]=temp;
+               
+            
+                for(int i=0;i<size-(columnNumber+1);i=i+columnNumber+1){
+                    if((arr[i+selectColumn]>arr[(i+selectColumn)+columnNumber+1]&&ascending)||(arr[i+selectColumn]<arr[(i+selectColumn)+columnNumber+1]&&!ascending)){
+                        char temp[columnNumber+1];
+                        int j = i;
+                       
+                        while(arr[j]>='a'&&arr[j]<='z'||(arr[j]>='A'&&arr[j]<='Z')){
+                            temp[j-i]=arr[j];
+                          
+                            j++;
+                        }
+                        
+                  
+                        j=i;
+                        while(arr[j]>='a'&&arr[j]<='z'||(arr[j]>='A'&&arr[j]<='Z')){
+                            arr[j]=arr[j+columnNumber+1];
+                            j++;
+                        }
+                   
+                        j=i+columnNumber+1;
+                        
+                        while(arr[j]!='\0'&&arr[j]!='\n'){
+                            arr[j]=temp[j-(i+columnNumber+1)];
+                            j++;
+                            
+                        }
+                    
                         changed=true;
+                      
+                        
                     }
                 }
-                i++;
+           
             }
+            
+            
             return arr;
         }
         T * sortArray(const T* oldArr,int rowNumber,int columnNumber,int selectColumn,bool ascending){//Sorts a 2 dimensional array represented as a 1 dim array
             T *ch2=new T[columnNumber*rowNumber];
             T *arr=ch2;
-            for(int i=0;i<columnNumber*rowNumber;i++){
-                arr[i]=oldArr[i];
-                cout<<oldArr[i]<<"shit";
-            }
-            strncpy(arr,oldArr,rowNumber*columnNumber);
+            selectColumn--;
+            int size=rowNumber*(columnNumber+1);
+            strncpy(arr,oldArr,size);
             bool changed=true;
-            int size=rowNumber*columnNumber;
+            
             while(changed){
                 changed=false;
-                for(int i=0;i<size-columnNumber;i=i+columnNumber){
-                    if((arr[i+selectColumn]>arr[(i+selectColumn)+columnNumber]&&ascending)||(arr[i+selectColumn]<arr[(i+selectColumn)+columnNumber]&&!ascending)){
-                        char temp[columnNumber];
-                        for(int j=i;j<=i+columnNumber-1;j++){
+               
+            
+                for(int i=0;i<size-(columnNumber+1);i=i+columnNumber+1){
+                    if((arr[i+selectColumn]>arr[(i+selectColumn)+columnNumber+1]&&ascending)||(arr[i+selectColumn]<arr[(i+selectColumn)+columnNumber+1]&&!ascending)){
+                        char temp[columnNumber+1];
+                        int j = i;
+                       
+                        while(arr[j]>='a'&&arr[j]<='z'||(arr[j]>='A'&&arr[j]<='Z')){
                             temp[j-i]=arr[j];
+                          
+                            j++;
                         }
-                        for(int j=i;j<=i+columnNumber-1;j++){
-                            arr[j]=arr[j+columnNumber];
+                        
+                  
+                        j=i;
+                        while(arr[j]>='a'&&arr[j]<='z'||(arr[j]>='A'&&arr[j]<='Z')){
+                            arr[j]=arr[j+columnNumber+1];
+                            j++;
                         }
-                        for(int j=i+columnNumber;j<=i+columnNumber-1+columnNumber;j++){
-                            arr[j]=temp[j-(i+columnNumber)];
+                   
+                        j=i+columnNumber+1;
+                        
+                        while(arr[j]!='\0'&&arr[j]!='\n'){
+                            arr[j]=temp[j-(i+columnNumber+1)];
+                            j++;
+                            
                         }
+                    
                         changed=true;
+                      
+                        
                     }
-                    cout<<arr[i]<<"fuck";
                 }
+           
             }
+            
+            
             return arr;
         }
 }; 
@@ -106,13 +153,14 @@ int main(int argc, char** argv) {
     cin>>column;
     char *zc=rc.sortArray(ch2p,10,16,column,ascending);
     for(int i=0;i<10;i++){
-        for(int j=0;j<16;j++){
-            cout<<zc[i*16+j];
+        for(int j=0;j<17;j++){
+            cout<<zc[i*17+j];
         }
     }
-    
     //Exit the Program - Cleanup
-    delete []zc;
+   
+    
+    
     cout<<endl;
     return 0;
 }
