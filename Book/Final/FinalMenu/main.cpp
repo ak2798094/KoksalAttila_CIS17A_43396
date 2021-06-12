@@ -8,6 +8,9 @@
 //System Libraries
 #include <iostream>  //I/O Library
 #include <cmath>
+#include <fstream> // stream!   
+#include <string>
+#include <string.h>
 using namespace std;
 
 class Prob1Random{
@@ -198,6 +201,192 @@ class Employee{
         float NetPay;//Property
 };
 
+template<class T>
+class Prob3Table{
+    protected:
+        int rows;//Number of rows in the table
+        int cols;//Number of cols in the table
+        T *rowSum;//RowSum array
+        T *colSum;//ColSum array
+        T *table;//Table array
+        T grandTotal;//Grand total
+        void calcTable(void);//Calculate all the sums
+    public:
+        Prob3Table(char *fileName,int row,int col){
+            rows = row;
+            cols=col;
+            table = new int[row*col];
+            ifstream infile;
+            infile.open(fileName,ios::in);
+            string itemStr = "";
+            int item = 0;
+            int index= 0;
+            while(infile>>itemStr){
+                item = stoi(itemStr);
+                table[index] = item;
+                index++;
+            }
+             infile.close();
+            
+        }
+        ~Prob3Table(){delete [] table;delete [] rowSum;delete [] colSum;};
+        const T *getTable(void){return table;};
+        const T *getRowSum(void){return rowSum;};
+        const T *getColSum(void){return colSum;};
+        T getGrandTotal(void){return grandTotal;};
+};
+
+template<class T>
+class Prob3TableInherited:public Prob3Table<T>{
+    protected:
+        T *augTable;//Augmented Table with sums
+    public:
+        Prob3TableInherited(char *fileName,int row,int col):Prob3Table<int>(fileName,row,col){
+             augTable = new int[(row+1)*(col+1)];
+             int* colSum = new int[col+1];
+             
+             for(int j=0;j<col;j++){
+             colSum[j]=0;    
+                 
+             
+             } 
+             for(int i =0;i<row;i++){
+                 int rowSum = 0;
+                 for(int j=0;j<col;j++){
+                     
+                     augTable[i*(col+1)+j]=this->table[i*col+j];
+                     rowSum+=this->table[i*col+j];
+                     colSum[j]=colSum[j]+this->table[i*col+j];
+                 }
+                 augTable[i*(col+1)+col]=rowSum;
+             }
+             int rowSum = 0;
+             
+             for(int j=0;j<col;j++){
+                     
+                augTable[row*(col+1)+j]=colSum[j];
+                rowSum=rowSum+colSum[j];
+               
+              }
+            augTable[row*(col+1)+col]=rowSum;
+            
+        }
+        
+        
+        
+        ~Prob3TableInherited(){delete [] augTable;};//Destructor
+        const T *getAugTable(void){return augTable;}; 
+};
+
+template<class T>
+class Prob2Sort{
+    private:
+        int *index;//Index that is utilized in the sort
+    public:
+        Prob2Sort(){index=NULL;};//Constructor
+        ~Prob2Sort(){delete []index;};//Destructor
+        T * sortArray(const T* oldArr,int rowNumber,bool ascending){//Sorts a single column array
+           T *ch2=new T[rowNumber];
+           int columnNumber = 1;
+            T *arr=ch2;
+            int selectColumn = 0;
+            int size=rowNumber*(columnNumber+1);
+            strncpy(arr,oldArr,size);
+            bool changed=true;
+            
+            while(changed){
+                changed=false;
+               
+            
+                for(int i=0;i<size-(columnNumber+1);i=i+columnNumber+1){
+                    if((arr[i+selectColumn]>arr[(i+selectColumn)+columnNumber+1]&&ascending)||(arr[i+selectColumn]<arr[(i+selectColumn)+columnNumber+1]&&!ascending)){
+                        char temp[columnNumber+1];
+                        int j = i;
+                       
+                        while(arr[j]>='a'&&arr[j]<='z'||(arr[j]>='A'&&arr[j]<='Z')){
+                            temp[j-i]=arr[j];
+                          
+                            j++;
+                        }
+                        
+                  
+                        j=i;
+                        while(arr[j]>='a'&&arr[j]<='z'||(arr[j]>='A'&&arr[j]<='Z')){
+                            arr[j]=arr[j+columnNumber+1];
+                            j++;
+                        }
+                   
+                        j=i+columnNumber+1;
+                        
+                        while(arr[j]!='\0'&&arr[j]!='\n'){
+                            arr[j]=temp[j-(i+columnNumber+1)];
+                            j++;
+                            
+                        }
+                    
+                        changed=true;
+                      
+                        
+                    }
+                }
+           
+            }
+            
+            
+            return arr;
+        }
+        T * sortArray(const T* oldArr,int rowNumber,int columnNumber,int selectColumn,bool ascending){//Sorts a 2 dimensional array represented as a 1 dim array
+            T *ch2=new T[columnNumber*rowNumber];
+            T *arr=ch2;
+            selectColumn--;
+            int size=rowNumber*(columnNumber+1);
+            strncpy(arr,oldArr,size);
+            bool changed=true;
+            
+            while(changed){
+                changed=false;
+               
+            
+                for(int i=0;i<size-(columnNumber+1);i=i+columnNumber+1){
+                    if((arr[i+selectColumn]>arr[(i+selectColumn)+columnNumber+1]&&ascending)||(arr[i+selectColumn]<arr[(i+selectColumn)+columnNumber+1]&&!ascending)){
+                        char temp[columnNumber+1];
+                        int j = i;
+                       
+                        while(arr[j]>='a'&&arr[j]<='z'||(arr[j]>='A'&&arr[j]<='Z')){
+                            temp[j-i]=arr[j];
+                          
+                            j++;
+                        }
+                        
+                  
+                        j=i;
+                        while(arr[j]>='a'&&arr[j]<='z'||(arr[j]>='A'&&arr[j]<='Z')){
+                            arr[j]=arr[j+columnNumber+1];
+                            j++;
+                        }
+                   
+                        j=i+columnNumber+1;
+                        
+                        while(arr[j]!='\0'&&arr[j]!='\n'){
+                            arr[j]=temp[j-(i+columnNumber+1)];
+                            j++;
+                            
+                        }
+                    
+                        changed=true;
+                      
+                        
+                    }
+                }
+           
+            }
+            
+            
+            return arr;
+        }
+}; 
+
+
 //User Libraries
 
 //Global Constants
@@ -286,13 +475,10 @@ void prblm2(){
     cin>>column;
     char *zc=rc.sortArray(ch2p,10,16,column,ascending);
     for(int i=0;i<10;i++){
-        for(int j=0;j<16;j++){
-            cout<<zc[i*16+j];
+        for(int j=0;j<17;j++){
+            cout<<zc[i*17+j];
         }
     }
-
-    delete []zc;
-    cout<<endl;
 }
 
 // Problem 3
