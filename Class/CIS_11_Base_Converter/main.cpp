@@ -12,6 +12,7 @@
  */
 
 #include <cstdlib>
+#include <iostream>
 
 using namespace std;
 
@@ -55,7 +56,7 @@ int main(int argc, char** argv) {
     for(int i = 0; i < 32; i++){
         printf("%c", digits[remainders[i]]);
     }
-    printf("\n")
+    printf("\n");
     
     
     return 0;
